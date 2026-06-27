@@ -29,7 +29,7 @@ useradd: user 'ali' already exists
 4. Fix ownership and permissions.
 5. Test login.
 
-[Solution](../solutions/linux-user-management-troubleshooting-and-user-decommissioning.md)
+[Solution](../.github/solutions/linux-user-management-troubleshooting-and-user-decommissioning.md)
 
 
 ---
@@ -42,7 +42,7 @@ Tasks:
 - Verify login shell.
 - Confirm home directory exists.
 
-[Solution](../solutions/linux-user-cannot-login-isolation-method.md)
+[Solution](../.github/solutions/linux-user-cannot-login-isolation-method.md)
 
 ---
 
@@ -58,7 +58,7 @@ Tasks:
 - Restore ownership.
 - Verify login.
 
-[Solution](../solutions/linux-wrong-home-ownership-isolation-method.md)
+[Solution](../.github/solutions/linux-wrong-home-ownership-isolation-method.md)
 
 ---
 
