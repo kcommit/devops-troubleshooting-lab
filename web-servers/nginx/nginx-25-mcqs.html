@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NGINX MCQ Quiz - 25 Questions</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(135deg, #0f172a, #064e3b);
+      color: #e5e7eb;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 28px 16px 60px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 26px;
+      padding: 28px 20px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: 2.2rem;
+      color: #ffffff;
+    }
+
+    .subtitle {
+      margin: 0;
+      color: #cbd5e1;
+      font-size: 1rem;
+    }
+
+    .info-bar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 24px;
+      padding: 12px;
+      border-radius: 18px;
+      background: rgba(15, 23, 42, 0.86);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .info-card {
+      padding: 12px;
+      border-radius: 14px;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.08);
+      color: #ffffff;
+      font-weight: 700;
+    }
+
+    .quiz-card {
+      margin-bottom: 18px;
+      padding: 22px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.09);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      box-shadow: 0 14px 35px rgba(0, 0, 0, 0.25);
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .quiz-card:hover {
+      transform: translateY(-3px);
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .question {
+      font-size: 1.08rem;
+      font-weight: 700;
+      margin-bottom: 14px;
+      color: #ffffff;
+    }
+
+    .options label {
+      display: block;
+      padding: 12px 14px;
+      margin: 9px 0;
+      border-radius: 12px;
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.11);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .options label:hover {
+      background: rgba(6, 95, 70, 0.7);
+      border-color: rgba(52, 211, 153, 0.45);
+    }
+
+    input[type="radio"] {
+      margin-right: 10px;
+      transform: scale(1.15);
+    }
+
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      margin-top: 28px;
+    }
+
+    button {
+      border: none;
+      border-radius: 999px;
+      padding: 14px 24px;
+      font-weight: 800;
+      cursor: pointer;
+      color: #052e16;
+      background: #34d399;
+      box-shadow: 0 12px 25px rgba(52, 211, 153, 0.25);
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      opacity: 0.92;
+    }
+
+    .secondary {
+      background: #e5e7eb;
+      color: #111827;
+    }
+
+    .result {
+      display: none;
+      margin: 26px 0;
+      padding: 24px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      text-align: center;
+    }
+
+    .result h2 {
+      margin-top: 0;
+      color: #ffffff;
+    }
+
+    .correct {
+      border-color: rgba(52, 211, 153, 0.85) !important;
+      background: rgba(6, 95, 70, 0.75) !important;
+    }
+
+    .wrong {
+      border-color: rgba(248, 113, 113, 0.85) !important;
+      background: rgba(127, 29, 29, 0.65) !important;
+    }
+
+    .answer-note {
+      display: none;
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 12px;
+      background: rgba(2, 6, 23, 0.55);
+      border-left: 4px solid #34d399;
+      color: #d1fae5;
+    }
+
+    .footer-note {
+      margin-top: 32px;
+      text-align: center;
+      color: #cbd5e1;
+      font-size: 0.95rem;
+    }
+
+    code {
+      background: rgba(0, 0, 0, 0.35);
+      padding: 2px 6px;
+      border-radius: 6px;
+      color: #bbf7d0;
+    }
+
+    @media (max-width: 700px) {
+      .info-bar {
+        grid-template-columns: 1fr;
+        position: static;
+      }
+
+      h1 {
+        font-size: 1.7rem;
+      }
+
+      .quiz-card {
+        padding: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>NGINX MCQ Quiz</h1>
+      <p class="subtitle">25 Questions for Linux Admin, DevOps, Docker, and Web Server Practice</p>
+    </header>
+
+    <div class="info-bar">
+      <div class="info-card">Questions: <span id="totalQuestions">25</span></div>
+      <div class="info-card">Timer: <span id="timer">25:00</span></div>
+      <div class="info-card">Score: <span id="liveScore">0</span>/25</div>
+    </div>
+
+    <form id="quizForm"></form>
+
+    <div class="btn-row">
+      <button type="button" onclick="submitQuiz()">Submit Quiz</button>
+      <button type="button" class="secondary" onclick="showAnswers()">Show Answers</button>
+      <button type="button" class="secondary" onclick="resetQuiz()">Reset Quiz</button>
+    </div>
+
+    <div class="result" id="resultBox">
+      <h2>Quiz Result</h2>
+      <p id="scoreText"></p>
+      <p id="messageText"></p>
+    </div>
+
+    <p class="footer-note">Study Topic: NGINX From Scratch to Hero</p>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        q: "What is NGINX mainly used for?",
+        options: ["Text editing", "Web serving and traffic handling", "Database storage", "Operating system installation"],
+        answer: 1,
+        explain: "NGINX is mainly used as a web server, reverse proxy, load balancer, cache server, and SSL/TLS handler."
+      },
+      {
+        q: "What is the correct pronunciation of NGINX?",
+        options: ["N-G-I-N-X", "Engine-X", "N-Ginxer", "Nix Server"],
+        answer: 1,
+        explain: "NGINX is commonly pronounced as Engine-X."
+      },
+      {
+        q: "Which port is used for normal HTTP traffic?",
+        options: ["22", "80", "443", "3306"],
+        answer: 1,
+        explain: "Port 80 is the default port for HTTP traffic."
+      },
+      {
+        q: "Which port is used for HTTPS traffic?",
+        options: ["21", "25", "80", "443"],
+        answer: 3,
+        explain: "Port 443 is the default port for HTTPS traffic."
+      },
+      {
+        q: "What is a web server?",
+        options: ["A server that delivers website files to users", "A server that only stores passwords", "A server used only for email", "A server used only for DNS"],
+        answer: 0,
+        explain: "A web server serves files like HTML, CSS, JavaScript, images, and other web content."
+      },
+      {
+        q: "What is a reverse proxy?",
+        options: ["A tool that deletes logs", "A server that forwards user requests to backend servers", "A Linux package manager", "A firewall rule only"],
+        answer: 1,
+        explain: "A reverse proxy receives client requests and forwards them to backend application servers."
+      },
+      {
+        q: "In a common production setup, where is NGINX placed?",
+        options: ["Between user and backend app", "Inside the user browser only", "Only inside the database", "After the operating system shutdown"],
+        answer: 0,
+        explain: "NGINX often sits between users and backend applications."
+      },
+      {
+        q: "Which directive tells NGINX which port to accept traffic on?",
+        options: ["server_name", "listen", "root", "index"],
+        answer: 1,
+        explain: "The listen directive tells NGINX which port to listen on, such as listen 80."
+      },
+      {
+        q: "Which directive defines the domain name for a server block?",
+        options: ["server_name", "proxy_pass", "try_files", "access_log"],
+        answer: 0,
+        explain: "server_name defines the domain name or hostnames handled by a server block."
+      },
+      {
+        q: "Which directive defines the website file location?",
+        options: ["root", "listen", "worker_processes", "events"],
+        answer: 0,
+        explain: "The root directive defines where website files are stored."
+      },
+      {
+        q: "What does the location block control?",
+        options: ["URL path rules", "Linux users", "Disk partitions", "SSH keys only"],
+        answer: 0,
+        explain: "A location block controls how NGINX handles specific URL paths."
+      },
+      {
+        q: "Which command tests NGINX configuration syntax?",
+        options: ["sudo nginx -t", "sudo nginx -delete", "sudo nginx --format", "sudo apt nginx check"],
+        answer: 0,
+        explain: "sudo nginx -t checks the NGINX configuration syntax before reload or restart."
+      },
+      {
+        q: "Which command reloads NGINX safely after configuration changes?",
+        options: ["sudo systemctl reload nginx", "sudo systemctl erase nginx", "sudo nginx clean", "sudo nginx reset all"],
+        answer: 0,
+        explain: "sudo systemctl reload nginx applies changes without fully stopping the service."
+      },
+      {
+        q: "What is the common default web root on Ubuntu/Debian NGINX?",
+        options: ["/home/nginx", "/var/www/html", "/etc/passwd", "/root/web"],
+        answer: 1,
+        explain: "/var/www/html is the common default web root for NGINX on Ubuntu/Debian."
+      },
+      {
+        q: "Where are NGINX access and error logs commonly stored?",
+        options: ["/var/log/nginx/", "/etc/ssh/", "/tmp/kernel/", "/home/logs only"],
+        answer: 0,
+        explain: "NGINX logs are commonly found in /var/log/nginx/access.log and /var/log/nginx/error.log."
+      },
+      {
+        q: "What does proxy_pass do?",
+        options: ["Forwards requests to another backend server", "Deletes website files", "Creates Linux users", "Changes file ownership"],
+        answer: 0,
+        explain: "proxy_pass forwards requests from NGINX to a backend server or upstream group."
+      },
+      {
+        q: "Which HTTP status error often means the backend app is down or unreachable?",
+        options: ["200 OK", "301 Redirect", "502 Bad Gateway", "304 Not Modified"],
+        answer: 2,
+        explain: "502 Bad Gateway commonly means NGINX is working but the backend app is not reachable or not responding."
+      },
+      {
+        q: "What does SSL/TLS termination mean?",
+        options: ["NGINX handles HTTPS certificates and encryption", "NGINX deletes HTTPS traffic", "NGINX stops all websites", "NGINX disables DNS"],
+        answer: 0,
+        explain: "SSL/TLS termination means NGINX handles HTTPS encryption and certificates before passing traffic to backend servers."
+      },
+      {
+        q: "Which tool is commonly used with NGINX to get free Let’s Encrypt SSL certificates?",
+        options: ["Certbot", "Git Bash", "Docker Compose only", "YAML lint"],
+        answer: 0,
+        explain: "Certbot is commonly used to install and renew Let's Encrypt SSL certificates for NGINX."
+      },
+      {
+        q: "What is load balancing?",
+        options: ["Distributing traffic across multiple backend servers", "Deleting old files", "Compressing Linux users", "Stopping all ports"],
+        answer: 0,
+        explain: "Load balancing spreads traffic across multiple servers to improve performance and availability."
+      },
+      {
+        q: "What is the default basic load balancing method in NGINX when no method is specified?",
+        options: ["Random only", "Round robin", "Manual only", "Database based"],
+        answer: 1,
+        explain: "By default, NGINX uses round-robin load balancing when no special method is configured."
+      },
+      {
+        q: "Which load balancing method sends traffic to the server with fewer active connections?",
+        options: ["ip_hash", "least_conn", "try_files", "root"],
+        answer: 1,
+        explain: "least_conn sends requests to the backend server with fewer active connections."
+      },
+      {
+        q: "Which directive is useful for serving static files and returning 404 if not found?",
+        options: ["try_files", "proxy_pass", "least_conn", "ssl_certificate_key only"],
+        answer: 0,
+        explain: "try_files checks for files or directories and can return 404 if nothing is found."
+      },
+      {
+        q: "What does 403 Forbidden commonly indicate in NGINX?",
+        options: ["Permission issue, missing index file, or access denied", "Backend app is always healthy", "Website loaded successfully", "DNS record created"],
+        answer: 0,
+        explain: "403 Forbidden often indicates wrong permissions, missing index file, or blocked access."
+      },
+      {
+        q: "In Docker Compose, how can an NGINX container reach another app service named app on port 3000?",
+        options: ["http://app:3000", "http://localhost:22", "http://database-only", "file:///app:3000"],
+        answer: 0,
+        explain: "Inside Docker Compose, services can communicate by service name, such as http://app:3000."
+      }
+    ];
+
+    const form = document.getElementById('quizForm');
+    const totalQuestions = document.getElementById('totalQuestions');
+    const liveScore = document.getElementById('liveScore');
+    totalQuestions.textContent = questions.length;
+
+    function renderQuiz() {
+      form.innerHTML = '';
+      questions.forEach((item, index) => {
+        const card = document.createElement('div');
+        card.className = 'quiz-card';
+        card.id = `card-${index}`;
+
+        const question = document.createElement('div');
+        question.className = 'question';
+        question.innerHTML = `${index + 1}. ${item.q}`;
+        card.appendChild(question);
+
+        const options = document.createElement('div');
+        options.className = 'options';
+
+        item.options.forEach((option, optIndex) => {
+          const label = document.createElement('label');
+          label.id = `q${index}-option${optIndex}`;
+          label.innerHTML = `<input type="radio" name="q${index}" value="${optIndex}"> ${option}`;
+          options.appendChild(label);
+        });
+
+        const note = document.createElement('div');
+        note.className = 'answer-note';
+        note.id = `note-${index}`;
+        note.innerHTML = `<strong>Correct Answer:</strong> ${item.options[item.answer]}<br><strong>Explanation:</strong> ${item.explain}`;
+
+        card.appendChild(options);
+        card.appendChild(note);
+        form.appendChild(card);
+      });
+    }
+
+    function submitQuiz() {
+      let score = 0;
+      questions.forEach((item, index) => {
+        const selected = document.querySelector(`input[name="q${index}"]:checked`);
+        const card = document.getElementById(`card-${index}`);
+        const note = document.getElementById(`note-${index}`);
+
+        card.classList.remove('correct', 'wrong');
+
+        item.options.forEach((_, optIndex) => {
+          document.getElementById(`q${index}-option${optIndex}`).classList.remove('correct', 'wrong');
+        });
+
+        if (selected) {
+          const selectedValue = Number(selected.value);
+          if (selectedValue === item.answer) {
+            score++;
+            card.classList.add('correct');
+          } else {
+            card.classList.add('wrong');
+            document.getElementById(`q${index}-option${selectedValue}`).classList.add('wrong');
+          }
+        } else {
+          card.classList.add('wrong');
+        }
+
+        document.getElementById(`q${index}-option${item.answer}`).classList.add('correct');
+        note.style.display = 'block';
+      });
+
+      liveScore.textContent = score;
+      const percent = Math.round((score / questions.length) * 100);
+      document.getElementById('resultBox').style.display = 'block';
+      document.getElementById('scoreText').innerHTML = `<strong>Your Score:</strong> ${score}/${questions.length} (${percent}%)`;
+
+      let message = '';
+      if (percent >= 90) message = 'Excellent bhai! You have strong NGINX understanding.';
+      else if (percent >= 75) message = 'Very good bhai! Review the missed questions and you will be solid.';
+      else if (percent >= 50) message = 'Good start bhai. Practice NGINX config and troubleshooting again.';
+      else message = 'Keep practicing bhai. Focus on reverse proxy, logs, SSL, and load balancing.';
+
+      document.getElementById('messageText').textContent = message;
+      document.getElementById('resultBox').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function showAnswers() {
+      questions.forEach((item, index) => {
+        document.getElementById(`q${index}-option${item.answer}`).classList.add('correct');
+        document.getElementById(`note-${index}`).style.display = 'block';
+      });
+    }
+
+    function resetQuiz() {
+      document.querySelectorAll('input[type="radio"]').forEach(input => input.checked = false);
+      document.querySelectorAll('.quiz-card, .options label').forEach(el => el.classList.remove('correct', 'wrong'));
+      document.querySelectorAll('.answer-note').forEach(note => note.style.display = 'none');
+      document.getElementById('resultBox').style.display = 'none';
+      liveScore.textContent = '0';
+      timeLeft = 25 * 60;
+      updateTimer();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    let timeLeft = 25 * 60;
+    const timerEl = document.getElementById('timer');
+
+    function updateTimer() {
+      const minutes = Math.floor(timeLeft / 60);
+      const seconds = timeLeft % 60;
+      timerEl.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+      if (timeLeft <= 0) {
+        submitQuiz();
+        clearInterval(timerInterval);
+      }
+      timeLeft--;
+    }
+
+    renderQuiz();
+    updateTimer();
+    const timerInterval = setInterval(updateTimer, 1000);
+  </script>
+</body>
+</html>

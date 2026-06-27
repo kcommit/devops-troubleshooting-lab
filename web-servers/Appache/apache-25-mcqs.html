@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Apache HTTP Server MCQ Quiz</title>
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --success: #16a34a;
+      --danger: #dc2626;
+      --warning: #d97706;
+      --border: #dbe3ef;
+      --soft: #eef4ff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(135deg, #eef4ff, #f8fafc);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    header {
+      background: linear-gradient(135deg, #1e3a8a, #2563eb);
+      color: white;
+      padding: 32px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+
+    header p {
+      margin: 8px 0 0;
+      color: #dbeafe;
+      font-size: 1rem;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 24px auto;
+      padding: 0 16px 40px;
+    }
+
+    .top-panel {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+      align-items: center;
+    }
+
+    .info-box {
+      background: var(--soft);
+      border-radius: 12px;
+      padding: 14px;
+      border: 1px solid #c7d9ff;
+    }
+
+    .info-box strong {
+      display: block;
+      color: var(--primary-dark);
+      margin-bottom: 4px;
+    }
+
+    .timer {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: var(--danger);
+    }
+
+    .question-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 18px;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+    }
+
+    .question-title {
+      font-weight: bold;
+      font-size: 1.05rem;
+      margin-bottom: 12px;
+    }
+
+    .options label {
+      display: block;
+      padding: 11px 12px;
+      margin: 8px 0;
+      background: #f9fafb;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .options label:hover {
+      background: #eff6ff;
+      border-color: #93c5fd;
+    }
+
+    .options input {
+      margin-right: 8px;
+    }
+
+    .correct {
+      background: #dcfce7 !important;
+      border-color: #86efac !important;
+    }
+
+    .incorrect {
+      background: #fee2e2 !important;
+      border-color: #fca5a5 !important;
+    }
+
+    .explanation {
+      display: none;
+      margin-top: 12px;
+      padding: 12px;
+      border-left: 4px solid var(--primary);
+      background: #f8fafc;
+      border-radius: 8px;
+      color: #374151;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      margin: 28px 0;
+    }
+
+    button {
+      border: none;
+      border-radius: 10px;
+      padding: 12px 20px;
+      font-size: 1rem;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.2s ease;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+    }
+
+    .btn-secondary {
+      background: #e5e7eb;
+      color: #111827;
+    }
+
+    .btn-secondary:hover {
+      background: #d1d5db;
+    }
+
+    .result {
+      display: none;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 20px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+    }
+
+    .score {
+      font-size: 2rem;
+      font-weight: bold;
+      margin: 10px 0;
+    }
+
+    .pass {
+      color: var(--success);
+    }
+
+    .fail {
+      color: var(--danger);
+    }
+
+    .small {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      margin-top: 30px;
+      font-size: 0.9rem;
+    }
+
+    @media print {
+      .actions, .top-panel {
+        display: none;
+      }
+
+      body {
+        background: white;
+      }
+
+      .question-card, .result {
+        box-shadow: none;
+        page-break-inside: avoid;
+      }
+
+      .explanation {
+        display: block;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Apache HTTP Server MCQ Quiz</h1>
+    <p>25 Questions for Linux Admin, DevOps, and Web Server Practice</p>
+  </header>
+
+  <main class="container">
+    <section class="top-panel">
+      <div class="info-box">
+        <strong>Total Questions</strong>
+        <span>25 MCQs</span>
+      </div>
+      <div class="info-box">
+        <strong>Passing Score</strong>
+        <span>70% or higher</span>
+      </div>
+      <div class="info-box">
+        <strong>Timer</strong>
+        <span class="timer" id="timer">25:00</span>
+      </div>
+      <div class="info-box">
+        <strong>Topic</strong>
+        <span>Apache From Scratch to Hero</span>
+      </div>
+    </section>
+
+    <section class="result" id="resultBox">
+      <h2>Quiz Result</h2>
+      <div class="score" id="scoreText"></div>
+      <p id="resultMessage"></p>
+      <p class="small">Review the highlighted answers below. Green means correct answer. Red means your wrong selection.</p>
+    </section>
+
+    <form id="quizForm"></form>
+
+    <div class="actions">
+      <button type="button" class="btn-primary" onclick="submitQuiz()">Submit Quiz</button>
+      <button type="button" class="btn-secondary" onclick="resetQuiz()">Reset Quiz</button>
+      <button type="button" class="btn-secondary" onclick="window.print()">Print / Save as PDF</button>
+    </div>
+
+    <footer>
+      Created for Apache study notes and hands-on revision.
+    </footer>
+  </main>
+
+  <script>
+    const questions = [
+      {
+        q: "What is Apache HTTP Server mainly used for?",
+        options: [
+          "Managing Linux users",
+          "Serving websites and web applications over HTTP/HTTPS",
+          "Creating Docker images only",
+          "Monitoring CPU temperature"
+        ],
+        answer: 1,
+        exp: "Apache is an open-source web server used to serve websites and web applications over HTTP and HTTPS."
+      },
+      {
+        q: "What is the Apache package name on Ubuntu/Debian?",
+        options: ["httpd", "apache2", "nginx", "webd"],
+        answer: 1,
+        exp: "On Ubuntu/Debian, Apache is installed using the apache2 package."
+      },
+      {
+        q: "What is the Apache service name on RHEL/CentOS/Rocky Linux?",
+        options: ["apache2", "nginx", "httpd", "webserver"],
+        answer: 2,
+        exp: "On RHEL-based systems, the Apache package and service are usually called httpd."
+      },
+      {
+        q: "Which command checks Apache configuration syntax on Ubuntu?",
+        options: [
+          "sudo apache2ctl configtest",
+          "sudo nginx -t",
+          "sudo docker test apache",
+          "sudo systemctl verify apache"
+        ],
+        answer: 0,
+        exp: "sudo apache2ctl configtest checks Apache configuration syntax and should return Syntax OK if correct."
+      },
+      {
+        q: "What is DocumentRoot in Apache?",
+        options: [
+          "The main log directory",
+          "The directory where Apache looks for website files",
+          "The Apache binary location",
+          "The SSL certificate folder"
+        ],
+        answer: 1,
+        exp: "DocumentRoot defines the folder where website files such as index.html are stored."
+      },
+      {
+        q: "What is a Virtual Host in Apache?",
+        options: [
+          "A virtual machine inside Apache",
+          "A way to host multiple websites on the same server",
+          "A firewall rule",
+          "A Docker volume"
+        ],
+        answer: 1,
+        exp: "Virtual Hosts allow Apache to serve multiple domains or websites from one server."
+      },
+      {
+        q: "Which Apache directive defines the domain name for a site?",
+        options: ["ServerName", "DocumentRoot", "ProxyPass", "CustomLog"],
+        answer: 0,
+        exp: "ServerName defines the domain name such as example.com for a VirtualHost."
+      },
+      {
+        q: "Which Apache directive defines the website files location?",
+        options: ["ServerAdmin", "DocumentRoot", "ListenRoot", "HostRoot"],
+        answer: 1,
+        exp: "DocumentRoot points Apache to the folder where the website files are stored."
+      },
+      {
+        q: "What does the <Directory> block control?",
+        options: [
+          "DNS records",
+          "Folder-level permissions and options",
+          "System user passwords",
+          "Docker network routing"
+        ],
+        answer: 1,
+        exp: "The <Directory> block controls access rules, options, and overrides for a specific directory."
+      },
+      {
+        q: "What does 'Require all granted' mean in Apache?",
+        options: [
+          "Deny everyone",
+          "Allow access to all users",
+          "Require root login",
+          "Enable SSL"
+        ],
+        answer: 1,
+        exp: "Require all granted allows users to access that directory or resource."
+      },
+      {
+        q: "What is .htaccess used for?",
+        options: [
+          "Per-directory Apache configuration such as redirects and rewrites",
+          "Linux user creation",
+          "Apache package installation",
+          "Kernel tuning only"
+        ],
+        answer: 0,
+        exp: ".htaccess is a per-directory configuration file used for redirects, rewrites, authentication, and access control."
+      },
+      {
+        q: "Which directive allows .htaccess rules to work?",
+        options: ["AllowOverride All", "ProxyPass On", "ServerName All", "EnableAccess True"],
+        answer: 0,
+        exp: "AllowOverride All allows .htaccess files to override configuration inside a directory."
+      },
+      {
+        q: "Which Apache module is commonly used for URL rewriting?",
+        options: ["mod_ssl", "mod_rewrite", "mod_proxy", "mod_status"],
+        answer: 1,
+        exp: "mod_rewrite is used to rewrite URLs using rewrite rules."
+      },
+      {
+        q: "Which Apache module enables HTTPS/SSL support?",
+        options: ["mod_ssl", "mod_php", "mod_proxy", "mod_cache"],
+        answer: 0,
+        exp: "mod_ssl provides SSL/TLS support for HTTPS in Apache."
+      },
+      {
+        q: "Which Apache module helps Apache work as a reverse proxy?",
+        options: ["mod_proxy", "mod_userdir", "mod_autoindex", "mod_mime"],
+        answer: 0,
+        exp: "mod_proxy allows Apache to forward requests to backend application servers."
+      },
+      {
+        q: "Which directive forwards traffic to a backend server in Apache reverse proxy?",
+        options: ["ProxyPass", "DocumentRoot", "ErrorLog", "Listen"],
+        answer: 0,
+        exp: "ProxyPass forwards matching requests from Apache to a backend server."
+      },
+      {
+        q: "What is ProxyPassReverse used for?",
+        options: [
+          "Deleting backend traffic",
+          "Rewriting backend redirects so they work correctly through Apache",
+          "Changing file permissions",
+          "Starting Apache automatically"
+        ],
+        answer: 1,
+        exp: "ProxyPassReverse adjusts redirect headers from the backend so users see the correct public URL."
+      },
+      {
+        q: "Which command enables an Apache site on Ubuntu?",
+        options: ["a2ensite", "a2enmod", "apache-enable", "siteadd"],
+        answer: 0,
+        exp: "a2ensite enables a site configuration from sites-available."
+      },
+      {
+        q: "Which command enables an Apache module on Ubuntu?",
+        options: ["a2enmod", "a2ensite", "modstart", "enable-httpd-module"],
+        answer: 0,
+        exp: "a2enmod enables Apache modules on Ubuntu/Debian."
+      },
+      {
+        q: "Where are Apache access logs commonly stored on Ubuntu?",
+        options: [
+          "/var/log/apache2/access.log",
+          "/etc/apache2/access.log",
+          "/usr/local/apache/access.log",
+          "/home/apache/access.log"
+        ],
+        answer: 0,
+        exp: "On Ubuntu/Debian, Apache access logs are commonly stored at /var/log/apache2/access.log."
+      },
+      {
+        q: "Where are Apache error logs commonly stored on RHEL/CentOS?",
+        options: [
+          "/var/log/apache2/error.log",
+          "/var/log/httpd/error_log",
+          "/etc/httpd/error.log",
+          "/tmp/apache-error.log"
+        ],
+        answer: 1,
+        exp: "On RHEL-based systems, Apache error logs are commonly stored at /var/log/httpd/error_log."
+      },
+      {
+        q: "What does HTTP 403 Forbidden usually mean in Apache?",
+        options: [
+          "Apache cannot find the file",
+          "Access is denied due to permissions or configuration",
+          "Backend app is down",
+          "SSL certificate expired only"
+        ],
+        answer: 1,
+        exp: "403 Forbidden usually means Apache received the request but access is denied."
+      },
+      {
+        q: "What does HTTP 404 Not Found usually mean?",
+        options: [
+          "Requested file or route was not found",
+          "Apache service is stopped",
+          "Permission denied",
+          "CPU is overloaded"
+        ],
+        answer: 0,
+        exp: "404 Not Found means Apache cannot find the requested file or route."
+      },
+      {
+        q: "What does HTTP 500 Internal Server Error often indicate?",
+        options: [
+          "User typed the wrong password",
+          "A server-side problem such as bad .htaccess, PHP error, or app failure",
+          "DNS is always broken",
+          "Apache is working perfectly"
+        ],
+        answer: 1,
+        exp: "500 errors often come from bad .htaccess syntax, PHP errors, missing modules, permissions, or application failure."
+      },
+      {
+        q: "Which command shows Apache VirtualHost mapping on Ubuntu?",
+        options: [
+          "sudo apache2ctl -S",
+          "sudo apache2ctl -M",
+          "sudo lsblk",
+          "sudo ip route"
+        ],
+        answer: 0,
+        exp: "sudo apache2ctl -S shows VirtualHost configuration and mapping."
+      }
+    ];
+
+    const quizForm = document.getElementById("quizForm");
+
+    function renderQuiz() {
+      quizForm.innerHTML = "";
+      questions.forEach((item, index) => {
+        const card = document.createElement("div");
+        card.className = "question-card";
+        card.id = `question-${index}`;
+
+        const title = document.createElement("div");
+        title.className = "question-title";
+        title.textContent = `${index + 1}. ${item.q}`;
+        card.appendChild(title);
+
+        const optionsDiv = document.createElement("div");
+        optionsDiv.className = "options";
+
+        item.options.forEach((option, optionIndex) => {
+          const label = document.createElement("label");
+          label.setAttribute("data-question", index);
+          label.setAttribute("data-option", optionIndex);
+
+          const input = document.createElement("input");
+          input.type = "radio";
+          input.name = `q${index}`;
+          input.value = optionIndex;
+
+          label.appendChild(input);
+          label.appendChild(document.createTextNode(option));
+          optionsDiv.appendChild(label);
+        });
+
+        const exp = document.createElement("div");
+        exp.className = "explanation";
+        exp.id = `exp-${index}`;
+        exp.textContent = `Explanation: ${item.exp}`;
+
+        card.appendChild(optionsDiv);
+        card.appendChild(exp);
+        quizForm.appendChild(card);
+      });
+    }
+
+    function submitQuiz() {
+      let score = 0;
+
+      questions.forEach((item, index) => {
+        const selected = document.querySelector(`input[name="q${index}"]:checked`);
+        const labels = document.querySelectorAll(`label[data-question="${index}"]`);
+
+        labels.forEach(label => {
+          const optionIndex = Number(label.getAttribute("data-option"));
+          label.classList.remove("correct", "incorrect");
+
+          if (optionIndex === item.answer) {
+            label.classList.add("correct");
+          }
+
+          if (selected && Number(selected.value) === optionIndex && optionIndex !== item.answer) {
+            label.classList.add("incorrect");
+          }
+        });
+
+        if (selected && Number(selected.value) === item.answer) {
+          score++;
+        }
+
+        document.getElementById(`exp-${index}`).style.display = "block";
+      });
+
+      const percentage = Math.round((score / questions.length) * 100);
+      const resultBox = document.getElementById("resultBox");
+      const scoreText = document.getElementById("scoreText");
+      const resultMessage = document.getElementById("resultMessage");
+
+      resultBox.style.display = "block";
+      scoreText.textContent = `${score}/${questions.length} (${percentage}%)`;
+      scoreText.className = percentage >= 70 ? "score pass" : "score fail";
+
+      if (percentage >= 70) {
+        resultMessage.textContent = "Great job! You passed the Apache MCQ quiz.";
+      } else {
+        resultMessage.textContent = "Keep practicing. Review the explanations and try again.";
+      }
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function resetQuiz() {
+      renderQuiz();
+      document.getElementById("resultBox").style.display = "none";
+      timeLeft = 25 * 60;
+      updateTimer();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    let timeLeft = 25 * 60;
+
+    function updateTimer() {
+      const minutes = Math.floor(timeLeft / 60);
+      const seconds = timeLeft % 60;
+      document.getElementById("timer").textContent =
+        `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+    }
+
+    const timerInterval = setInterval(() => {
+      if (timeLeft > 0) {
+        timeLeft--;
+        updateTimer();
+      } else {
+        clearInterval(timerInterval);
+        submitQuiz();
+        alert("Time is up! Your quiz has been submitted.");
+      }
+    }, 1000);
+
+    renderQuiz();
+    updateTimer();
+  </script>
+</body>
+</html>
