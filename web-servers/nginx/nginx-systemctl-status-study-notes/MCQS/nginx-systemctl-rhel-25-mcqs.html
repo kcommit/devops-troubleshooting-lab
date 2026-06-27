@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nginx MCQ Quiz - systemctl Status and RHEL User</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:linear-gradient(135deg,#111827,#1f2937,#0f766e);color:#111827;line-height:1.6}.container{max-width:1050px;margin:0 auto;padding:28px 16px 48px}.hero{color:white;text-align:center;padding:28px 18px;border-radius:22px;background:rgba(255,255,255,.12);box-shadow:0 20px 50px rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.18);margin-bottom:24px}.hero h1{margin:0 0 10px;font-size:2rem}.hero p{margin:6px 0;opacity:.95}.score-panel{position:sticky;top:0;z-index:10;background:#f9fafb;border-radius:18px;padding:16px;margin:18px 0;box-shadow:0 12px 30px rgba(0,0,0,.22);display:flex;gap:12px;justify-content:space-between;align-items:center;flex-wrap:wrap}.score{font-weight:bold;font-size:1.05rem}button{border:none;border-radius:12px;padding:10px 14px;cursor:pointer;font-weight:700;transition:transform .15s ease,opacity .15s ease}button:hover{transform:translateY(-1px);opacity:.92}.primary{background:#0f766e;color:white}.secondary{background:#e5e7eb;color:#111827}.question-card{background:#fff;border-radius:18px;padding:20px;margin:16px 0;box-shadow:0 12px 30px rgba(0,0,0,.18);border-left:7px solid #0f766e}.question-card h2{margin:0 0 14px;font-size:1.1rem;color:#111827}.options{display:grid;gap:10px;margin-top:12px}label.option{display:block;background:#f3f4f6;border:2px solid transparent;border-radius:14px;padding:11px 12px;cursor:pointer}label.option:hover{border-color:#99f6e4;background:#ecfeff}input[type=radio]{margin-right:8px}.feedback{margin-top:12px;padding:12px;border-radius:12px;display:none;font-weight:600}.correct{background:#dcfce7;color:#14532d;border:1px solid #86efac}.incorrect{background:#fee2e2;color:#7f1d1d;border:1px solid #fca5a5}.answer-line{margin-top:6px;font-weight:normal}.footer{text-align:center;color:white;opacity:.9;margin-top:30px}code{background:#e5e7eb;padding:2px 5px;border-radius:5px}@media(max-width:600px){.hero h1{font-size:1.55rem}.score-panel{position:static}}
+</style>
+</head>
+<body>
+<div class="container">
+<section class="hero">
+<h1>Nginx MCQ Quiz</h1>
+<p><strong>Topic:</strong> systemctl status, Nginx processes, Ubuntu vs RHEL user/group, and service account checks</p>
+<p>Total Questions: 25</p>
+</section>
+<section class="score-panel">
+<div class="score" id="scoreText">Score: 0 / 25</div>
+<div><button class="primary" onclick="checkAnswers()" type="button">Check Answers</button> <button class="secondary" onclick="resetQuiz()" type="button">Reset</button></div>
+</section>
+<form id="quizForm">
+<div class="question-card" id="card1">
+<h2>Q1. What is the correct command to check the Nginx service status using systemd?</h2>
+<div class="options">
+<label class="option"><input type="radio" name="q1" value="0"><strong>A.</strong> systemctl nginx status</label>
+<label class="option"><input type="radio" name="q1" value="1"><strong>B.</strong> sudo systemctl status nginx</label>
+<label class="option"><input type="radio" name="q1" value="2"><strong>C.</strong> sudo nginx systemctl status</label>
+<label class="option"><input type="radio" name="q1" value="3"><strong>D.</strong> status systemctl nginx</label>
+</div><div class="feedback" id="feedback1"><div class="result"></div><div class="answer-line"><strong>Correct answer:</strong> sudo systemctl status nginx</div><div class="answer-line"><strong>Explanation:</strong> The correct format is systemctl &lt;action&gt; &lt;service-name&gt;, so the command is sudo systemctl status nginx.</div></div></div>
+<div class="question-card" id="card2">
+<h2>Q2. In systemctl status nginx, what does Active: active (running) mean?</h2>
+<div class="options">
+<label class="option"><input type="radio" name="q2" value="0"><strong>A.</strong> Nginx is installed but stopped</label>
+<label class="option"><input type="radio" name="q2" value="1"><strong>B.</strong> Nginx failed to start</label>
+<label class="option"><input type="radio" name="q2" value="2"><strong>C.</strong> Nginx is currently running</label>
+<label class="option"><input type="radio" name="q2" value="3"><strong>D.</strong> Nginx is disabled</label>
+</div><div class="feedback" id="feedback2"><div class="result"></div><div class="answer-line"><strong>Correct answer:</strong> Nginx is currently running</div><div class="answer-line"><strong>Explanation:</strong> active (running) means the Nginx service is working right now.</div></div></div>
+<div class="question-card" id="card3">
+<h2>Q3. What does Loaded: loaded mean in the Nginx service status output?</h2>
+<div class="options">
+<label class="option"><input type="radio" name="q3" value="0"><strong>A.</strong> Nginx has high CPU usage</label>
+<label class="option"><input type="radio" name="q3" value="1"><strong>B.</strong> systemd found the Nginx service file</label>
+<label class="option"><input type="radio" name="q3" value="2"><strong>C.</strong> Nginx is not installed</label>
+<label class="option"><input type="radio" name="q3" value="3"><strong>D.</strong> Nginx config has errors</label>
+</div><div class="feedback" id="feedback3"><div class="result"></div><div class="answer-line"><strong>Correct answer:</strong> systemd found the Nginx service file</div><div class="answer-line"><strong>Explanation:</strong> Loaded: loaded means systemd found the service unit file for Nginx.</div></div></div>
+<div class="question-card" id="card4">
+<h2>Q4. What does enabled mean in the Loaded line?</h2>
+<div class="options">
+<label class="option"><input type="radio" name="q4" value="0"><strong>A.</strong> Nginx will start automatically at boot</label>
+<label class="option"><input type="radio" name="q4" value="1"><strong>B.</strong> Nginx is currently stopped</label>
+<label class="option"><input type="radio" name="q4" value="2"><strong>C.</strong> Nginx has no config file</label>
+<label class="option"><input type="radio" name="q4" value="3"><strong>D.</strong> Nginx is using port 8080</label>
+</div><div class="feedback" id="feedback4"><div class="result"></div><div class="answer-line"><strong>Correct answer:</strong> Nginx will start automatically at boot</div><div class="answer-line"><strong>Explanation:</strong> enabled means the service is configured to start automatically when the system boots.</div></div></div>
+<div class="question-card" id="card5">
+<h2>Q5. Which line is usually the most important when checking if Nginx is running?</h2>
+<div class="options">
+<label class="option"><input type="radio" name="q5" value="0"><strong>A.</strong> Docs: man:nginx(8)</label>
+<label class="option"><input type="radio" name="q5" value="1"><strong>B.</strong> Memory: 10.5M</label>
+<label class="option"><input type="radio" name="q5" value="2"><strong>C.</strong> Active: active (running)</label>
+<label class="option"><input type="radio" name="q5" value="3"><strong>D.</strong> CPU: 48ms</label>
+</div><div class="feedback" id="feedback5"><div class="result"></div><div class="answer-line"><strong>Correct answer:</strong> Active: active (running)</div><div class="answer-line"><strong>Explanation:</strong> The Active line tells whether the service is running, stopped, or failed.</div></div></div>
+<div class="question-card" id="card6">
+<h2>Q6. What does status=0/SUCCESS usually mean?</h2>
+<div class="options">
+<label class="option"><input type="radio" name="q6" value="0"><strong>A.</strong> The command failed</label>
+<label class="option"><input type="radio" name="q6" value="1"><strong>B.</strong> The command completed successfully</label>
+<label class="option"><input type="radio" name="q6" value="2"><strong>C.</strong> Nginx is disabled</label>
+<label class="option"><input type="radio" name="q6" value="3"><strong>D.</strong> The process was killed</label>
+</div><div class="feedback" id="feedback6"><div class="result"></div><div class="answer-line"><strong>Correct answer:</strong> The command completed successfully</div><div class="answer-line"><strong>Explanation:</strong> status=0/SUCCESS means the command finished without an error.</div></div></div>
+<div class="question-card" id="card7">
+<h2>Q7. What does ExecStartPre=/usr/sbin/nginx -t show?</h2>
+<div class="options">
+<label class="option"><input type="radio" name="q7" value="0"><strong>A.</strong> Nginx tested its configuration before starting</label>
+<label class="option"><input type="radio" name="q7" value="1"><strong>B.</strong> Nginx was removed</label>
+<label class="option"><input type="radio" name="q7" value="2"><strong>C.</strong> Nginx opened a browser</label>
+<label class="option"><input type="radio" name="q7" value="3"><strong>D.</strong> Nginx changed the hostname</label>
+</div><div class="feedback" id="feedback7"><div class="result"></div><div class="answer-line"><strong>Correct answer:</strong> Nginx tested its configuration before starting</div><div class="answer-line"><strong>Explanation:</strong> ExecStartPre runs before starting the service; for Nginx it commonly tests the configuration.</div></div></div>
+<div class="question-card" id="card8">
+<h2>Q8. Which command manually tests Nginx configuration?</h2>
+<div class="options">
+<label class="option"><input type="radio" name="q8" value="0"><strong>A.</strong> sudo nginx -t</label>
+<label class="option"><input type="radio" name="q8" value="1"><strong>B.</strong> sudo nginx -r</label>
+<label class="option"><input type="radio" name="q8" value="2"><strong>C.</strong> sudo systemctl test nginx</label>
+<label class="option"><input type="radio" name="q8" value="3"><strong>D.</strong> grep nginx -t</label>
+</div><div class="feedback" id="feedback8"><div class="result"></div><div class="answer-line"><strong>Correct answer:</strong> sudo nginx -t</div><div class="answer-line"><strong>Explanation:</strong> sudo nginx -t checks whether the Nginx configuration syntax is valid.</div></div></div>
+<div class="question-card" id="card9">
+<h2>Q9. What does Main PID: 209 (nginx) mean?</h2>
+<div class="options">
+<label class="option"><input type="radio" name="q9" value="0"><strong>A.</strong> 209 is the port number</label>
+<label class="option"><input type="radio" name="q9" value="1"><strong>B.</strong> 209 is the main Nginx process ID</label>
+<label class="option"><input type="radio" name="q9" value="2"><strong>C.</strong> 209 is the user ID</label>
+<label class="option"><input type="radio" name="q9" value="3"><strong>D.</strong> 209 is the config file number</label>
+</div><div class="feedback" id="feedback9"><div class="result"></div><div class="answer-line"><strong>Correct answer:</strong> 209 is the main Nginx process ID</div><div class="answer-line"><strong>Explanation:</strong> PID means Process ID. The Main PID is the main process managed by systemd.</div></div></div>
+<div class="question-card" id="card10">
+<h2>Q10. In Nginx, what is the job of worker processes?</h2>
+<div class="options">
+<label class="option"><input type="radio" name="q10" value="0"><strong>A.</strong> They delete logs</label>
+<label class="option"><input type="radio" name="q10" value="1"><strong>B.</strong> They handle user/web requests</label>
+<label class="option"><input type="radio" name="q10" value="2"><strong>C.</strong> They edit /etc/passwd</label>
+<label class="option"><input type="radio" name="q10" value="3"><strong>D.</strong> They install packages</label>
+</div><div class="feedback" id="feedback10"><div class="result"></div><div class="answer-line"><strong>Correct answer:</strong> They handle user/web requests</div><div class="answer-line"><strong>Explanation:</strong> Worker processes handle website traffic and client requests.</div></div></div>
+<div class="question-card" id="card11">
+<h2>Q11. What is the role of the Nginx master process?</h2>
+<div class="options">
+<label class="option"><input type="radio" name="q11" value="0"><strong>A.</strong> It controls Nginx worker processes</label>
+<label class="option"><input type="radio" name="q11" value="1"><strong>B.</strong> It stores user passwords</label>
+<label class="option"><input type="radio" name="q11" value="2"><strong>C.</strong> It creates Linux users</label>
+<label class="option"><input type="radio" name="q11" value="3"><strong>D.</strong> It opens SSH sessions</label>
+</div><div class="feedback" id="feedback11"><div class="result"></div><div class="answer-line"><strong>Correct answer:</strong> It controls Nginx worker processes</div><div class="answer-line"><strong>Explanation:</strong> The master process controls and manages Nginx worker processes.</div></div></div>
+<div class="question-card" id="card12">
+<h2>Q12. What does the Memory: 10.5M line show?</h2>
+<div class="options">
+<label class="option"><input type="radio" name="q12" value="0"><strong>A.</strong> Nginx version</label>
+<label class="option"><input type="radio" name="q12" value="1"><strong>B.</strong> Nginx memory usage</label>
+<label class="option"><input type="radio" name="q12" value="2"><strong>C.</strong> Nginx port number</label>
+<label class="option"><input type="radio" name="q12" value="3"><strong>D.</strong> Nginx username</label>
+</div><div class="feedback" id="feedback12"><div class="result"></div><div class="answer-line"><strong>Correct answer:</strong> Nginx memory usage</div><div class="answer-line"><strong>Explanation:</strong> The Memory line shows how much memory the service is currently using.</div></div></div>
+<div class="question-card" id="card13">
+<h2>Q13. Which command can test Nginx from the terminal after it starts?</h2>
+<div class="options">
+<label class="option"><input type="radio" name="q13" value="0"><strong>A.</strong> curl localhost</label>
+<label class="option"><input type="radio" name="q13" value="1"><strong>B.</strong> grep localhost</label>
+<label class="option"><input type="radio" name="q13" value="2"><strong>C.</strong> passwd nginx</label>
+<label class="option"><input type="radio" name="q13" value="3"><strong>D.</strong> systemctl localhost</label>
+</div><div class="feedback" id="feedback13"><div class="result"></div><div class="answer-line"><strong>Correct answer:</strong> curl localhost</div><div class="answer-line"><strong>Explanation:</strong> curl localhost sends a request to the local web server.</div></div></div>
+<div class="question-card" id="card14">
+<h2>Q14. What URL can you open in a browser to test local Nginx?</h2>
+<div class="options">
+<label class="option"><input type="radio" name="q14" value="0"><strong>A.</strong> http://localhost</label>
+<label class="option"><input type="radio" name="q14" value="1"><strong>B.</strong> ftp://localhost</label>
+<label class="option"><input type="radio" name="q14" value="2"><strong>C.</strong> ssh://localhost</label>
+<label class="option"><input type="radio" name="q14" value="3"><strong>D.</strong> file://nginx</label>
+</div><div class="feedback" id="feedback14"><div class="result"></div><div class="answer-line"><strong>Correct answer:</strong> http://localhost</div><div class="answer-line"><strong>Explanation:</strong> Nginx serving locally can be tested by opening http://localhost.</div></div></div>
+<div class="question-card" id="card15">
+<h2>Q15. On Ubuntu/Debian, what user does Nginx commonly run worker processes as?</h2>
+<div class="options">
+<label class="option"><input type="radio" name="q15" value="0"><strong>A.</strong> apache</label>
+<label class="option"><input type="radio" name="q15" value="1"><strong>B.</strong> www-data</label>
+<label class="option"><input type="radio" name="q15" value="2"><strong>C.</strong> nginxroot</label>
+<label class="option"><input type="radio" name="q15" value="3"><strong>D.</strong> daemonuser</label>
+</div><div class="feedback" id="feedback15"><div class="result"></div><div class="answer-line"><strong>Correct answer:</strong> www-data</div><div class="answer-line"><strong>Explanation:</strong> Ubuntu/Debian commonly use the www-data user and group for Nginx.</div></div></div>
+<div class="question-card" id="card16">
+<h2>Q16. On RHEL/Rocky/AlmaLinux/CentOS/Fedora, what user does Nginx commonly use?</h2>
+<div class="options">
+<label class="option"><input type="radio" name="q16" value="0"><strong>A.</strong> www-data</label>
+<label class="option"><input type="radio" name="q16" value="1"><strong>B.</strong> nginx</label>
+<label class="option"><input type="radio" name="q16" value="2"><strong>C.</strong> http-user</label>
+<label class="option"><input type="radio" name="q16" value="3"><strong>D.</strong> rootonly</label>
+</div><div class="feedback" id="feedback16"><div class="result"></div><div class="answer-line"><strong>Correct answer:</strong> nginx</div><div class="answer-line"><strong>Explanation:</strong> RHEL-based systems commonly use the nginx user and group.</div></div></div>
+<div class="question-card" id="card17">
+<h2>Q17. Which command checks the Nginx user entry on RHEL?</h2>
+<div class="options">
+<label class="option"><input type="radio" name="q17" value="0"><strong>A.</strong> grep www-data /etc/passwd</label>
+<label class="option"><input type="radio" name="q17" value="1"><strong>B.</strong> grep nginx /etc/passwd</label>
+<label class="option"><input type="radio" name="q17" value="2"><strong>C.</strong> sudo passwd nginx</label>
+<label class="option"><input type="radio" name="q17" value="3"><strong>D.</strong> cat nginx /etc/passwd</label>
+</div><div class="feedback" id="feedback17"><div class="result"></div><div class="answer-line"><strong>Correct answer:</strong> grep nginx /etc/passwd</div><div class="answer-line"><strong>Explanation:</strong> On RHEL, search for nginx in /etc/passwd.</div></div></div>
+<div class="question-card" id="card18">
+<h2>Q18. Which command checks the Nginx group entry on RHEL?</h2>
+<div class="options">
+<label class="option"><input type="radio" name="q18" value="0"><strong>A.</strong> grep nginx /etc/group</label>
+<label class="option"><input type="radio" name="q18" value="1"><strong>B.</strong> grep nginx /etc/shadow</label>
+<label class="option"><input type="radio" name="q18" value="2"><strong>C.</strong> group nginx /etc/passwd</label>
+<label class="option"><input type="radio" name="q18" value="3"><strong>D.</strong> systemctl group nginx</label>
+</div><div class="feedback" id="feedback18"><div class="result"></div><div class="answer-line"><strong>Correct answer:</strong> grep nginx /etc/group</div><div class="answer-line"><strong>Explanation:</strong> /etc/group stores Linux group information.</div></div></div>
+<div class="question-card" id="card19">
+<h2>Q19. Why do we use sudo with grep nginx /etc/shadow?</h2>
+<div class="options">
+<label class="option"><input type="radio" name="q19" value="0"><strong>A.</strong> /etc/shadow requires root permission</label>
+<label class="option"><input type="radio" name="q19" value="1"><strong>B.</strong> grep always requires sudo</label>
+<label class="option"><input type="radio" name="q19" value="2"><strong>C.</strong> Nginx does not work without sudo</label>
+<label class="option"><input type="radio" name="q19" value="3"><strong>D.</strong> sudo changes the Nginx port</label>
+</div><div class="feedback" id="feedback19"><div class="result"></div><div class="answer-line"><strong>Correct answer:</strong> /etc/shadow requires root permission</div><div class="answer-line"><strong>Explanation:</strong> /etc/shadow contains password information and is protected, so normal users cannot read it.</div></div></div>
+<div class="question-card" id="card20">
+<h2>Q20. In /etc/shadow, what does !! usually mean for the nginx account?</h2>
+<div class="options">
+<label class="option"><input type="radio" name="q20" value="0"><strong>A.</strong> Password is locked</label>
+<label class="option"><input type="radio" name="q20" value="1"><strong>B.</strong> Password is visible</label>
+<label class="option"><input type="radio" name="q20" value="2"><strong>C.</strong> Account is root</label>
+<label class="option"><input type="radio" name="q20" value="3"><strong>D.</strong> Group ID is missing</label>
+</div><div class="feedback" id="feedback20"><div class="result"></div><div class="answer-line"><strong>Correct answer:</strong> Password is locked</div><div class="answer-line"><strong>Explanation:</strong> !! means the account password is locked, which is normal for a service account.</div></div></div>
+<div class="question-card" id="card21">
+<h2>Q21. What does /sbin/nologin mean in /etc/passwd?</h2>
+<div class="options">
+<label class="option"><input type="radio" name="q21" value="0"><strong>A.</strong> The account cannot be used for normal shell login</label>
+<label class="option"><input type="radio" name="q21" value="1"><strong>B.</strong> The account has unlimited login</label>
+<label class="option"><input type="radio" name="q21" value="2"><strong>C.</strong> Nginx is not installed</label>
+<label class="option"><input type="radio" name="q21" value="3"><strong>D.</strong> The group is missing</label>
+</div><div class="feedback" id="feedback21"><div class="result"></div><div class="answer-line"><strong>Correct answer:</strong> The account cannot be used for normal shell login</div><div class="answer-line"><strong>Explanation:</strong> /sbin/nologin prevents normal shell login for service accounts.</div></div></div>
+<div class="question-card" id="card22">
+<h2>Q22. Which file usually contains the Nginx user directive?</h2>
+<div class="options">
+<label class="option"><input type="radio" name="q22" value="0"><strong>A.</strong> /etc/passwd</label>
+<label class="option"><input type="radio" name="q22" value="1"><strong>B.</strong> /etc/group</label>
+<label class="option"><input type="radio" name="q22" value="2"><strong>C.</strong> /etc/nginx/nginx.conf</label>
+<label class="option"><input type="radio" name="q22" value="3"><strong>D.</strong> /var/log/nginx/access.log</label>
+</div><div class="feedback" id="feedback22"><div class="result"></div><div class="answer-line"><strong>Correct answer:</strong> /etc/nginx/nginx.conf</div><div class="answer-line"><strong>Explanation:</strong> The main Nginx configuration file is usually /etc/nginx/nginx.conf.</div></div></div>
+<div class="question-card" id="card23">
+<h2>Q23. On RHEL, what output might grep user /etc/nginx/nginx.conf show?</h2>
+<div class="options">
+<label class="option"><input type="radio" name="q23" value="0"><strong>A.</strong> user www-data;</label>
+<label class="option"><input type="radio" name="q23" value="1"><strong>B.</strong> user nginx;</label>
+<label class="option"><input type="radio" name="q23" value="2"><strong>C.</strong> user rootonly;</label>
+<label class="option"><input type="radio" name="q23" value="3"><strong>D.</strong> user nobodyroot;</label>
+</div><div class="feedback" id="feedback23"><div class="result"></div><div class="answer-line"><strong>Correct answer:</strong> user nginx;</div><div class="answer-line"><strong>Explanation:</strong> On RHEL-based systems, the config commonly shows user nginx;</div></div></div>
+<div class="question-card" id="card24">
+<h2>Q24. Why does the Nginx master process often start as root?</h2>
+<div class="options">
+<label class="option"><input type="radio" name="q24" value="0"><strong>A.</strong> To bind to privileged ports like 80 and 443</label>
+<label class="option"><input type="radio" name="q24" value="1"><strong>B.</strong> To allow every user to login</label>
+<label class="option"><input type="radio" name="q24" value="2"><strong>C.</strong> To remove worker processes</label>
+<label class="option"><input type="radio" name="q24" value="3"><strong>D.</strong> To disable the firewall</label>
+</div><div class="feedback" id="feedback24"><div class="result"></div><div class="answer-line"><strong>Correct answer:</strong> To bind to privileged ports like 80 and 443</div><div class="answer-line"><strong>Explanation:</strong> Ports below 1024, such as 80 and 443, require privileged permissions.</div></div></div>
+<div class="question-card" id="card25">
+<h2>Q25. Which command shows actual running Nginx master and worker processes?</h2>
+<div class="options">
+<label class="option"><input type="radio" name="q25" value="0"><strong>A.</strong> ps aux | grep nginx</label>
+<label class="option"><input type="radio" name="q25" value="1"><strong>B.</strong> grep nginx /etc/nginx/nginx.conf</label>
+<label class="option"><input type="radio" name="q25" value="2"><strong>C.</strong> sudo nginx -v</label>
+<label class="option"><input type="radio" name="q25" value="3"><strong>D.</strong> cat /etc/group</label>
+</div><div class="feedback" id="feedback25"><div class="result"></div><div class="answer-line"><strong>Correct answer:</strong> ps aux | grep nginx</div><div class="answer-line"><strong>Explanation:</strong> ps aux | grep nginx shows running Nginx processes and which user owns them.</div></div></div>
+
+</form>
+<div class="footer"><p>Study well, practice commands, and read every service status line carefully.</p></div>
+</div>
+<script>
+const answers = [1, 2, 1, 0, 2, 1, 0, 0, 1, 1, 0, 1, 0, 0, 1, 1, 1, 0, 0, 0, 0, 2, 1, 0, 0];
+function checkAnswers(){let score=0;answers.forEach((answer,index)=>{const n=index+1;const selected=document.querySelector(`input[name="q${n}"]:checked`);const feedback=document.getElementById(`feedback${n}`);const result=feedback.querySelector(".result");feedback.style.display="block";feedback.classList.remove("correct","incorrect");if(selected&&Number(selected.value)===answer){score++;feedback.classList.add("correct");result.textContent="Correct";}else{feedback.classList.add("incorrect");result.textContent=selected?"Incorrect":"Not answered";}});document.getElementById("scoreText").textContent=`Score: ${score} / ${answers.length}`;document.querySelector(".score-panel").scrollIntoView({behavior:"smooth",block:"center"});}
+function resetQuiz(){document.getElementById("quizForm").reset();document.getElementById("scoreText").textContent=`Score: 0 / ${answers.length}`;answers.forEach((_,index)=>{const feedback=document.getElementById(`feedback${index+1}`);feedback.style.display="none";feedback.classList.remove("correct","incorrect");});window.scrollTo({top:0,behavior:"smooth"});}
+</script>
+</body>
+</html>
