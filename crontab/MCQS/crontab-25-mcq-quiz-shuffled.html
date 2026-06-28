@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Crontab MCQ Quiz - 25 Questions</title>
+<style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(135deg, #f8fafc, #eef2ff);
+      color: #1f2937;
+      line-height: 1.6;
+    }
+
+    header {
+      background: #111827;
+      color: white;
+      padding: 30px 18px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0 0 8px;
+      font-size: 2rem;
+    }
+
+    header p {
+      margin: 0;
+      color: #d1d5db;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 22px;
+    }
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+
+    .dash-card {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      padding: 16px;
+      text-align: center;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+    }
+
+    .dash-label {
+      color: #6b7280;
+      font-size: 0.88rem;
+      margin-bottom: 6px;
+    }
+
+    .dash-value {
+      font-size: 1.45rem;
+      font-weight: bold;
+      color: #111827;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin: 18px 0 24px;
+    }
+
+    button {
+      border: none;
+      border-radius: 10px;
+      padding: 12px 18px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      opacity: 0.92;
+    }
+
+    .btn-primary {
+      background: #2563eb;
+      color: white;
+    }
+
+    .btn-secondary {
+      background: #e5e7eb;
+      color: #111827;
+    }
+
+    .btn-danger {
+      background: #dc2626;
+      color: white;
+    }
+
+    .result-box {
+      display: none;
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      padding: 22px;
+      margin-bottom: 22px;
+      text-align: center;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+    }
+
+    .question-card {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 18px;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.07);
+    }
+
+    .question-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .question-number {
+      font-weight: bold;
+      color: #2563eb;
+    }
+
+    .status-pill {
+      font-size: 0.8rem;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: #f3f4f6;
+      color: #374151;
+      white-space: nowrap;
+    }
+
+    .status-pill.correct {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .status-pill.wrong {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    h3 {
+      margin: 8px 0 14px;
+      font-size: 1.12rem;
+    }
+
+    .options {
+      display: grid;
+      gap: 10px;
+    }
+
+    .option {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 12px;
+      cursor: pointer;
+      background: #f9fafb;
+      transition: 0.2s ease;
+    }
+
+    .option:hover {
+      background: #eef2ff;
+      border-color: #93c5fd;
+    }
+
+    .option.correct-answer {
+      background: #dcfce7;
+      border-color: #22c55e;
+    }
+
+    .option.wrong-answer {
+      background: #fee2e2;
+      border-color: #ef4444;
+    }
+
+    input[type="radio"] {
+      margin-top: 5px;
+    }
+
+    .explanation {
+      display: none;
+      margin-top: 14px;
+      padding: 12px;
+      background: #f8fafc;
+      border-left: 5px solid #2563eb;
+      border-radius: 10px;
+      color: #374151;
+    }
+
+    .footer-note {
+      text-align: center;
+      color: #6b7280;
+      font-size: 0.95rem;
+      margin: 26px 0;
+    }
+
+    code {
+      background: #f3f4f6;
+      padding: 2px 5px;
+      border-radius: 5px;
+    }
+
+    @media (max-width: 760px) {
+      .dashboard {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .dashboard {
+        grid-template-columns: 1fr;
+      }
+
+      header h1 {
+        font-size: 1.45rem;
+      }
+
+      .container {
+        padding: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+<header>
+<h1>Crontab MCQ Quiz</h1>
+<p>25 questions with answer checking, score, timer, and short explanations</p>
+</header>
+<main class="container">
+<section class="dashboard">
+<div class="dash-card">
+<div class="dash-label">Total Questions</div>
+<div class="dash-value">25</div>
+</div>
+<div class="dash-card">
+<div class="dash-label">Answered</div>
+<div class="dash-value" id="answeredCount">0</div>
+</div>
+<div class="dash-card">
+<div class="dash-label">Score</div>
+<div class="dash-value" id="scoreDisplay">0</div>
+</div>
+<div class="dash-card">
+<div class="dash-label">Timer</div>
+<div class="dash-value" id="timer">20:00</div>
+</div>
+</section>
+<div class="controls">
+<button class="btn-primary" onclick="checkAnswers()">Check Answers</button>
+<button class="btn-secondary" onclick="showExplanations()">Show Explanations</button>
+<button class="btn-danger" onclick="resetQuiz()">Reset Quiz</button>
+</div>
+<section class="result-box" id="resultBox">
+<h2 id="resultTitle">Result</h2>
+<p id="resultMessage"></p>
+</section>
+<section id="quiz">
+<div class="question-card" id="card0">
+<div class="question-top">
+<span class="question-number">Question 1</span>
+<span class="status-pill" id="pill0">Not answered</span>
+</div>
+<h3>What is cron in Linux?</h3>
+<div class="options">
+          <label class="option">
+<input name="q0" type="radio" value="0"/>
+<span>A text editor used to edit configuration files</span>
+</label>
+        
+          <label class="option">
+<input name="q0" type="radio" value="1"/>
+<span>A Linux scheduler service that runs commands or scripts automatically at scheduled times</span>
+</label>
+        
+          <label class="option">
+<input name="q0" type="radio" value="2"/>
+<span>A package manager for installing software</span>
+</label>
+        
+          <label class="option">
+<input name="q0" type="radio" value="3"/>
+<span>A command used only for checking disk space</span>
+</label>
+        </div>
+<div class="explanation" id="explain0">
+<strong>Explanation:</strong> cron is the Linux scheduler service. It runs commands or scripts automatically based on time.
+        </div>
+</div>
+<div class="question-card" id="card1">
+<div class="question-top">
+<span class="question-number">Question 2</span>
+<span class="status-pill" id="pill1">Not answered</span>
+</div>
+<h3>What does crontab mean?</h3>
+<div class="options">
+          <label class="option">
+<input name="q1" type="radio" value="0"/>
+<span>Cron terminal backup</span>
+</label>
+        
+          <label class="option">
+<input name="q1" type="radio" value="1"/>
+<span>Critical online table</span>
+</label>
+        
+          <label class="option">
+<input name="q1" type="radio" value="2"/>
+<span>Cron table</span>
+</label>
+        
+          <label class="option">
+<input name="q1" type="radio" value="3"/>
+<span>Current runtime tab</span>
+</label>
+        </div>
+<div class="explanation" id="explain1">
+<strong>Explanation:</strong> crontab means cron table. It is where cron jobs are defined.
+        </div>
+</div>
+<div class="question-card" id="card2">
+<div class="question-top">
+<span class="question-number">Question 3</span>
+<span class="status-pill" id="pill2">Not answered</span>
+</div>
+<h3>What is a cron job?</h3>
+<div class="options">
+          <label class="option">
+<input name="q2" type="radio" value="0"/>
+<span>One Linux user account</span>
+</label>
+        
+          <label class="option">
+<input name="q2" type="radio" value="1"/>
+<span>One package repository</span>
+</label>
+        
+          <label class="option">
+<input name="q2" type="radio" value="2"/>
+<span>One mounted filesystem</span>
+</label>
+        
+          <label class="option">
+<input name="q2" type="radio" value="3"/>
+<span>One scheduled command or script</span>
+</label>
+        </div>
+<div class="explanation" id="explain2">
+<strong>Explanation:</strong> A cron job is one command or script scheduled to run at a specific time or interval.
+        </div>
+</div>
+<div class="question-card" id="card3">
+<div class="question-top">
+<span class="question-number">Question 4</span>
+<span class="status-pill" id="pill3">Not answered</span>
+</div>
+<h3>Which command edits the current user's crontab?</h3>
+<div class="options">
+          <label class="option">
+<input name="q3" type="radio" value="0"/>
+<span>crontab -e</span>
+</label>
+        
+          <label class="option">
+<input name="q3" type="radio" value="1"/>
+<span>crontab -l</span>
+</label>
+        
+          <label class="option">
+<input name="q3" type="radio" value="2"/>
+<span>crontab -r</span>
+</label>
+        
+          <label class="option">
+<input name="q3" type="radio" value="3"/>
+<span>cron edit</span>
+</label>
+        </div>
+<div class="explanation" id="explain3">
+<strong>Explanation:</strong> `crontab -e` opens the current user's crontab for editing.
+        </div>
+</div>
+<div class="question-card" id="card4">
+<div class="question-top">
+<span class="question-number">Question 5</span>
+<span class="status-pill" id="pill4">Not answered</span>
+</div>
+<h3>Which command lists the current user's cron jobs?</h3>
+<div class="options">
+          <label class="option">
+<input name="q4" type="radio" value="0"/>
+<span>crontab -e</span>
+</label>
+        
+          <label class="option">
+<input name="q4" type="radio" value="1"/>
+<span>crontab -r</span>
+</label>
+        
+          <label class="option">
+<input name="q4" type="radio" value="2"/>
+<span>crontab -l</span>
+</label>
+        
+          <label class="option">
+<input name="q4" type="radio" value="3"/>
+<span>cron list-users</span>
+</label>
+        </div>
+<div class="explanation" id="explain4">
+<strong>Explanation:</strong> `crontab -l` lists cron jobs for the current user.
+        </div>
+</div>
+<div class="question-card" id="card5">
+<div class="question-top">
+<span class="question-number">Question 6</span>
+<span class="status-pill" id="pill5">Not answered</span>
+</div>
+<h3>Which command removes the current user's crontab?</h3>
+<div class="options">
+          <label class="option">
+<input name="q5" type="radio" value="0"/>
+<span>crontab -l</span>
+</label>
+        
+          <label class="option">
+<input name="q5" type="radio" value="1"/>
+<span>crontab -e</span>
+</label>
+        
+          <label class="option">
+<input name="q5" type="radio" value="2"/>
+<span>cron remove-user</span>
+</label>
+        
+          <label class="option">
+<input name="q5" type="radio" value="3"/>
+<span>crontab -r</span>
+</label>
+        </div>
+<div class="explanation" id="explain5">
+<strong>Explanation:</strong> `crontab -r` removes the current user's crontab. Use it carefully.
+        </div>
+</div>
+<div class="question-card" id="card6">
+<div class="question-top">
+<span class="question-number">Question 7</span>
+<span class="status-pill" id="pill6">Not answered</span>
+</div>
+<h3>Which command removes a crontab with confirmation?</h3>
+<div class="options">
+          <label class="option">
+<input name="q6" type="radio" value="0"/>
+<span>crontab -confirm</span>
+</label>
+        
+          <label class="option">
+<input name="q6" type="radio" value="1"/>
+<span>crontab -i -r</span>
+</label>
+        
+          <label class="option">
+<input name="q6" type="radio" value="2"/>
+<span>crontab -safe-delete</span>
+</label>
+        
+          <label class="option">
+<input name="q6" type="radio" value="3"/>
+<span>crontab -ask</span>
+</label>
+        </div>
+<div class="explanation" id="explain6">
+<strong>Explanation:</strong> `crontab -i -r` asks for confirmation before removing the crontab.
+        </div>
+</div>
+<div class="question-card" id="card7">
+<div class="question-top">
+<span class="question-number">Question 8</span>
+<span class="status-pill" id="pill7">Not answered</span>
+</div>
+<h3>Which command edits another user's crontab?</h3>
+<div class="options">
+          <label class="option">
+<input name="q7" type="radio" value="0"/>
+<span>sudo crontab -u username -e</span>
+</label>
+        
+          <label class="option">
+<input name="q7" type="radio" value="1"/>
+<span>crontab -e username</span>
+</label>
+        
+          <label class="option">
+<input name="q7" type="radio" value="2"/>
+<span>cronuser edit username</span>
+</label>
+        
+          <label class="option">
+<input name="q7" type="radio" value="3"/>
+<span>sudo cron -edit username</span>
+</label>
+        </div>
+<div class="explanation" id="explain7">
+<strong>Explanation:</strong> With sudo/root access, `sudo crontab -u username -e` edits another user's crontab.
+        </div>
+</div>
+<div class="question-card" id="card8">
+<div class="question-top">
+<span class="question-number">Question 9</span>
+<span class="status-pill" id="pill8">Not answered</span>
+</div>
+<h3>What is the correct five-field cron schedule format?</h3>
+<div class="options">
+          <label class="option">
+<input name="q8" type="radio" value="0"/>
+<span>second minute hour day month command</span>
+</label>
+        
+          <label class="option">
+<input name="q8" type="radio" value="1"/>
+<span>hour minute weekday month year command</span>
+</label>
+        
+          <label class="option">
+<input name="q8" type="radio" value="2"/>
+<span>month day hour minute user command</span>
+</label>
+        
+          <label class="option">
+<input name="q8" type="radio" value="3"/>
+<span>minute hour day-of-month month day-of-week command</span>
+</label>
+        </div>
+<div class="explanation" id="explain8">
+<strong>Explanation:</strong> The standard user crontab format is minute, hour, day of month, month, day of week, then command.
+        </div>
+</div>
+<div class="question-card" id="card9">
+<div class="question-top">
+<span class="question-number">Question 10</span>
+<span class="status-pill" id="pill9">Not answered</span>
+</div>
+<h3>What does `* * * * *` mean?</h3>
+<div class="options">
+          <label class="option">
+<input name="q9" type="radio" value="0"/>
+<span>Every hour</span>
+</label>
+        
+          <label class="option">
+<input name="q9" type="radio" value="1"/>
+<span>Every day at midnight</span>
+</label>
+        
+          <label class="option">
+<input name="q9" type="radio" value="2"/>
+<span>Every minute</span>
+</label>
+        
+          <label class="option">
+<input name="q9" type="radio" value="3"/>
+<span>Every Sunday</span>
+</label>
+        </div>
+<div class="explanation" id="explain9">
+<strong>Explanation:</strong> Five asterisks mean every minute, every hour, every day, every month, and every weekday.
+        </div>
+</div>
+<div class="question-card" id="card10">
+<div class="question-top">
+<span class="question-number">Question 11</span>
+<span class="status-pill" id="pill10">Not answered</span>
+</div>
+<h3>What does `*/5 * * * *` mean?</h3>
+<div class="options">
+          <label class="option">
+<input name="q10" type="radio" value="0"/>
+<span>Every 5 hours</span>
+</label>
+        
+          <label class="option">
+<input name="q10" type="radio" value="1"/>
+<span>Every 5 minutes</span>
+</label>
+        
+          <label class="option">
+<input name="q10" type="radio" value="2"/>
+<span>Every 5 days</span>
+</label>
+        
+          <label class="option">
+<input name="q10" type="radio" value="3"/>
+<span>Every Friday</span>
+</label>
+        </div>
+<div class="explanation" id="explain10">
+<strong>Explanation:</strong> `*/5` in the minute field means every 5 minutes.
+        </div>
+</div>
+<div class="question-card" id="card11">
+<div class="question-top">
+<span class="question-number">Question 12</span>
+<span class="status-pill" id="pill11">Not answered</span>
+</div>
+<h3>What does `0 * * * *` mean?</h3>
+<div class="options">
+          <label class="option">
+<input name="q11" type="radio" value="0"/>
+<span>Every minute</span>
+</label>
+        
+          <label class="option">
+<input name="q11" type="radio" value="1"/>
+<span>Every day at 12 PM</span>
+</label>
+        
+          <label class="option">
+<input name="q11" type="radio" value="2"/>
+<span>Every month</span>
+</label>
+        
+          <label class="option">
+<input name="q11" type="radio" value="3"/>
+<span>Every hour at minute 0</span>
+</label>
+        </div>
+<div class="explanation" id="explain11">
+<strong>Explanation:</strong> `0` in the minute field and `*` in the hour field means run at the start of every hour.
+        </div>
+</div>
+<div class="question-card" id="card12">
+<div class="question-top">
+<span class="question-number">Question 13</span>
+<span class="status-pill" id="pill12">Not answered</span>
+</div>
+<h3>What does `0 0 * * *` mean?</h3>
+<div class="options">
+          <label class="option">
+<input name="q12" type="radio" value="0"/>
+<span>Every day at midnight</span>
+</label>
+        
+          <label class="option">
+<input name="q12" type="radio" value="1"/>
+<span>Every minute</span>
+</label>
+        
+          <label class="option">
+<input name="q12" type="radio" value="2"/>
+<span>Every hour</span>
+</label>
+        
+          <label class="option">
+<input name="q12" type="radio" value="3"/>
+<span>Every Monday at midnight</span>
+</label>
+        </div>
+<div class="explanation" id="explain12">
+<strong>Explanation:</strong> `0 0 * * *` means minute 0, hour 0, every day: daily at midnight.
+        </div>
+</div>
+<div class="question-card" id="card13">
+<div class="question-top">
+<span class="question-number">Question 14</span>
+<span class="status-pill" id="pill13">Not answered</span>
+</div>
+<h3>What does `30 2 * * *` mean?</h3>
+<div class="options">
+          <label class="option">
+<input name="q13" type="radio" value="0"/>
+<span>Every 30 minutes</span>
+</label>
+        
+          <label class="option">
+<input name="q13" type="radio" value="1"/>
+<span>Every second day at 30 minutes</span>
+</label>
+        
+          <label class="option">
+<input name="q13" type="radio" value="2"/>
+<span>Every day at 2:30 AM</span>
+</label>
+        
+          <label class="option">
+<input name="q13" type="radio" value="3"/>
+<span>Every month at 2:30 PM only</span>
+</label>
+        </div>
+<div class="explanation" id="explain13">
+<strong>Explanation:</strong> `30 2 * * *` runs every day at 2:30 AM.
+        </div>
+</div>
+<div class="question-card" id="card14">
+<div class="question-top">
+<span class="question-number">Question 15</span>
+<span class="status-pill" id="pill14">Not answered</span>
+</div>
+<h3>What does `0 9 * * 1-5` mean?</h3>
+<div class="options">
+          <label class="option">
+<input name="q14" type="radio" value="0"/>
+<span>Every day at 9 PM</span>
+</label>
+        
+          <label class="option">
+<input name="q14" type="radio" value="1"/>
+<span>Every weekday at 9 AM</span>
+</label>
+        
+          <label class="option">
+<input name="q14" type="radio" value="2"/>
+<span>Every 5 minutes during 9 AM</span>
+</label>
+        
+          <label class="option">
+<input name="q14" type="radio" value="3"/>
+<span>Every month from January to May</span>
+</label>
+        </div>
+<div class="explanation" id="explain14">
+<strong>Explanation:</strong> `1-5` in the day-of-week field means Monday through Friday. So it runs weekdays at 9 AM.
+        </div>
+</div>
+<div class="question-card" id="card15">
+<div class="question-top">
+<span class="question-number">Question 16</span>
+<span class="status-pill" id="pill15">Not answered</span>
+</div>
+<h3>What does `0 */6 * * *` mean?</h3>
+<div class="options">
+          <label class="option">
+<input name="q15" type="radio" value="0"/>
+<span>Every 6 hours</span>
+</label>
+        
+          <label class="option">
+<input name="q15" type="radio" value="1"/>
+<span>Every 6 minutes</span>
+</label>
+        
+          <label class="option">
+<input name="q15" type="radio" value="2"/>
+<span>Every 6 days</span>
+</label>
+        
+          <label class="option">
+<input name="q15" type="radio" value="3"/>
+<span>Every June</span>
+</label>
+        </div>
+<div class="explanation" id="explain15">
+<strong>Explanation:</strong> `*/6` in the hour field means every 6 hours.
+        </div>
+</div>
+<div class="question-card" id="card16">
+<div class="question-top">
+<span class="question-number">Question 17</span>
+<span class="status-pill" id="pill16">Not answered</span>
+</div>
+<h3>Which cron shortcut runs a job once when the system boots?</h3>
+<div class="options">
+          <label class="option">
+<input name="q16" type="radio" value="0"/>
+<span>@startup</span>
+</label>
+        
+          <label class="option">
+<input name="q16" type="radio" value="1"/>
+<span>@bootonly</span>
+</label>
+        
+          <label class="option">
+<input name="q16" type="radio" value="2"/>
+<span>@systemstart</span>
+</label>
+        
+          <label class="option">
+<input name="q16" type="radio" value="3"/>
+<span>@reboot</span>
+</label>
+        </div>
+<div class="explanation" id="explain16">
+<strong>Explanation:</strong> `@reboot` runs a command once after system startup.
+        </div>
+</div>
+<div class="question-card" id="card17">
+<div class="question-top">
+<span class="question-number">Question 18</span>
+<span class="status-pill" id="pill17">Not answered</span>
+</div>
+<h3>Which shortcut runs a job once per day?</h3>
+<div class="options">
+          <label class="option">
+<input name="q17" type="radio" value="0"/>
+<span>@hourly</span>
+</label>
+        
+          <label class="option">
+<input name="q17" type="radio" value="1"/>
+<span>@daily</span>
+</label>
+        
+          <label class="option">
+<input name="q17" type="radio" value="2"/>
+<span>@weekly</span>
+</label>
+        
+          <label class="option">
+<input name="q17" type="radio" value="3"/>
+<span>@reboot</span>
+</label>
+        </div>
+<div class="explanation" id="explain17">
+<strong>Explanation:</strong> `@daily` runs a job once per day.
+        </div>
+</div>
+<div class="question-card" id="card18">
+<div class="question-top">
+<span class="question-number">Question 19</span>
+<span class="status-pill" id="pill18">Not answered</span>
+</div>
+<h3>Why should you use full paths in cron jobs?</h3>
+<div class="options">
+          <label class="option">
+<input name="q18" type="radio" value="0"/>
+<span>Cron only supports long filenames</span>
+</label>
+        
+          <label class="option">
+<input name="q18" type="radio" value="1"/>
+<span>Cron cannot run scripts from home directories</span>
+</label>
+        
+          <label class="option">
+<input name="q18" type="radio" value="2"/>
+<span>Cron has a limited environment and may not find commands or scripts</span>
+</label>
+        
+          <label class="option">
+<input name="q18" type="radio" value="3"/>
+<span>Cron requires paths to start with /tmp</span>
+</label>
+        </div>
+<div class="explanation" id="explain18">
+<strong>Explanation:</strong> Cron does not load your full interactive shell environment, so full paths make jobs more reliable.
+        </div>
+</div>
+<div class="question-card" id="card19">
+<div class="question-top">
+<span class="question-number">Question 20</span>
+<span class="status-pill" id="pill19">Not answered</span>
+</div>
+<h3>Which line sets a useful PATH inside crontab?</h3>
+<div class="options">
+          <label class="option">
+<input name="q19" type="radio" value="0"/>
+<span>PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin</span>
+</label>
+        
+          <label class="option">
+<input name="q19" type="radio" value="1"/>
+<span>PATH=automatic</span>
+</label>
+        
+          <label class="option">
+<input name="q19" type="radio" value="2"/>
+<span>SET PATH ALL</span>
+</label>
+        
+          <label class="option">
+<input name="q19" type="radio" value="3"/>
+<span>cron path enable</span>
+</label>
+        </div>
+<div class="explanation" id="explain19">
+<strong>Explanation:</strong> Setting PATH inside crontab helps cron find common system commands.
+        </div>
+</div>
+<div class="question-card" id="card20">
+<div class="question-top">
+<span class="question-number">Question 21</span>
+<span class="status-pill" id="pill20">Not answered</span>
+</div>
+<h3>What does `&gt;&gt; /var/log/backup.log 2&gt;&amp;1` do?</h3>
+<div class="options">
+          <label class="option">
+<input name="q20" type="radio" value="0"/>
+<span>Deletes /var/log/backup.log</span>
+</label>
+        
+          <label class="option">
+<input name="q20" type="radio" value="1"/>
+<span>Runs the job twice</span>
+</label>
+        
+          <label class="option">
+<input name="q20" type="radio" value="2"/>
+<span>Sends output only to the screen</span>
+</label>
+        
+          <label class="option">
+<input name="q20" type="radio" value="3"/>
+<span>Appends output and errors to /var/log/backup.log</span>
+</label>
+        </div>
+<div class="explanation" id="explain20">
+<strong>Explanation:</strong> `&gt;&gt;` appends standard output, and `2&gt;&amp;1` sends standard error to the same place.
+        </div>
+</div>
+<div class="question-card" id="card21">
+<div class="question-top">
+<span class="question-number">Question 22</span>
+<span class="status-pill" id="pill21">Not answered</span>
+</div>
+<h3>What does `MAILTO=""` do in crontab?</h3>
+<div class="options">
+          <label class="option">
+<input name="q21" type="radio" value="0"/>
+<span>Deletes the mail service</span>
+</label>
+        
+          <label class="option">
+<input name="q21" type="radio" value="1"/>
+<span>Sends mail to root only</span>
+</label>
+        
+          <label class="option">
+<input name="q21" type="radio" value="2"/>
+<span>Disables cron email output</span>
+</label>
+        
+          <label class="option">
+<input name="q21" type="radio" value="3"/>
+<span>Creates a new mailbox</span>
+</label>
+        </div>
+<div class="explanation" id="explain21">
+<strong>Explanation:</strong> `MAILTO=""` disables cron mail output for jobs in that crontab.
+        </div>
+</div>
+<div class="question-card" id="card22">
+<div class="question-top">
+<span class="question-number">Question 23</span>
+<span class="status-pill" id="pill22">Not answered</span>
+</div>
+<h3>What is the key difference between user crontab and `/etc/crontab`?</h3>
+<div class="options">
+          <label class="option">
+<input name="q22" type="radio" value="0"/>
+<span>User crontab includes seconds; /etc/crontab does not</span>
+</label>
+        
+          <label class="option">
+<input name="q22" type="radio" value="1"/>
+<span>/etc/crontab includes a username field; user crontab does not</span>
+</label>
+        
+          <label class="option">
+<input name="q22" type="radio" value="2"/>
+<span>/etc/crontab cannot run commands</span>
+</label>
+        
+          <label class="option">
+<input name="q22" type="radio" value="3"/>
+<span>User crontab is only for root</span>
+</label>
+        </div>
+<div class="explanation" id="explain22">
+<strong>Explanation:</strong> System crontab `/etc/crontab` has an extra user field to specify which user runs the command.
+        </div>
+</div>
+<div class="question-card" id="card23">
+<div class="question-top">
+<span class="question-number">Question 24</span>
+<span class="status-pill" id="pill23">Not answered</span>
+</div>
+<h3>Which command checks cron logs on Ubuntu/Debian?</h3>
+<div class="options">
+          <label class="option">
+<input name="q23" type="radio" value="0"/>
+<span>grep CRON /var/log/syslog</span>
+</label>
+        
+          <label class="option">
+<input name="q23" type="radio" value="1"/>
+<span>grep CRON /var/log/cron</span>
+</label>
+        
+          <label class="option">
+<input name="q23" type="radio" value="2"/>
+<span>cat /etc/crontab/log</span>
+</label>
+        
+          <label class="option">
+<input name="q23" type="radio" value="3"/>
+<span>cron --logs</span>
+</label>
+        </div>
+<div class="explanation" id="explain23">
+<strong>Explanation:</strong> On Ubuntu/Debian, cron entries are commonly found in `/var/log/syslog`.
+        </div>
+</div>
+<div class="question-card" id="card24">
+<div class="question-top">
+<span class="question-number">Question 25</span>
+<span class="status-pill" id="pill24">Not answered</span>
+</div>
+<h3>Which command helps prevent overlapping cron jobs?</h3>
+<div class="options">
+          <label class="option">
+<input name="q24" type="radio" value="0"/>
+<span>grep</span>
+</label>
+        
+          <label class="option">
+<input name="q24" type="radio" value="1"/>
+<span>chmod</span>
+</label>
+        
+          <label class="option">
+<input name="q24" type="radio" value="2"/>
+<span>flock</span>
+</label>
+        
+          <label class="option">
+<input name="q24" type="radio" value="3"/>
+<span>pwd</span>
+</label>
+        </div>
+<div class="explanation" id="explain24">
+<strong>Explanation:</strong> `flock` can use a lock file so a new cron run does not start if the previous one is still running.
+        </div>
+</div>
+</section>
+<div class="controls">
+<button class="btn-primary" onclick="checkAnswers()">Check Answers</button>
+<button class="btn-secondary" onclick="showExplanations()">Show Explanations</button>
+<button class="btn-danger" onclick="resetQuiz()">Reset Quiz</button>
+</div>
+<p class="footer-note">
+      Study Tip: Practice cron schedules in your Linux lab and always test scripts manually before scheduling.
+    </p>
+</main>
+<script>
+    const answers = [1, 2, 3, 0, 2, 3, 1, 0, 3, 2, 1, 3, 0, 2, 1, 0, 3, 1, 2, 0, 3, 2, 1, 0, 2];
+    const totalQuestions = answers.length;
+    let totalSeconds = 20 * 60;
+    let timerInterval;
+
+    function startTimer() {
+      timerInterval = setInterval(() => {
+        if (totalSeconds <= 0) {
+          clearInterval(timerInterval);
+          checkAnswers();
+          return;
+        }
+        totalSeconds--;
+        updateTimer();
+      }, 1000);
+    }
+
+    function updateTimer() {
+      const minutes = Math.floor(totalSeconds / 60);
+      const seconds = totalSeconds % 60;
+      document.getElementById("timer").textContent =
+        String(minutes).padStart(2, "0") + ":" + String(seconds).padStart(2, "0");
+    }
+
+    function updateAnsweredCount() {
+      let answered = 0;
+      for (let i = 0; i < totalQuestions; i++) {
+        if (document.querySelector(`input[name="q${i}"]:checked`)) {
+          answered++;
+        }
+      }
+      document.getElementById("answeredCount").textContent = answered;
+    }
+
+    document.addEventListener("change", updateAnsweredCount);
+
+    function checkAnswers() {
+      let score = 0;
+
+      for (let i = 0; i < totalQuestions; i++) {
+        const selected = document.querySelector(`input[name="q${i}"]:checked`);
+        const options = document.querySelectorAll(`input[name="q${i}"]`);
+        const pill = document.getElementById(`pill${i}`);
+        const explanation = document.getElementById(`explain${i}`);
+
+        options.forEach((input) => {
+          input.parentElement.classList.remove("correct-answer", "wrong-answer");
+        });
+
+        options[answers[i]].parentElement.classList.add("correct-answer");
+
+        if (selected) {
+          if (parseInt(selected.value) === answers[i]) {
+            score++;
+            pill.textContent = "Correct";
+            pill.className = "status-pill correct";
+          } else {
+            selected.parentElement.classList.add("wrong-answer");
+            pill.textContent = "Wrong";
+            pill.className = "status-pill wrong";
+          }
+        } else {
+          pill.textContent = "Not answered";
+          pill.className = "status-pill wrong";
+        }
+
+        explanation.style.display = "block";
+      }
+
+      document.getElementById("scoreDisplay").textContent = score + "/" + totalQuestions;
+
+      const percentage = Math.round((score / totalQuestions) * 100);
+      const resultBox = document.getElementById("resultBox");
+      const resultTitle = document.getElementById("resultTitle");
+      const resultMessage = document.getElementById("resultMessage");
+
+      resultBox.style.display = "block";
+      resultTitle.textContent = `Your Score: ${score}/${totalQuestions} (${percentage}%)`;
+
+      if (percentage >= 90) {
+        resultMessage.textContent = "Excellent work. You understand crontab very well.";
+      } else if (percentage >= 75) {
+        resultMessage.textContent = "Good job. Review the missed explanations and practice the schedules.";
+      } else if (percentage >= 50) {
+        resultMessage.textContent = "Nice effort. Focus more on cron syntax, full paths, logs, and troubleshooting.";
+      } else {
+        resultMessage.textContent = "Keep practicing. Review cron basics, examples, and troubleshooting commands again.";
+      }
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function showExplanations() {
+      for (let i = 0; i < totalQuestions; i++) {
+        document.getElementById(`explain${i}`).style.display = "block";
+      }
+    }
+
+    function resetQuiz() {
+      const allInputs = document.querySelectorAll("input[type='radio']");
+      allInputs.forEach(input => {
+        input.checked = false;
+        input.parentElement.classList.remove("correct-answer", "wrong-answer");
+      });
+
+      for (let i = 0; i < totalQuestions; i++) {
+        const pill = document.getElementById(`pill${i}`);
+        pill.textContent = "Not answered";
+        pill.className = "status-pill";
+        document.getElementById(`explain${i}`).style.display = "none";
+      }
+
+      document.getElementById("answeredCount").textContent = "0";
+      document.getElementById("scoreDisplay").textContent = "0";
+      document.getElementById("resultBox").style.display = "none";
+
+      totalSeconds = 20 * 60;
+      updateTimer();
+      clearInterval(timerInterval);
+      startTimer();
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    updateTimer();
+    startTimer();
+  </script>
+</body>
+</html>

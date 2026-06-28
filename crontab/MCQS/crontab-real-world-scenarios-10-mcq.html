@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Crontab Real-World Scenario Quiz</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(135deg, #eef2ff, #f8fafc);
+      color: #111827;
+      line-height: 1.6;
+    }
+
+    header {
+      background: #111827;
+      color: white;
+      padding: 34px 18px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0 0 8px;
+      font-size: 2rem;
+    }
+
+    header p {
+      margin: 0;
+      color: #d1d5db;
+    }
+
+    .container {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 22px;
+    }
+
+    .intro {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      padding: 18px;
+      margin-bottom: 18px;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+    }
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+
+    .dash-card {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      padding: 16px;
+      text-align: center;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+    }
+
+    .dash-label {
+      color: #6b7280;
+      font-size: 0.88rem;
+      margin-bottom: 6px;
+    }
+
+    .dash-value {
+      font-size: 1.45rem;
+      font-weight: bold;
+      color: #111827;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin: 18px 0 24px;
+    }
+
+    button {
+      border: none;
+      border-radius: 10px;
+      padding: 12px 18px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      opacity: 0.92;
+    }
+
+    .btn-primary {
+      background: #2563eb;
+      color: white;
+    }
+
+    .btn-secondary {
+      background: #e5e7eb;
+      color: #111827;
+    }
+
+    .btn-danger {
+      background: #dc2626;
+      color: white;
+    }
+
+    .result-box {
+      display: none;
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      padding: 22px;
+      margin-bottom: 22px;
+      text-align: center;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+    }
+
+    .question-card {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 18px;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.07);
+    }
+
+    .question-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .question-number {
+      font-weight: bold;
+      color: #2563eb;
+    }
+
+    .status {
+      font-size: 0.8rem;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: #f3f4f6;
+      color: #374151;
+      white-space: nowrap;
+    }
+
+    .status.correct {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .status.wrong {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .scenario-box {
+      background: #f8fafc;
+      border-left: 5px solid #6366f1;
+      padding: 12px;
+      border-radius: 10px;
+      margin-bottom: 14px;
+      color: #374151;
+    }
+
+    h2 {
+      font-size: 1.1rem;
+      margin: 8px 0 14px;
+    }
+
+    .options {
+      display: grid;
+      gap: 10px;
+    }
+
+    .option {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 12px;
+      cursor: pointer;
+      background: #f9fafb;
+      transition: 0.2s ease;
+    }
+
+    .option:hover {
+      background: #eef2ff;
+      border-color: #93c5fd;
+    }
+
+    .option.correct-answer {
+      background: #dcfce7;
+      border-color: #22c55e;
+    }
+
+    .option.wrong-answer {
+      background: #fee2e2;
+      border-color: #ef4444;
+    }
+
+    input[type="radio"] {
+      margin-top: 5px;
+    }
+
+    .explanation {
+      display: none;
+      margin-top: 14px;
+      padding: 12px;
+      background: #f8fafc;
+      border-left: 5px solid #2563eb;
+      border-radius: 10px;
+      color: #374151;
+    }
+
+    .footer-note {
+      text-align: center;
+      color: #6b7280;
+      font-size: 0.95rem;
+      margin: 26px 0;
+    }
+
+    code {
+      background: #f3f4f6;
+      padding: 2px 5px;
+      border-radius: 5px;
+    }
+
+    @media (max-width: 760px) {
+      .dashboard {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .dashboard {
+        grid-template-columns: 1fr;
+      }
+
+      .container {
+        padding: 14px;
+      }
+
+      header h1 {
+        font-size: 1.45rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Crontab Real-World Scenario Quiz</h1>
+    <p>10 scenario-based questions for Sys Admin, DevOps, and SRE practice</p>
+  </header>
+
+  <main class="container">
+    <section class="intro">
+      <strong>Goal:</strong> Practice real troubleshooting and scheduling decisions using <code>crontab</code>, including backups, health checks, permissions, logs, root jobs, and overlapping jobs.
+    </section>
+
+    <section class="dashboard">
+      <div class="dash-card">
+        <div class="dash-label">Total Questions</div>
+        <div class="dash-value">10</div>
+      </div>
+      <div class="dash-card">
+        <div class="dash-label">Answered</div>
+        <div class="dash-value" id="answeredCount">0</div>
+      </div>
+      <div class="dash-card">
+        <div class="dash-label">Score</div>
+        <div class="dash-value" id="scoreDisplay">0</div>
+      </div>
+      <div class="dash-card">
+        <div class="dash-label">Timer</div>
+        <div class="dash-value" id="timer">10:00</div>
+      </div>
+    </section>
+
+    <div class="controls">
+      <button class="btn-primary" onclick="checkAnswers()">Check Answers</button>
+      <button class="btn-secondary" onclick="showExplanations()">Show Explanations</button>
+      <button class="btn-danger" onclick="resetQuiz()">Reset Quiz</button>
+    </div>
+
+    <section class="result-box" id="resultBox">
+      <h2 id="resultTitle">Result</h2>
+      <p id="resultMessage"></p>
+    </section>
+
+    <section id="quiz">
+      
+      <article class="question-card" id="card0">
+        <div class="question-meta">
+          <span class="question-number">Scenario 1</span>
+          <span class="status" id="status0">Not answered</span>
+        </div>
+        <div class="scenario-box"><strong>Scenario:</strong> A Linux server needs to run a backup script every night at 2:00 AM. The script is located at `/opt/scripts/backup.sh`.</div>
+        <h2>Which cron entry is correct?</h2>
+        <div class="options">
+          
+          <label class="option">
+            <input type="radio" name="q0" value="0">
+            <span>* 2 * * * /opt/scripts/backup.sh</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q0" value="1">
+            <span>0 2 * * * /opt/scripts/backup.sh</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q0" value="2">
+            <span>2 0 * * * /opt/scripts/backup.sh</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q0" value="3">
+            <span>0 * 2 * * /opt/scripts/backup.sh</span>
+          </label>
+        
+        </div>
+        <div class="explanation" id="explanation0">
+          <strong>Explanation:</strong> `0 2 * * *` means minute 0, hour 2, every day. So it runs daily at 2:00 AM.
+        </div>
+      </article>
+    
+      <article class="question-card" id="card1">
+        <div class="question-meta">
+          <span class="question-number">Scenario 2</span>
+          <span class="status" id="status1">Not answered</span>
+        </div>
+        <div class="scenario-box"><strong>Scenario:</strong> Your DevOps team wants to run a health check script every 5 minutes. The script is `/opt/scripts/health-check.sh`.</div>
+        <h2>Which cron expression should you use?</h2>
+        <div class="options">
+          
+          <label class="option">
+            <input type="radio" name="q1" value="0">
+            <span>5 * * * * /opt/scripts/health-check.sh</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q1" value="1">
+            <span>*/5 * * * * /opt/scripts/health-check.sh</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q1" value="2">
+            <span>* */5 * * * /opt/scripts/health-check.sh</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q1" value="3">
+            <span>0 5 * * * /opt/scripts/health-check.sh</span>
+          </label>
+        
+        </div>
+        <div class="explanation" id="explanation1">
+          <strong>Explanation:</strong> `*/5` in the minute field means every 5 minutes.
+        </div>
+      </article>
+    
+      <article class="question-card" id="card2">
+        <div class="question-meta">
+          <span class="question-number">Scenario 3</span>
+          <span class="status" id="status2">Not answered</span>
+        </div>
+        <div class="scenario-box"><strong>Scenario:</strong> A script works manually, but it does not run from cron. The crontab entry is `* * * * * backup.sh`.</div>
+        <h2>What is the most likely issue?</h2>
+        <div class="options">
+          
+          <label class="option">
+            <input type="radio" name="q2" value="0">
+            <span>Cron cannot run every minute</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q2" value="1">
+            <span>The script name is too short</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q2" value="2">
+            <span>Full path is missing</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q2" value="3">
+            <span>Cron only runs Python scripts</span>
+          </label>
+        
+        </div>
+        <div class="explanation" id="explanation2">
+          <strong>Explanation:</strong> Cron has a limited environment. Use the full path, such as `/home/khalid/scripts/backup.sh`.
+        </div>
+      </article>
+    
+      <article class="question-card" id="card3">
+        <div class="question-meta">
+          <span class="question-number">Scenario 4</span>
+          <span class="status" id="status3">Not answered</span>
+        </div>
+        <div class="scenario-box"><strong>Scenario:</strong> A backup cron job runs, but you cannot see any output or errors.</div>
+        <h2>What should you add to the cron entry?</h2>
+        <div class="options">
+          
+          <label class="option">
+            <input type="radio" name="q3" value="0">
+            <span>Redirect output and errors to a log file</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q3" value="1">
+            <span>Remove the script</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q3" value="2">
+            <span>Disable cron service</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q3" value="3">
+            <span>Move the script to `/tmp` only</span>
+          </label>
+        
+        </div>
+        <div class="explanation" id="explanation3">
+          <strong>Explanation:</strong> Use `&gt;&gt; /var/log/backup.log 2&gt;&amp;1` to append output and errors to a log file.
+        </div>
+      </article>
+    
+      <article class="question-card" id="card4">
+        <div class="question-meta">
+          <span class="question-number">Scenario 5</span>
+          <span class="status" id="status4">Not answered</span>
+        </div>
+        <div class="scenario-box"><strong>Scenario:</strong> Your manager wants a report generated every Monday to Friday at 9:00 AM.</div>
+        <h2>Which cron entry is correct?</h2>
+        <div class="options">
+          
+          <label class="option">
+            <input type="radio" name="q4" value="0">
+            <span>9 0 * * 1-5 /opt/scripts/report.sh</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q4" value="1">
+            <span>0 9 * * 1-5 /opt/scripts/report.sh</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q4" value="2">
+            <span>0 9 1-5 * * /opt/scripts/report.sh</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q4" value="3">
+            <span>*/9 * * * 1-5 /opt/scripts/report.sh</span>
+          </label>
+        
+        </div>
+        <div class="explanation" id="explanation4">
+          <strong>Explanation:</strong> `0 9 * * 1-5` means 9:00 AM, Monday through Friday.
+        </div>
+      </article>
+    
+      <article class="question-card" id="card5">
+        <div class="question-meta">
+          <span class="question-number">Scenario 6</span>
+          <span class="status" id="status5">Not answered</span>
+        </div>
+        <div class="scenario-box"><strong>Scenario:</strong> A cron job is scheduled correctly, but the script does not execute. You check the file and see `-rw-r--r--` permissions.</div>
+        <h2>What should you do?</h2>
+        <div class="options">
+          
+          <label class="option">
+            <input type="radio" name="q5" value="0">
+            <span>Delete the script</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q5" value="1">
+            <span>Make the script executable with `chmod +x`</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q5" value="2">
+            <span>Restart the server only</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q5" value="3">
+            <span>Change only the cron time</span>
+          </label>
+        
+        </div>
+        <div class="explanation" id="explanation5">
+          <strong>Explanation:</strong> The script needs execute permission. Use `chmod +x /opt/scripts/cleanup.sh`.
+        </div>
+      </article>
+    
+      <article class="question-card" id="card6">
+        <div class="question-meta">
+          <span class="question-number">Scenario 7</span>
+          <span class="status" id="status6">Not answered</span>
+        </div>
+        <div class="scenario-box"><strong>Scenario:</strong> A job needs to clean system cache and requires root permission.</div>
+        <h2>Where should you place the cron job?</h2>
+        <div class="options">
+          
+          <label class="option">
+            <input type="radio" name="q6" value="0">
+            <span>Normal user crontab only</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q6" value="1">
+            <span>Root crontab using `sudo crontab -e`</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q6" value="2">
+            <span>Inside `/home/user/Documents`</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q6" value="3">
+            <span>In browser settings</span>
+          </label>
+        
+        </div>
+        <div class="explanation" id="explanation6">
+          <strong>Explanation:</strong> If a job requires root permissions, schedule it in root&#x27;s crontab with `sudo crontab -e`.
+        </div>
+      </article>
+    
+      <article class="question-card" id="card7">
+        <div class="question-meta">
+          <span class="question-number">Scenario 8</span>
+          <span class="status" id="status7">Not answered</span>
+        </div>
+        <div class="scenario-box"><strong>Scenario:</strong> A cron job runs every 5 minutes, but sometimes the previous run is still running when the next one starts.</div>
+        <h2>What should you use to prevent overlapping runs?</h2>
+        <div class="options">
+          
+          <label class="option">
+            <input type="radio" name="q7" value="0">
+            <span>grep</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q7" value="1">
+            <span>chmod</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q7" value="2">
+            <span>flock</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q7" value="3">
+            <span>pwd</span>
+          </label>
+        
+        </div>
+        <div class="explanation" id="explanation7">
+          <strong>Explanation:</strong> `flock` uses a lock file so a new run does not start if the previous run is still active.
+        </div>
+      </article>
+    
+      <article class="question-card" id="card8">
+        <div class="question-meta">
+          <span class="question-number">Scenario 9</span>
+          <span class="status" id="status8">Not answered</span>
+        </div>
+        <div class="scenario-box"><strong>Scenario:</strong> A cron job did not run on an Ubuntu server.</div>
+        <h2>Which command can help check cron logs?</h2>
+        <div class="options">
+          
+          <label class="option">
+            <input type="radio" name="q8" value="0">
+            <span>grep CRON /var/log/syslog</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q8" value="1">
+            <span>cat /etc/passwd</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q8" value="2">
+            <span>df -h</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q8" value="3">
+            <span>lsblk</span>
+          </label>
+        
+        </div>
+        <div class="explanation" id="explanation8">
+          <strong>Explanation:</strong> On Ubuntu/Debian, cron logs are commonly found in `/var/log/syslog`.
+        </div>
+      </article>
+    
+      <article class="question-card" id="card9">
+        <div class="question-meta">
+          <span class="question-number">Scenario 10</span>
+          <span class="status" id="status9">Not answered</span>
+        </div>
+        <div class="scenario-box"><strong>Scenario:</strong> Your SRE team wants to run a maintenance script on the first day of every month at midnight.</div>
+        <h2>Which cron expression is correct?</h2>
+        <div class="options">
+          
+          <label class="option">
+            <input type="radio" name="q9" value="0">
+            <span>1 0 * * * /opt/scripts/maintenance.sh</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q9" value="1">
+            <span>0 1 0 * * /opt/scripts/maintenance.sh</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q9" value="2">
+            <span>0 0 1 * * /opt/scripts/maintenance.sh</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q9" value="3">
+            <span>* * 1 0 0 /opt/scripts/maintenance.sh</span>
+          </label>
+        
+        </div>
+        <div class="explanation" id="explanation9">
+          <strong>Explanation:</strong> `0 0 1 * *` means midnight on the first day of every month.
+        </div>
+      </article>
+    
+    </section>
+
+    <div class="controls">
+      <button class="btn-primary" onclick="checkAnswers()">Check Answers</button>
+      <button class="btn-secondary" onclick="showExplanations()">Show Explanations</button>
+      <button class="btn-danger" onclick="resetQuiz()">Reset Quiz</button>
+    </div>
+
+    <p class="footer-note">
+      Study Tip: Always test your script manually first, then schedule it, then check cron logs and output logs.
+    </p>
+  </main>
+
+  <script>
+    const answers = [1, 1, 2, 0, 1, 1, 1, 2, 0, 2];
+    const totalQuestions = answers.length;
+    let totalSeconds = 10 * 60;
+    let timerInterval;
+
+    function startTimer() {
+      timerInterval = setInterval(() => {
+        if (totalSeconds <= 0) {
+          clearInterval(timerInterval);
+          checkAnswers();
+          return;
+        }
+        totalSeconds--;
+        updateTimer();
+      }, 1000);
+    }
+
+    function updateTimer() {
+      const minutes = Math.floor(totalSeconds / 60);
+      const seconds = totalSeconds % 60;
+      document.getElementById("timer").textContent =
+        String(minutes).padStart(2, "0") + ":" + String(seconds).padStart(2, "0");
+    }
+
+    function updateAnsweredCount() {
+      let answered = 0;
+      for (let i = 0; i < totalQuestions; i++) {
+        if (document.querySelector(`input[name="q${i}"]:checked`)) {
+          answered++;
+        }
+      }
+      document.getElementById("answeredCount").textContent = answered;
+    }
+
+    document.addEventListener("change", updateAnsweredCount);
+
+    function checkAnswers() {
+      let score = 0;
+
+      for (let i = 0; i < totalQuestions; i++) {
+        const selected = document.querySelector(`input[name="q${i}"]:checked`);
+        const options = document.querySelectorAll(`input[name="q${i}"]`);
+        const status = document.getElementById(`status${i}`);
+        const explanation = document.getElementById(`explanation${i}`);
+
+        options.forEach((input) => {
+          input.parentElement.classList.remove("correct-answer", "wrong-answer");
+        });
+
+        options[answers[i]].parentElement.classList.add("correct-answer");
+
+        if (selected) {
+          if (parseInt(selected.value) === answers[i]) {
+            score++;
+            status.textContent = "Correct";
+            status.className = "status correct";
+          } else {
+            selected.parentElement.classList.add("wrong-answer");
+            status.textContent = "Wrong";
+            status.className = "status wrong";
+          }
+        } else {
+          status.textContent = "Not answered";
+          status.className = "status wrong";
+        }
+
+        explanation.style.display = "block";
+      }
+
+      document.getElementById("scoreDisplay").textContent = score + "/" + totalQuestions;
+
+      const percentage = Math.round((score / totalQuestions) * 100);
+      const resultBox = document.getElementById("resultBox");
+      const resultTitle = document.getElementById("resultTitle");
+      const resultMessage = document.getElementById("resultMessage");
+
+      resultBox.style.display = "block";
+      resultTitle.textContent = `Your Score: ${score}/${totalQuestions} (${percentage}%)`;
+
+      if (percentage >= 90) {
+        resultMessage.textContent = "Excellent work. You are strong in real-world crontab scenarios.";
+      } else if (percentage >= 75) {
+        resultMessage.textContent = "Good job. Review the missed scenarios and practice the commands.";
+      } else if (percentage >= 50) {
+        resultMessage.textContent = "Nice effort. Focus more on syntax, logs, permissions, and full paths.";
+      } else {
+        resultMessage.textContent = "Keep practicing. Review cron basics and try these scenarios again.";
+      }
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function showExplanations() {
+      for (let i = 0; i < totalQuestions; i++) {
+        document.getElementById(`explanation${i}`).style.display = "block";
+      }
+    }
+
+    function resetQuiz() {
+      const allInputs = document.querySelectorAll("input[type='radio']");
+      allInputs.forEach(input => {
+        input.checked = false;
+        input.parentElement.classList.remove("correct-answer", "wrong-answer");
+      });
+
+      for (let i = 0; i < totalQuestions; i++) {
+        const status = document.getElementById(`status${i}`);
+        status.textContent = "Not answered";
+        status.className = "status";
+        document.getElementById(`explanation${i}`).style.display = "none";
+      }
+
+      document.getElementById("answeredCount").textContent = "0";
+      document.getElementById("scoreDisplay").textContent = "0";
+      document.getElementById("resultBox").style.display = "none";
+
+      totalSeconds = 10 * 60;
+      updateTimer();
+      clearInterval(timerInterval);
+      startTimer();
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    updateTimer();
+    startTimer();
+  </script>
+</body>
+</html>
