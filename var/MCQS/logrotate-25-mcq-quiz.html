@@ -1,0 +1,1277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>logrotate MCQ Quiz - 25 Questions</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(135deg, #f8fafc, #eef2ff);
+      color: #1f2937;
+      line-height: 1.6;
+    }
+
+    header {
+      background: #111827;
+      color: white;
+      padding: 30px 18px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0 0 8px;
+      font-size: 2rem;
+    }
+
+    header p {
+      margin: 0;
+      color: #d1d5db;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 22px;
+    }
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+
+    .dash-card {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      padding: 16px;
+      text-align: center;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+    }
+
+    .dash-label {
+      color: #6b7280;
+      font-size: 0.88rem;
+      margin-bottom: 6px;
+    }
+
+    .dash-value {
+      font-size: 1.45rem;
+      font-weight: bold;
+      color: #111827;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin: 18px 0 24px;
+    }
+
+    button {
+      border: none;
+      border-radius: 10px;
+      padding: 12px 18px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      opacity: 0.92;
+    }
+
+    .btn-primary {
+      background: #2563eb;
+      color: white;
+    }
+
+    .btn-secondary {
+      background: #e5e7eb;
+      color: #111827;
+    }
+
+    .btn-danger {
+      background: #dc2626;
+      color: white;
+    }
+
+    .result-box {
+      display: none;
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      padding: 22px;
+      margin-bottom: 22px;
+      text-align: center;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+    }
+
+    .question-card {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 18px;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.07);
+    }
+
+    .question-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .question-number {
+      font-weight: bold;
+      color: #2563eb;
+    }
+
+    .status-pill {
+      font-size: 0.8rem;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: #f3f4f6;
+      color: #374151;
+      white-space: nowrap;
+    }
+
+    .status-pill.correct {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .status-pill.wrong {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    h3 {
+      margin: 8px 0 14px;
+      font-size: 1.12rem;
+    }
+
+    .options {
+      display: grid;
+      gap: 10px;
+    }
+
+    .option {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 12px;
+      cursor: pointer;
+      background: #f9fafb;
+      transition: 0.2s ease;
+    }
+
+    .option:hover {
+      background: #eef2ff;
+      border-color: #93c5fd;
+    }
+
+    .option.correct-answer {
+      background: #dcfce7;
+      border-color: #22c55e;
+    }
+
+    .option.wrong-answer {
+      background: #fee2e2;
+      border-color: #ef4444;
+    }
+
+    input[type="radio"] {
+      margin-top: 5px;
+    }
+
+    .explanation {
+      display: none;
+      margin-top: 14px;
+      padding: 12px;
+      background: #f8fafc;
+      border-left: 5px solid #2563eb;
+      border-radius: 10px;
+      color: #374151;
+    }
+
+    .footer-note {
+      text-align: center;
+      color: #6b7280;
+      font-size: 0.95rem;
+      margin: 26px 0;
+    }
+
+    code {
+      background: #f3f4f6;
+      padding: 2px 5px;
+      border-radius: 5px;
+    }
+
+    @media (max-width: 760px) {
+      .dashboard {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .dashboard {
+        grid-template-columns: 1fr;
+      }
+
+      header h1 {
+        font-size: 1.45rem;
+      }
+
+      .container {
+        padding: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>logrotate MCQ Quiz</h1>
+    <p>25 questions with answer checking, score, timer, and short explanations</p>
+  </header>
+
+  <main class="container">
+    <section class="dashboard">
+      <div class="dash-card">
+        <div class="dash-label">Total Questions</div>
+        <div class="dash-value">25</div>
+      </div>
+      <div class="dash-card">
+        <div class="dash-label">Answered</div>
+        <div class="dash-value" id="answeredCount">0</div>
+      </div>
+      <div class="dash-card">
+        <div class="dash-label">Score</div>
+        <div class="dash-value" id="scoreDisplay">0</div>
+      </div>
+      <div class="dash-card">
+        <div class="dash-label">Timer</div>
+        <div class="dash-value" id="timer">20:00</div>
+      </div>
+    </section>
+
+    <div class="controls">
+      <button class="btn-primary" onclick="checkAnswers()">Check Answers</button>
+      <button class="btn-secondary" onclick="showExplanations()">Show Explanations</button>
+      <button class="btn-danger" onclick="resetQuiz()">Reset Quiz</button>
+    </div>
+
+    <section class="result-box" id="resultBox">
+      <h2 id="resultTitle">Result</h2>
+      <p id="resultMessage"></p>
+    </section>
+
+    <section id="quiz">
+      
+      <div class="question-card" id="card0">
+        <div class="question-top">
+          <span class="question-number">Question 1</span>
+          <span class="status-pill" id="pill0">Not answered</span>
+        </div>
+        <h3>What is logrotate used for in Linux?</h3>
+        <div class="options">
+          
+          <label class="option">
+            <input type="radio" name="q0" value="0">
+            <span>Managing log files automatically by rotating, compressing, and deleting old logs</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q0" value="1">
+            <span>Creating Linux users automatically</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q0" value="2">
+            <span>Installing packages from repositories</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q0" value="3">
+            <span>Changing firewall rules</span>
+          </label>
+        
+        </div>
+        <div class="explanation" id="explain0">
+          <strong>Explanation:</strong> logrotate manages log files by rotating them, compressing old logs, deleting old logs, and creating new log files.
+        </div>
+      </div>
+    
+      <div class="question-card" id="card1">
+        <div class="question-top">
+          <span class="question-number">Question 2</span>
+          <span class="status-pill" id="pill1">Not answered</span>
+        </div>
+        <h3>Why is logrotate important for `/var`?</h3>
+        <div class="options">
+          
+          <label class="option">
+            <input type="radio" name="q1" value="0">
+            <span>It prevents log files from filling `/var` or the root filesystem</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q1" value="1">
+            <span>It increases the size of logs</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q1" value="2">
+            <span>It disables all services</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q1" value="3">
+            <span>It removes the `/var` directory</span>
+          </label>
+        
+        </div>
+        <div class="explanation" id="explain1">
+          <strong>Explanation:</strong> Logs are commonly stored in `/var/log`. Without rotation, they can grow and fill `/var`, causing service and system issues.
+        </div>
+      </div>
+    
+      <div class="question-card" id="card2">
+        <div class="question-top">
+          <span class="question-number">Question 3</span>
+          <span class="status-pill" id="pill2">Not answered</span>
+        </div>
+        <h3>Which directory usually stores Linux log files?</h3>
+        <div class="options">
+          
+          <label class="option">
+            <input type="radio" name="q2" value="0">
+            <span>/var/log</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q2" value="1">
+            <span>/etc/log</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q2" value="2">
+            <span>/home/log</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q2" value="3">
+            <span>/usr/log</span>
+          </label>
+        
+        </div>
+        <div class="explanation" id="explain2">
+          <strong>Explanation:</strong> `/var/log` is the standard directory for system and application log files.
+        </div>
+      </div>
+    
+      <div class="question-card" id="card3">
+        <div class="question-top">
+          <span class="question-number">Question 4</span>
+          <span class="status-pill" id="pill3">Not answered</span>
+        </div>
+        <h3>What is the main logrotate configuration file?</h3>
+        <div class="options">
+          
+          <label class="option">
+            <input type="radio" name="q3" value="0">
+            <span>/etc/logrotate.conf</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q3" value="1">
+            <span>/var/logrotate.conf</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q3" value="2">
+            <span>/usr/logrotate.conf</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q3" value="3">
+            <span>/boot/logrotate.conf</span>
+          </label>
+        
+        </div>
+        <div class="explanation" id="explain3">
+          <strong>Explanation:</strong> The main logrotate configuration file is `/etc/logrotate.conf`.
+        </div>
+      </div>
+    
+      <div class="question-card" id="card4">
+        <div class="question-top">
+          <span class="question-number">Question 5</span>
+          <span class="status-pill" id="pill4">Not answered</span>
+        </div>
+        <h3>Where are service-specific logrotate configuration files commonly stored?</h3>
+        <div class="options">
+          
+          <label class="option">
+            <input type="radio" name="q4" value="0">
+            <span>/etc/logrotate.d/</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q4" value="1">
+            <span>/var/logrotate/services/</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q4" value="2">
+            <span>/usr/logrotate.d/</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q4" value="3">
+            <span>/home/logrotate.d/</span>
+          </label>
+        
+        </div>
+        <div class="explanation" id="explain4">
+          <strong>Explanation:</strong> Service-specific logrotate rules are commonly stored inside `/etc/logrotate.d/`.
+        </div>
+      </div>
+    
+      <div class="question-card" id="card5">
+        <div class="question-top">
+          <span class="question-number">Question 6</span>
+          <span class="status-pill" id="pill5">Not answered</span>
+        </div>
+        <h3>What does the `daily` option mean in a logrotate config?</h3>
+        <div class="options">
+          
+          <label class="option">
+            <input type="radio" name="q5" value="0">
+            <span>Rotate logs every day</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q5" value="1">
+            <span>Delete logs every day without backup</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q5" value="2">
+            <span>Compress logs every minute</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q5" value="3">
+            <span>Rotate logs only when the server reboots</span>
+          </label>
+        
+        </div>
+        <div class="explanation" id="explain5">
+          <strong>Explanation:</strong> `daily` tells logrotate to rotate the matching logs every day.
+        </div>
+      </div>
+    
+      <div class="question-card" id="card6">
+        <div class="question-top">
+          <span class="question-number">Question 7</span>
+          <span class="status-pill" id="pill6">Not answered</span>
+        </div>
+        <h3>What does `rotate 7` mean?</h3>
+        <div class="options">
+          
+          <label class="option">
+            <input type="radio" name="q6" value="0">
+            <span>Keep 7 old rotated log files</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q6" value="1">
+            <span>Rotate logs every 7 minutes</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q6" value="2">
+            <span>Delete logs larger than 7 MB</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q6" value="3">
+            <span>Create 7 new active logs</span>
+          </label>
+        
+        </div>
+        <div class="explanation" id="explain6">
+          <strong>Explanation:</strong> `rotate 7` means logrotate keeps 7 old rotated log files before deleting older ones.
+        </div>
+      </div>
+    
+      <div class="question-card" id="card7">
+        <div class="question-top">
+          <span class="question-number">Question 8</span>
+          <span class="status-pill" id="pill7">Not answered</span>
+        </div>
+        <h3>What does the `compress` option do?</h3>
+        <div class="options">
+          
+          <label class="option">
+            <input type="radio" name="q7" value="0">
+            <span>Compresses old rotated logs</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q7" value="1">
+            <span>Compresses the active service binary</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q7" value="2">
+            <span>Deletes all logs immediately</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q7" value="3">
+            <span>Changes log file permissions only</span>
+          </label>
+        
+        </div>
+        <div class="explanation" id="explain7">
+          <strong>Explanation:</strong> `compress` compresses older rotated logs, usually with gzip, to save disk space.
+        </div>
+      </div>
+    
+      <div class="question-card" id="card8">
+        <div class="question-top">
+          <span class="question-number">Question 9</span>
+          <span class="status-pill" id="pill8">Not answered</span>
+        </div>
+        <h3>What does the `missingok` option mean?</h3>
+        <div class="options">
+          
+          <label class="option">
+            <input type="radio" name="q8" value="0">
+            <span>Do not show an error if the log file is missing</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q8" value="1">
+            <span>Delete missing files from the filesystem</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q8" value="2">
+            <span>Create missing users</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q8" value="3">
+            <span>Ignore all syntax errors</span>
+          </label>
+        
+        </div>
+        <div class="explanation" id="explain8">
+          <strong>Explanation:</strong> `missingok` tells logrotate not to fail or complain if a listed log file does not exist.
+        </div>
+      </div>
+    
+      <div class="question-card" id="card9">
+        <div class="question-top">
+          <span class="question-number">Question 10</span>
+          <span class="status-pill" id="pill9">Not answered</span>
+        </div>
+        <h3>What does the `notifempty` option mean?</h3>
+        <div class="options">
+          
+          <label class="option">
+            <input type="radio" name="q9" value="0">
+            <span>Do not rotate empty log files</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q9" value="1">
+            <span>Rotate only empty log files</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q9" value="2">
+            <span>Delete empty directories</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q9" value="3">
+            <span>Create empty logs every minute</span>
+          </label>
+        
+        </div>
+        <div class="explanation" id="explain9">
+          <strong>Explanation:</strong> `notifempty` prevents rotation of empty log files.
+        </div>
+      </div>
+    
+      <div class="question-card" id="card10">
+        <div class="question-top">
+          <span class="question-number">Question 11</span>
+          <span class="status-pill" id="pill10">Not answered</span>
+        </div>
+        <h3>What does `create 0640 root root` mean?</h3>
+        <div class="options">
+          
+          <label class="option">
+            <input type="radio" name="q10" value="0">
+            <span>Create a new log file with permission 0640, owner root, and group root</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q10" value="1">
+            <span>Create 640 copies of the log</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q10" value="2">
+            <span>Create a new root user</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q10" value="3">
+            <span>Set the log size to 640 MB</span>
+          </label>
+        
+        </div>
+        <div class="explanation" id="explain10">
+          <strong>Explanation:</strong> The `create` option creates a fresh log after rotation with specified permissions, owner, and group.
+        </div>
+      </div>
+    
+      <div class="question-card" id="card11">
+        <div class="question-top">
+          <span class="question-number">Question 12</span>
+          <span class="status-pill" id="pill11">Not answered</span>
+        </div>
+        <h3>Which command tests logrotate in debug mode without actually rotating logs?</h3>
+        <div class="options">
+          
+          <label class="option">
+            <input type="radio" name="q11" value="0">
+            <span>sudo logrotate -d /etc/logrotate.conf</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q11" value="1">
+            <span>sudo logrotate -f /etc/logrotate.conf</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q11" value="2">
+            <span>sudo logrotate --delete /etc/logrotate.conf</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q11" value="3">
+            <span>sudo systemctl debug logrotate</span>
+          </label>
+        
+        </div>
+        <div class="explanation" id="explain11">
+          <strong>Explanation:</strong> `logrotate -d` runs in debug mode and shows what would happen without making changes.
+        </div>
+      </div>
+    
+      <div class="question-card" id="card12">
+        <div class="question-top">
+          <span class="question-number">Question 13</span>
+          <span class="status-pill" id="pill12">Not answered</span>
+        </div>
+        <h3>Which command forces logrotate to rotate logs immediately?</h3>
+        <div class="options">
+          
+          <label class="option">
+            <input type="radio" name="q12" value="0">
+            <span>sudo logrotate -f /etc/logrotate.conf</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q12" value="1">
+            <span>sudo logrotate -d /etc/logrotate.conf</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q12" value="2">
+            <span>sudo logrotate --dry-run /etc/logrotate.conf</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q12" value="3">
+            <span>sudo journalctl --force-rotate</span>
+          </label>
+        
+        </div>
+        <div class="explanation" id="explain12">
+          <strong>Explanation:</strong> `logrotate -f` forces rotation immediately, even if logrotate does not think rotation is due yet.
+        </div>
+      </div>
+    
+      <div class="question-card" id="card13">
+        <div class="question-top">
+          <span class="question-number">Question 14</span>
+          <span class="status-pill" id="pill13">Not answered</span>
+        </div>
+        <h3>Where does logrotate commonly store its status file?</h3>
+        <div class="options">
+          
+          <label class="option">
+            <input type="radio" name="q13" value="0">
+            <span>/var/lib/logrotate/status</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q13" value="1">
+            <span>/etc/logrotate/status</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q13" value="2">
+            <span>/var/log/status</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q13" value="3">
+            <span>/home/logrotate/status</span>
+          </label>
+        
+        </div>
+        <div class="explanation" id="explain13">
+          <strong>Explanation:</strong> logrotate commonly uses `/var/lib/logrotate/status` to track when logs were last rotated.
+        </div>
+      </div>
+    
+      <div class="question-card" id="card14">
+        <div class="question-top">
+          <span class="question-number">Question 15</span>
+          <span class="status-pill" id="pill14">Not answered</span>
+        </div>
+        <h3>Which option can rotate logs when they reach a certain size?</h3>
+        <div class="options">
+          
+          <label class="option">
+            <input type="radio" name="q14" value="0">
+            <span>size 100M</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q14" value="1">
+            <span>rotate-size daily</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q14" value="2">
+            <span>logsize enable</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q14" value="3">
+            <span>compress 100M</span>
+          </label>
+        
+        </div>
+        <div class="explanation" id="explain14">
+          <strong>Explanation:</strong> `size 100M` tells logrotate to rotate the log when it reaches 100 MB.
+        </div>
+      </div>
+    
+      <div class="question-card" id="card15">
+        <div class="question-top">
+          <span class="question-number">Question 16</span>
+          <span class="status-pill" id="pill15">Not answered</span>
+        </div>
+        <h3>What does the `dateext` option do?</h3>
+        <div class="options">
+          
+          <label class="option">
+            <input type="radio" name="q15" value="0">
+            <span>Adds a date to rotated log file names</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q15" value="1">
+            <span>Deletes logs by date only</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q15" value="2">
+            <span>Changes system date</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q15" value="3">
+            <span>Disables log timestamps</span>
+          </label>
+        
+        </div>
+        <div class="explanation" id="explain15">
+          <strong>Explanation:</strong> `dateext` adds a date suffix to rotated logs, making them easier to identify by date.
+        </div>
+      </div>
+    
+      <div class="question-card" id="card16">
+        <div class="question-top">
+          <span class="question-number">Question 17</span>
+          <span class="status-pill" id="pill16">Not answered</span>
+        </div>
+        <h3>What is the purpose of `copytruncate`?</h3>
+        <div class="options">
+          
+          <label class="option">
+            <input type="radio" name="q16" value="0">
+            <span>Copy the current log to a rotated file and then truncate the original</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q16" value="1">
+            <span>Copy all logs to `/tmp` and delete originals</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q16" value="2">
+            <span>Change ownership of logs</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q16" value="3">
+            <span>Compress active logs without rotating</span>
+          </label>
+        
+        </div>
+        <div class="explanation" id="explain16">
+          <strong>Explanation:</strong> `copytruncate` is useful when an application cannot close and reopen its log file. It keeps the original file path active.
+        </div>
+      </div>
+    
+      <div class="question-card" id="card17">
+        <div class="question-top">
+          <span class="question-number">Question 18</span>
+          <span class="status-pill" id="pill17">Not answered</span>
+        </div>
+        <h3>What is one risk of using `copytruncate`?</h3>
+        <div class="options">
+          
+          <label class="option">
+            <input type="radio" name="q17" value="0">
+            <span>A few log lines can be lost during the copy/truncate moment</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q17" value="1">
+            <span>It always deletes the entire `/var` directory</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q17" value="2">
+            <span>It disables SSH</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q17" value="3">
+            <span>It prevents compression forever</span>
+          </label>
+        
+        </div>
+        <div class="explanation" id="explain17">
+          <strong>Explanation:</strong> During the brief copy and truncate process, some log lines may be written and missed.
+        </div>
+      </div>
+    
+      <div class="question-card" id="card18">
+        <div class="question-top">
+          <span class="question-number">Question 19</span>
+          <span class="status-pill" id="pill18">Not answered</span>
+        </div>
+        <h3>What is `postrotate` used for?</h3>
+        <div class="options">
+          
+          <label class="option">
+            <input type="radio" name="q18" value="0">
+            <span>Running commands after log rotation</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q18" value="1">
+            <span>Running commands before Linux boots</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q18" value="2">
+            <span>Deleting all rotated logs immediately</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q18" value="3">
+            <span>Disabling logrotate</span>
+          </label>
+        
+        </div>
+        <div class="explanation" id="explain18">
+          <strong>Explanation:</strong> `postrotate` is used to run commands after log rotation, such as reloading a service.
+        </div>
+      </div>
+    
+      <div class="question-card" id="card19">
+        <div class="question-top">
+          <span class="question-number">Question 20</span>
+          <span class="status-pill" id="pill19">Not answered</span>
+        </div>
+        <h3>Why might a service need to be reloaded after log rotation?</h3>
+        <div class="options">
+          
+          <label class="option">
+            <input type="radio" name="q19" value="0">
+            <span>So the service closes the old log file and starts writing to the new one</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q19" value="1">
+            <span>So the service stops permanently</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q19" value="2">
+            <span>So all users are logged out</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q19" value="3">
+            <span>So package cache is deleted</span>
+          </label>
+        
+        </div>
+        <div class="explanation" id="explain19">
+          <strong>Explanation:</strong> Some services need reload signals after rotation so they reopen their log files correctly.
+        </div>
+      </div>
+    
+      <div class="question-card" id="card20">
+        <div class="question-top">
+          <span class="question-number">Question 21</span>
+          <span class="status-pill" id="pill20">Not answered</span>
+        </div>
+        <h3>Which command checks whether a logrotate systemd timer exists?</h3>
+        <div class="options">
+          
+          <label class="option">
+            <input type="radio" name="q20" value="0">
+            <span>systemctl list-timers | grep logrotate</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q20" value="1">
+            <span>journalctl list-logrotate</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q20" value="2">
+            <span>logrotate --timer-status</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q20" value="3">
+            <span>ps -p logrotate.timer</span>
+          </label>
+        
+        </div>
+        <div class="explanation" id="explain20">
+          <strong>Explanation:</strong> `systemctl list-timers | grep logrotate` checks if logrotate is scheduled through a systemd timer.
+        </div>
+      </div>
+    
+      <div class="question-card" id="card21">
+        <div class="question-top">
+          <span class="question-number">Question 22</span>
+          <span class="status-pill" id="pill21">Not answered</span>
+        </div>
+        <h3>Which command can find log files larger than 100 MB?</h3>
+        <div class="options">
+          
+          <label class="option">
+            <input type="radio" name="q21" value="0">
+            <span>sudo find /var/log -type f -size +100M -exec ls -lh {} \;</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q21" value="1">
+            <span>sudo logrotate --find-large 100M</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q21" value="2">
+            <span>sudo ls -R /var/log --big</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q21" value="3">
+            <span>sudo df -h /var/log</span>
+          </label>
+        
+        </div>
+        <div class="explanation" id="explain21">
+          <strong>Explanation:</strong> The `find` command searches files larger than 100 MB and lists them with details.
+        </div>
+      </div>
+    
+      <div class="question-card" id="card22">
+        <div class="question-top">
+          <span class="question-number">Question 23</span>
+          <span class="status-pill" id="pill22">Not answered</span>
+        </div>
+        <h3>Why should you avoid blindly deleting an active log file?</h3>
+        <div class="options">
+          
+          <label class="option">
+            <input type="radio" name="q22" value="0">
+            <span>The service may still write to the deleted file handle, and disk space may not free immediately</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q22" value="1">
+            <span>It always improves performance</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q22" value="2">
+            <span>It automatically rotates logs</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q22" value="3">
+            <span>It creates new users</span>
+          </label>
+        
+        </div>
+        <div class="explanation" id="explain22">
+          <strong>Explanation:</strong> A process can keep writing to a deleted file through an open file handle until the service is restarted or the handle is closed.
+        </div>
+      </div>
+    
+      <div class="question-card" id="card23">
+        <div class="question-top">
+          <span class="question-number">Question 24</span>
+          <span class="status-pill" id="pill23">Not answered</span>
+        </div>
+        <h3>Which is a good long-term solution for a 5 GB application log?</h3>
+        <div class="options">
+          
+          <label class="option">
+            <input type="radio" name="q23" value="0">
+            <span>Create a proper logrotate rule with compression and retention</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q23" value="1">
+            <span>Run `sudo rm -rf /var/log` every hour</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q23" value="2">
+            <span>Disable the application permanently</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q23" value="3">
+            <span>Change `/var/log` permission to 777</span>
+          </label>
+        
+        </div>
+        <div class="explanation" id="explain23">
+          <strong>Explanation:</strong> A proper logrotate rule controls log size, keeps a limited history, compresses old logs, and prevents repeated disk issues.
+        </div>
+      </div>
+    
+      <div class="question-card" id="card24">
+        <div class="question-top">
+          <span class="question-number">Question 25</span>
+          <span class="status-pill" id="pill24">Not answered</span>
+        </div>
+        <h3>Which statement is correct about logrotate?</h3>
+        <div class="options">
+          
+          <label class="option">
+            <input type="radio" name="q24" value="0">
+            <span>It is a production-friendly way to manage growing logs safely</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q24" value="1">
+            <span>It is used only for creating partitions</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q24" value="2">
+            <span>It replaces all backup tools</span>
+          </label>
+        
+          <label class="option">
+            <input type="radio" name="q24" value="3">
+            <span>It should only be used on Windows</span>
+          </label>
+        
+        </div>
+        <div class="explanation" id="explain24">
+          <strong>Explanation:</strong> logrotate is widely used in Linux production systems to manage growing logs safely and automatically.
+        </div>
+      </div>
+    
+    </section>
+
+    <div class="controls">
+      <button class="btn-primary" onclick="checkAnswers()">Check Answers</button>
+      <button class="btn-secondary" onclick="showExplanations()">Show Explanations</button>
+      <button class="btn-danger" onclick="resetQuiz()">Reset Quiz</button>
+    </div>
+
+    <p class="footer-note">
+      Study Tip: Practice with <code>/etc/logrotate.conf</code>, <code>/etc/logrotate.d/</code>, and <code>sudo logrotate -d</code> in your Linux lab.
+    </p>
+  </main>
+
+  <script>
+    const answers = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    const totalQuestions = answers.length;
+    let totalSeconds = 20 * 60;
+    let timerInterval;
+
+    function startTimer() {
+      timerInterval = setInterval(() => {
+        if (totalSeconds <= 0) {
+          clearInterval(timerInterval);
+          checkAnswers();
+          return;
+        }
+        totalSeconds--;
+        updateTimer();
+      }, 1000);
+    }
+
+    function updateTimer() {
+      const minutes = Math.floor(totalSeconds / 60);
+      const seconds = totalSeconds % 60;
+      document.getElementById("timer").textContent =
+        String(minutes).padStart(2, "0") + ":" + String(seconds).padStart(2, "0");
+    }
+
+    function updateAnsweredCount() {
+      let answered = 0;
+      for (let i = 0; i < totalQuestions; i++) {
+        if (document.querySelector(`input[name="q${i}"]:checked`)) {
+          answered++;
+        }
+      }
+      document.getElementById("answeredCount").textContent = answered;
+    }
+
+    document.addEventListener("change", updateAnsweredCount);
+
+    function checkAnswers() {
+      let score = 0;
+
+      for (let i = 0; i < totalQuestions; i++) {
+        const selected = document.querySelector(`input[name="q${i}"]:checked`);
+        const options = document.querySelectorAll(`input[name="q${i}"]`);
+        const pill = document.getElementById(`pill${i}`);
+        const explanation = document.getElementById(`explain${i}`);
+
+        options.forEach((input) => {
+          input.parentElement.classList.remove("correct-answer", "wrong-answer");
+        });
+
+        options[answers[i]].parentElement.classList.add("correct-answer");
+
+        if (selected) {
+          if (parseInt(selected.value) === answers[i]) {
+            score++;
+            pill.textContent = "Correct";
+            pill.className = "status-pill correct";
+          } else {
+            selected.parentElement.classList.add("wrong-answer");
+            pill.textContent = "Wrong";
+            pill.className = "status-pill wrong";
+          }
+        } else {
+          pill.textContent = "Not answered";
+          pill.className = "status-pill wrong";
+        }
+
+        explanation.style.display = "block";
+      }
+
+      document.getElementById("scoreDisplay").textContent = score + "/" + totalQuestions;
+
+      const percentage = Math.round((score / totalQuestions) * 100);
+      const resultBox = document.getElementById("resultBox");
+      const resultTitle = document.getElementById("resultTitle");
+      const resultMessage = document.getElementById("resultMessage");
+
+      resultBox.style.display = "block";
+      resultTitle.textContent = `Your Score: ${score}/${totalQuestions} (${percentage}%)`;
+
+      if (percentage >= 90) {
+        resultMessage.textContent = "Excellent work. You understand logrotate very well.";
+      } else if (percentage >= 75) {
+        resultMessage.textContent = "Good job. Review the missed explanations and practice the commands.";
+      } else if (percentage >= 50) {
+        resultMessage.textContent = "Nice effort. Focus more on options like rotate, compress, create, copytruncate, and postrotate.";
+      } else {
+        resultMessage.textContent = "Keep practicing. Review logrotate basics, config files, and troubleshooting commands again.";
+      }
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function showExplanations() {
+      for (let i = 0; i < totalQuestions; i++) {
+        document.getElementById(`explain${i}`).style.display = "block";
+      }
+    }
+
+    function resetQuiz() {
+      const allInputs = document.querySelectorAll("input[type='radio']");
+      allInputs.forEach(input => {
+        input.checked = false;
+        input.parentElement.classList.remove("correct-answer", "wrong-answer");
+      });
+
+      for (let i = 0; i < totalQuestions; i++) {
+        const pill = document.getElementById(`pill${i}`);
+        pill.textContent = "Not answered";
+        pill.className = "status-pill";
+        document.getElementById(`explain${i}`).style.display = "none";
+      }
+
+      document.getElementById("answeredCount").textContent = "0";
+      document.getElementById("scoreDisplay").textContent = "0";
+      document.getElementById("resultBox").style.display = "none";
+
+      totalSeconds = 20 * 60;
+      updateTimer();
+      clearInterval(timerInterval);
+      startTimer();
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    updateTimer();
+    startTimer();
+  </script>
+</body>
+</html>
