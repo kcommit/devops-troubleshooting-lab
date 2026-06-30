@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NFS WSL Lab MCQ Quiz</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #111827;
+      --card2: #1f2937;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --accent: #38bdf8;
+      --good: #22c55e;
+      --bad: #ef4444;
+      --warn: #f59e0b;
+      --border: rgba(255,255,255,0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(56, 189, 248, 0.18), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(34, 197, 94, 0.12), transparent 30%),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    header {
+      padding: 28px;
+      background: rgba(17, 24, 39, 0.86);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      box-shadow: 0 18px 50px rgba(0,0,0,0.25);
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: clamp(28px, 4vw, 44px);
+      color: #ffffff;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      margin: 0;
+      font-size: 17px;
+    }
+
+    .info-bar {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin: 18px 0;
+    }
+
+    .info-card {
+      background: rgba(31, 41, 55, 0.86);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 16px;
+      text-align: center;
+    }
+
+    .info-card strong {
+      display: block;
+      font-size: 26px;
+      color: var(--accent);
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 18px 0 8px;
+    }
+
+    button {
+      border: 0;
+      border-radius: 12px;
+      padding: 12px 18px;
+      font-weight: 700;
+      cursor: pointer;
+      color: #06121f;
+      background: var(--accent);
+      transition: transform 0.15s ease, opacity 0.15s ease;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      opacity: 0.92;
+    }
+
+    button.secondary {
+      background: #e5e7eb;
+    }
+
+    button.danger {
+      background: var(--bad);
+      color: white;
+    }
+
+    .question-card {
+      background: rgba(17, 24, 39, 0.88);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 20px;
+      margin: 16px 0;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+    }
+
+    .question-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .options {
+      display: grid;
+      gap: 10px;
+    }
+
+    label.option {
+      display: block;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: rgba(31, 41, 55, 0.72);
+      cursor: pointer;
+      transition: background 0.15s ease, border 0.15s ease;
+    }
+
+    label.option:hover {
+      background: rgba(55, 65, 81, 0.9);
+      border-color: rgba(56, 189, 248, 0.5);
+    }
+
+    input[type="radio"] {
+      margin-right: 10px;
+      transform: scale(1.15);
+    }
+
+    .feedback {
+      display: none;
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: rgba(15, 23, 42, 0.75);
+    }
+
+    .feedback.correct {
+      border-color: rgba(34, 197, 94, 0.65);
+      color: #bbf7d0;
+    }
+
+    .feedback.incorrect {
+      border-color: rgba(239, 68, 68, 0.65);
+      color: #fecaca;
+    }
+
+    .correct-answer {
+      border-color: rgba(34, 197, 94, 0.8) !important;
+      background: rgba(34, 197, 94, 0.12) !important;
+    }
+
+    .wrong-answer {
+      border-color: rgba(239, 68, 68, 0.8) !important;
+      background: rgba(239, 68, 68, 0.12) !important;
+    }
+
+    .result {
+      display: none;
+      margin-top: 18px;
+      padding: 22px;
+      background: rgba(31, 41, 55, 0.9);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      text-align: center;
+    }
+
+    .result h2 {
+      margin-top: 0;
+      font-size: 30px;
+    }
+
+    .progress-wrap {
+      margin-top: 14px;
+      height: 12px;
+      background: rgba(255,255,255,0.12);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), var(--good));
+      transition: width 0.3s ease;
+    }
+
+    .note {
+      color: var(--muted);
+      font-size: 14px;
+      margin-top: 10px;
+    }
+
+    footer {
+      color: var(--muted);
+      text-align: center;
+      padding: 24px 0;
+    }
+
+    @media (max-width: 720px) {
+      .info-bar {
+        grid-template-columns: 1fr;
+      }
+
+      .container {
+        padding: 14px;
+      }
+
+      header {
+        padding: 20px;
+      }
+    }
+
+    @media print {
+      body {
+        background: white;
+        color: black;
+      }
+
+      header, .question-card, .result {
+        background: white;
+        color: black;
+        box-shadow: none;
+      }
+
+      button, .controls {
+        display: none;
+      }
+
+      .feedback {
+        display: block;
+        color: black;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>NFS WSL Lab MCQ Quiz</h1>
+      <p class="subtitle">25 questions based on your Ubuntu WSL NFS Server + AlmaLinux WSL NFS Client lab.</p>
+
+      <div class="info-bar">
+        <div class="info-card">
+          <span>Score</span>
+          <strong id="scoreBox">0/25</strong>
+        </div>
+        <div class="info-card">
+          <span>Timer</span>
+          <strong id="timer">25:00</strong>
+        </div>
+        <div class="info-card">
+          <span>Status</span>
+          <strong id="statusBox">Ready</strong>
+        </div>
+      </div>
+
+      <div class="progress-wrap">
+        <div class="progress" id="progressBar"></div>
+      </div>
+
+      <div class="controls">
+        <button onclick="checkAnswers()">Check Answers</button>
+        <button class="secondary" onclick="showAllExplanations()">Show Explanations</button>
+        <button class="danger" onclick="resetQuiz()">Reset Quiz</button>
+      </div>
+
+      <p class="note">Tip: Answer all questions first, then click “Check Answers.” The timer starts automatically.</p>
+    </header>
+
+    <main id="quiz"></main>
+
+    <section class="result" id="resultBox">
+      <h2 id="resultTitle">Result</h2>
+      <p id="resultText"></p>
+    </section>
+
+    <footer>
+      NFS Study Quiz | Ubuntu WSL Server + AlmaLinux WSL Client | Created for Linux System Administration practice
+    </footer>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        q: "What does NFS stand for?",
+        options: ["Network File System", "New File Security", "Node File Service", "Network Firewall Service"],
+        answer: 0,
+        exp: "NFS stands for Network File System. It allows Linux systems to share directories over a network."
+      },
+      {
+        q: "In your lab, which WSL distro worked as the NFS server?",
+        options: ["AlmaLinux-9", "Ubuntu-24.04", "FedoraLinux-44", "Debian"],
+        answer: 1,
+        exp: "Ubuntu-24.04 WSL was the NFS server because it exported /nfs/share using nfs-kernel-server."
+      },
+      {
+        q: "In your lab, which WSL distro worked as the NFS client?",
+        options: ["Ubuntu-24.04", "Docker Desktop", "AlmaLinux-9", "Windows PowerShell"],
+        answer: 2,
+        exp: "AlmaLinux-9 WSL was the NFS client because it mounted the Ubuntu NFS share at /mnt/nfs-share."
+      },
+      {
+        q: "Which package is used to install the NFS server on Ubuntu?",
+        options: ["nfs-utils", "nfs-common", "nfs-kernel-server", "nfs-server-client"],
+        answer: 2,
+        exp: "On Ubuntu, the NFS server package is nfs-kernel-server."
+      },
+      {
+        q: "Which package is used for NFS client tools on AlmaLinux?",
+        options: ["nfs-utils", "nfs-kernel-server", "apt-nfs", "showmount-server"],
+        answer: 0,
+        exp: "On AlmaLinux/RHEL-based systems, nfs-utils provides NFS client tools such as showmount and mount.nfs."
+      },
+      {
+        q: "What was the shared directory on the Ubuntu NFS server?",
+        options: ["/mnt/nfs-share", "/etc/exports", "/nfs/share", "/var/nfs-client"],
+        answer: 2,
+        exp: "The real shared directory on the Ubuntu server was /nfs/share."
+      },
+      {
+        q: "What was the client-side mount point on AlmaLinux?",
+        options: ["/nfs/share", "/mnt/nfs-share", "/etc/fstab", "/home/khan/nfs"],
+        answer: 1,
+        exp: "The AlmaLinux client mounted the NFS share at /mnt/nfs-share."
+      },
+      {
+        q: "Which file is the main NFS export configuration file on the server?",
+        options: ["/etc/fstab", "/etc/passwd", "/etc/exports", "/etc/nfs-client.conf"],
+        answer: 2,
+        exp: "/etc/exports is the main configuration file where NFS shared directories are defined."
+      },
+      {
+        q: "Which command reloads and applies NFS exports?",
+        options: ["sudo exports -rav", "sudo exportfs -rav", "sudo systemctl -rav", "sudo mount -rav"],
+        answer: 1,
+        exp: "The correct command is sudo exportfs -rav. exports is not a command."
+      },
+      {
+        q: "What does this export line mean: /nfs/share *(rw,sync,no_subtree_check)?",
+        options: [
+          "Share /mnt/nfs-share with read-only access",
+          "Share /nfs/share with all clients using read/write access",
+          "Mount /nfs/share permanently",
+          "Disable NFS access"
+        ],
+        answer: 1,
+        exp: "The * allows all clients, rw allows read/write, sync enables safer writes, and no_subtree_check avoids subtree checking issues."
+      },
+      {
+        q: "What does rw mean in /etc/exports?",
+        options: ["Restart workflow", "Read/write", "Remote Windows", "Root warning"],
+        answer: 1,
+        exp: "rw means clients are allowed to read and write to the exported directory."
+      },
+      {
+        q: "What does sync mean in an NFS export option?",
+        options: [
+          "The server safely writes data before confirming",
+          "The client never writes data",
+          "The server stops the NFS service",
+          "The directory is read-only"
+        ],
+        answer: 0,
+        exp: "sync means the server writes data safely before replying to the client."
+      },
+      {
+        q: "Which command shows the NFS shares exported by a server?",
+        options: ["mount -a SERVER_IP", "showmount -e SERVER_IP", "df -h SERVER_IP", "cat /etc/passwd"],
+        answer: 1,
+        exp: "showmount -e SERVER_IP shows the export list from an NFS server."
+      },
+      {
+        q: "Which command confirmed that Ubuntu could see its own NFS export?",
+        options: ["showmount -e localhost", "sudo dnf install nfs-utils", "cat /etc/shadow", "hostnamectl set-hostname"],
+        answer: 0,
+        exp: "showmount -e localhost confirmed the Ubuntu server could see its own exported share."
+      },
+      {
+        q: "What was your Ubuntu NFS server IP in the successful lab?",
+        options: ["192.168.1.1", "10.0.0.5", "172.27.100.62", "127.0.1.100"],
+        answer: 2,
+        exp: "The Ubuntu WSL server IP shown by ip -4 addr show eth0 was 172.27.100.62."
+      },
+      {
+        q: "Which command mounted the NFS share on AlmaLinux?",
+        options: [
+          "sudo mount -t nfs 172.27.100.62:/nfs/share /mnt/nfs-share",
+          "sudo exportfs -rav /mnt/nfs-share",
+          "sudo apt install nfs-kernel-server",
+          "showmount -e localhost:/nfs/share"
+        ],
+        answer: 0,
+        exp: "The mount command attaches the server export 172.27.100.62:/nfs/share to the client mount point /mnt/nfs-share."
+      },
+      {
+        q: "Which command confirmed the NFS mount using disk usage output?",
+        options: ["ip addr", "df -h | grep nfs", "sudo exportfs -v", "cat /etc/exports"],
+        answer: 1,
+        exp: "df -h | grep nfs showed the mounted NFS share on /mnt/nfs-share."
+      },
+      {
+        q: "Which command confirmed that the mounted filesystem type was nfs4?",
+        options: ["mount | grep nfs", "ls -l /etc/exports", "sudo passwd khan", "dnf repolist"],
+        answer: 0,
+        exp: "mount | grep nfs showed the mounted NFS share and type nfs4."
+      },
+      {
+        q: "Why did ping fail first on AlmaLinux with 'socket: Operation not permitted'?",
+        options: [
+          "NFS server was deleted",
+          "The normal user did not have permission to create the ping socket",
+          "The IP address was a Windows IP",
+          "The /etc/exports file was missing"
+        ],
+        answer: 1,
+        exp: "In AlmaLinux WSL, ping required sudo because the normal user lacked socket permission."
+      },
+      {
+        q: "What fixed the AlmaLinux ping permission issue?",
+        options: ["sudo ping -c 4 172.27.100.62", "sudo exportfs -rav", "sudo vim /etc/exports", "sudo umount /nfs/share"],
+        answer: 0,
+        exp: "Using sudo ping allowed AlmaLinux to send ICMP packets successfully."
+      },
+      {
+        q: "What does root_squash do in NFS?",
+        options: [
+          "Deletes root files",
+          "Maps remote client root to an anonymous user like nobody",
+          "Creates a root password",
+          "Disables client write access completely"
+        ],
+        answer: 1,
+        exp: "root_squash prevents remote root from acting as root on the NFS server by mapping it to nobody."
+      },
+      {
+        q: "Why did alma-test.txt show owner as nobody nogroup on Ubuntu?",
+        options: [
+          "The file was corrupted",
+          "AlmaLinux was not mounted",
+          "The client wrote with sudo and root_squash mapped root to nobody",
+          "Ubuntu cannot read AlmaLinux files"
+        ],
+        answer: 2,
+        exp: "Because the file was written with sudo from the client, root_squash mapped remote root to nobody/nogroup on the server."
+      },
+      {
+        q: "Which command creates a test file from AlmaLinux client in the NFS share?",
+        options: [
+          "echo 'Hello from AlmaLinux NFS client' | sudo tee /mnt/nfs-share/alma-test.txt",
+          "sudo exportfs -v /mnt/nfs-share",
+          "sudo mkdir /etc/exports/alma-test.txt",
+          "showmount -e alma-test.txt"
+        ],
+        answer: 0,
+        exp: "This command writes a file into the mounted NFS directory from AlmaLinux."
+      },
+      {
+        q: "Which command verifies the test file on Ubuntu server?",
+        options: [
+          "cat /mnt/nfs-share/alma-test.txt",
+          "cat /nfs/share/alma-test.txt",
+          "cat /etc/fstab",
+          "sudo dnf install nfs-utils"
+        ],
+        answer: 1,
+        exp: "The real server-side file location is /nfs/share/alma-test.txt."
+      },
+      {
+        q: "What is the best description of your completed NFS lab?",
+        options: [
+          "Ubuntu mounted AlmaLinux through Samba",
+          "Windows shared a folder using SMB",
+          "Ubuntu exported /nfs/share and AlmaLinux mounted it at /mnt/nfs-share",
+          "AlmaLinux exported /etc/passwd to Ubuntu"
+        ],
+        answer: 2,
+        exp: "The completed lab used Ubuntu as the NFS server and AlmaLinux as the NFS client."
+      }
+    ];
+
+    let totalSeconds = 25 * 60;
+    let timerInterval;
+    let checked = false;
+
+    function startTimer() {
+      timerInterval = setInterval(() => {
+        if (totalSeconds <= 0) {
+          clearInterval(timerInterval);
+          document.getElementById("statusBox").textContent = "Time Up";
+          checkAnswers();
+          return;
+        }
+        totalSeconds--;
+        const minutes = Math.floor(totalSeconds / 60);
+        const seconds = totalSeconds % 60;
+        document.getElementById("timer").textContent =
+          String(minutes).padStart(2, "0") + ":" + String(seconds).padStart(2, "0");
+      }, 1000);
+    }
+
+    function renderQuiz() {
+      const quiz = document.getElementById("quiz");
+      quiz.innerHTML = "";
+
+      questions.forEach((item, index) => {
+        const card = document.createElement("section");
+        card.className = "question-card";
+        card.id = `qcard-${index}`;
+
+        const title = document.createElement("div");
+        title.className = "question-title";
+        title.textContent = `${index + 1}. ${item.q}`;
+        card.appendChild(title);
+
+        const optionsDiv = document.createElement("div");
+        optionsDiv.className = "options";
+
+        item.options.forEach((opt, optIndex) => {
+          const label = document.createElement("label");
+          label.className = "option";
+          label.id = `q${index}-opt${optIndex}`;
+
+          const input = document.createElement("input");
+          input.type = "radio";
+          input.name = `q${index}`;
+          input.value = optIndex;
+
+          label.appendChild(input);
+          label.appendChild(document.createTextNode(opt));
+          optionsDiv.appendChild(label);
+        });
+
+        card.appendChild(optionsDiv);
+
+        const feedback = document.createElement("div");
+        feedback.className = "feedback";
+        feedback.id = `feedback-${index}`;
+        feedback.textContent = item.exp;
+        card.appendChild(feedback);
+
+        quiz.appendChild(card);
+      });
+    }
+
+    function checkAnswers() {
+      if (checked) return;
+      checked = true;
+      clearInterval(timerInterval);
+
+      let score = 0;
+
+      questions.forEach((item, index) => {
+        const selected = document.querySelector(`input[name="q${index}"]:checked`);
+        const feedback = document.getElementById(`feedback-${index}`);
+        const correctLabel = document.getElementById(`q${index}-opt${item.answer}`);
+
+        correctLabel.classList.add("correct-answer");
+
+        if (selected) {
+          const selectedIndex = Number(selected.value);
+          if (selectedIndex === item.answer) {
+            score++;
+            feedback.classList.add("correct");
+            feedback.innerHTML = `<strong>Correct.</strong> ${item.exp}`;
+          } else {
+            const wrongLabel = document.getElementById(`q${index}-opt${selectedIndex}`);
+            wrongLabel.classList.add("wrong-answer");
+            feedback.classList.add("incorrect");
+            feedback.innerHTML = `<strong>Incorrect.</strong> Correct answer: <strong>${item.options[item.answer]}</strong><br>${item.exp}`;
+          }
+        } else {
+          feedback.classList.add("incorrect");
+          feedback.innerHTML = `<strong>Not answered.</strong> Correct answer: <strong>${item.options[item.answer]}</strong><br>${item.exp}`;
+        }
+
+        feedback.style.display = "block";
+      });
+
+      const percent = Math.round((score / questions.length) * 100);
+      document.getElementById("scoreBox").textContent = `${score}/${questions.length}`;
+      document.getElementById("statusBox").textContent = "Completed";
+      document.getElementById("progressBar").style.width = `${percent}%`;
+
+      const resultBox = document.getElementById("resultBox");
+      const resultTitle = document.getElementById("resultTitle");
+      const resultText = document.getElementById("resultText");
+
+      resultBox.style.display = "block";
+
+      if (percent >= 90) {
+        resultTitle.textContent = "Excellent Work!";
+        resultText.textContent = `You scored ${score}/${questions.length} (${percent}%). You understand the NFS lab very well.`;
+      } else if (percent >= 70) {
+        resultTitle.textContent = "Good Job!";
+        resultText.textContent = `You scored ${score}/${questions.length} (${percent}%). Review the missed explanations once more.`;
+      } else {
+        resultTitle.textContent = "Keep Practicing";
+        resultText.textContent = `You scored ${score}/${questions.length} (${percent}%). Revisit /etc/exports, exportfs, showmount, mount, and root_squash.`;
+      }
+
+      resultBox.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+
+    function showAllExplanations() {
+      questions.forEach((item, index) => {
+        const feedback = document.getElementById(`feedback-${index}`);
+        feedback.style.display = "block";
+        feedback.innerHTML = `<strong>Explanation:</strong> ${item.exp}`;
+      });
+    }
+
+    function resetQuiz() {
+      clearInterval(timerInterval);
+      totalSeconds = 25 * 60;
+      checked = false;
+      document.getElementById("timer").textContent = "25:00";
+      document.getElementById("scoreBox").textContent = "0/25";
+      document.getElementById("statusBox").textContent = "Ready";
+      document.getElementById("progressBar").style.width = "0%";
+      document.getElementById("resultBox").style.display = "none";
+      renderQuiz();
+      startTimer();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    renderQuiz();
+    startTimer();
+  </script>
+</body>
+</html>
