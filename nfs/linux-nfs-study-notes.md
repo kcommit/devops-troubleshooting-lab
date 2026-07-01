@@ -92,6 +92,9 @@ Client uses it like a local folder.
 
 # 6. NFS Server Setup
 
+Note:
+> Before starting the setup, check network connectivity between both servers using ping.
+
 The following example uses a Linux machine as the NFS server.
 
 ## Step 1: Install NFS Package
@@ -709,3 +712,392 @@ Main commands:
 
 > **NFS is a Linux network file-sharing system where one server exports a directory and clients mount it like a local folder.**
 
+---
+
+# 19. NFS Issue and Solution: Different Results in `/mnt/nfs-share`
+
+## Topic
+
+NFS mounted folder looked like it was **not syncing**, but after running `pwd`, `pwd -P`, and entering the mount point again, the files appeared correctly.
+
+---
+
+## Lab Context
+
+In this lab, NFS was configured like this:
+
+| Machine | Role | Path |
+|---|---|---|
+| NFS Server | Shares directory | `/nfs/share` |
+| NFS Client | Mounts server share | `/mnt/nfs-share` |
+
+The client mounted the server directory using NFS:
+
+```bash
+192.168.1.251:/nfs/share  ->  /mnt/nfs-share
+```
+
+---
+
+## The Confusion
+
+On the client, this command showed files from the NFS share:
+
+```bash
+ls -l /mnt/nfs-share/
+```
+
+Example output:
+
+```text
+total 8
+-rw-r--r--. 1 root root 14 Jul  1 08:23 server-file-2.txt
+-rw-r--r--. 1 root root 12 Jul  1 08:14 server-file.txt
+-rw-r--r--. 1 root root  0 Jul  1 08:00 server.txt
+```
+
+But then this command showed a different result:
+
+```bash
+ll
+```
+
+Example earlier output:
+
+```text
+total 4
+-rw-r--r--. 1 root root 4 Jul  1 08:13 abc.txt
+```
+
+This made it look like NFS was **not syncing**.
+
+---
+
+## Why the Results Were Different
+
+The command:
+
+```bash
+ls -l /mnt/nfs-share/
+```
+
+checks this exact directory:
+
+```text
+/mnt/nfs-share
+```
+
+But the command:
+
+```bash
+ll
+```
+
+is only an alias for:
+
+```bash
+ls -l
+```
+
+It checks the **current directory** where you are standing.
+
+So if you are not really inside:
+
+```text
+/mnt/nfs-share
+```
+
+then `ll` can show different files.
+
+---
+
+## Important Difference
+
+| Command | What it checks |
+|---|---|
+| `ls -l /mnt/nfs-share/` | Exact NFS mount directory |
+| `ll` | Current directory only |
+| `pwd` | Shows current directory path |
+| `pwd -P` | Shows real physical path, resolving symbolic links |
+| `findmnt /mnt/nfs-share` | Confirms whether the directory is an NFS mount |
+
+---
+
+## The Fix
+
+The issue was solved by confirming the real location and entering the mount point again.
+
+Commands used:
+
+```bash
+pwd
+pwd -P
+cd /
+cd /mnt/nfs-share/
+ls -l
+```
+
+Output:
+
+```text
+[root@LabPractice nfs-share]# pwd
+/mnt/nfs-share
+
+[root@LabPractice nfs-share]# pwd -P
+/mnt/nfs-share
+
+[root@LabPractice nfs-share]# cd /
+
+[root@LabPractice /]# cd /mnt/nfs-share/
+
+[root@LabPractice nfs-share]# ls -l
+total 8
+-rw-r--r--. 1 root root 14 Jul  1 08:23 server-file-2.txt
+-rw-r--r--. 1 root root 12 Jul  1 08:14 server-file.txt
+-rw-r--r--. 1 root root  0 Jul  1 08:00 server.txt
+```
+
+Now the result is correct because the command is being run from the real NFS mount directory:
+
+```text
+/mnt/nfs-share
+```
+
+---
+
+## Why It Looked Like Sync After These Commands
+
+It looked like NFS started syncing after these commands, but actually NFS was already working.
+
+The real problem was that the command `ll` may have been run from a different directory before.
+
+After running:
+
+```bash
+cd /
+cd /mnt/nfs-share/
+```
+
+you entered the correct NFS mount path again.
+
+Now:
+
+```bash
+ll
+```
+
+and:
+
+```bash
+ls -l /mnt/nfs-share/
+```
+
+show the same result because both are checking the same directory.
+
+---
+
+## NFS Is Not Copy-Sync
+
+NFS is **not** like:
+
+- `rsync`
+- Google Drive
+- OneDrive
+- Dropbox
+- backup synchronization software
+
+NFS is **shared storage**.
+
+That means the server has the real folder:
+
+```text
+/nfs/share
+```
+
+The client sees that same folder through the mount point:
+
+```text
+/mnt/nfs-share
+```
+
+The client is not keeping a separate copy. It is looking directly at the server share over the network.
+
+---
+
+## What `sync` Means in NFS
+
+In `/etc/exports`, you may see this line:
+
+```bash
+/nfs/share 192.168.1.194(rw,sync,no_subtree_check)
+```
+
+The option:
+
+```text
+sync
+```
+
+does **not** mean folder synchronization.
+
+It means:
+
+```text
+When the client writes data, the NFS server safely writes the data before confirming success.
+```
+
+So `sync` means **safe write confirmation**, not copy synchronization.
+
+---
+
+## Simple Diagram
+
+```text
+NFS Server
+192.168.1.251
+
+Real folder:
+ /nfs/share
+     |
+     | shared by NFS
+     |
+NFS Client
+192.168.1.194
+
+Mounted view:
+ /mnt/nfs-share
+```
+
+Both paths show the same shared data, but they are not two separate folders being synchronized.
+
+---
+
+## Correct Troubleshooting Commands
+
+### On the NFS client
+
+Check current location:
+
+```bash
+pwd
+pwd -P
+```
+
+Check if you are inside the mounted NFS share:
+
+```bash
+findmnt .
+```
+
+Check the NFS mount directly:
+
+```bash
+findmnt /mnt/nfs-share
+```
+
+List the mounted share:
+
+```bash
+ls -l /mnt/nfs-share
+```
+
+Go to the mount point again:
+
+```bash
+cd /
+cd /mnt/nfs-share
+ll
+```
+
+---
+
+## Proper NFS Test
+
+### Step 1: Create file on server
+
+On NFS server:
+
+```bash
+echo "from server" | sudo tee /nfs/share/server-test.txt
+```
+
+### Step 2: Check on client
+
+On NFS client:
+
+```bash
+ls -l /mnt/nfs-share
+cat /mnt/nfs-share/server-test.txt
+```
+
+### Step 3: Create file on client
+
+On NFS client:
+
+```bash
+echo "from client" | sudo tee /mnt/nfs-share/client-test.txt
+```
+
+### Step 4: Check on server
+
+On NFS server:
+
+```bash
+ls -l /nfs/share
+cat /nfs/share/client-test.txt
+```
+
+If both sides can see the files, NFS is working.
+
+---
+
+## Important Warning
+
+If you delete files from the client mount:
+
+```bash
+rm -rf /mnt/nfs-share/*
+```
+
+you are deleting files from the server share:
+
+```text
+/nfs/share
+```
+
+Because NFS is shared storage.
+
+Memory line:
+
+```text
+Deleting from the NFS client mount deletes from the NFS server share.
+```
+
+---
+
+## Final Conclusion
+
+The issue was not NFS sync.
+
+The issue was:
+
+```text
+Different commands were checking different directories.
+```
+
+The solution was:
+
+```bash
+pwd -P
+cd /
+cd /mnt/nfs-share
+ls -l
+```
+
+Final memory line:
+
+```text
+NFS is shared storage, not copy synchronization.
+sync means safe write confirmation.
+Different results usually mean you are checking different directories.
+```
