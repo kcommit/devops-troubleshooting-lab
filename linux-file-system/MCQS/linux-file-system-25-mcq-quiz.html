@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Linux File System MCQ Quiz</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      margin: 0;
+      padding: 20px;
+      color: #222;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      background: #ffffff;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.08);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #555;
+      margin-bottom: 20px;
+    }
+
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      background: #eef3f8;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+
+    .timer {
+      font-size: 18px;
+    }
+
+    .score {
+      font-size: 18px;
+    }
+
+    .question-box {
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 18px;
+      margin-bottom: 18px;
+      background: #fafafa;
+    }
+
+    .question-title {
+      font-weight: bold;
+      margin-bottom: 12px;
+      font-size: 17px;
+    }
+
+    .option {
+      display: block;
+      margin: 8px 0;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      background: #fff;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .option:hover {
+      background: #eef5ff;
+    }
+
+    .option input {
+      margin-right: 8px;
+    }
+
+    .correct {
+      background: #d4edda !important;
+      border-color: #28a745 !important;
+    }
+
+    .wrong {
+      background: #f8d7da !important;
+      border-color: #dc3545 !important;
+    }
+
+    .explanation {
+      display: none;
+      margin-top: 10px;
+      padding: 10px;
+      background: #fff3cd;
+      border-left: 5px solid #ffc107;
+      border-radius: 6px;
+      color: #333;
+    }
+
+    .buttons {
+      text-align: center;
+      margin-top: 25px;
+    }
+
+    button {
+      padding: 12px 22px;
+      margin: 8px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 15px;
+    }
+
+    .submit-btn {
+      background: #007bff;
+      color: white;
+    }
+
+    .reset-btn {
+      background: #6c757d;
+      color: white;
+    }
+
+    .show-btn {
+      background: #198754;
+      color: white;
+    }
+
+    .result {
+      text-align: center;
+      font-size: 22px;
+      font-weight: bold;
+      margin-top: 25px;
+      padding: 18px;
+      border-radius: 10px;
+      display: none;
+    }
+
+    .pass {
+      background: #d4edda;
+      color: #155724;
+    }
+
+    .fail {
+      background: #f8d7da;
+      color: #721c24;
+    }
+
+    code {
+      background: #eee;
+      padding: 2px 5px;
+      border-radius: 4px;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 10px;
+      }
+      .container {
+        padding: 15px;
+      }
+      .top-bar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Linux File System MCQ Quiz</h1>
+    <p class="subtitle">25 Questions | Answer Checking | Score | Timer | Short Explanations</p>
+
+    <div class="top-bar">
+      <div class="timer">Time: <span id="timer">20:00</span></div>
+      <div class="score">Score: <span id="score">0</span> / 25</div>
+      <div>Passing Score: 18 / 25</div>
+    </div>
+
+    <form id="quizForm">
+
+      <div class="question-box">
+        <div class="question-title">1. What is the root directory in Linux?</div>
+        <label class="option"><input type="radio" name="q1" value="A"> A. <code>/home</code></label>
+        <label class="option"><input type="radio" name="q1" value="B"> B. <code>/</code></label>
+        <label class="option"><input type="radio" name="q1" value="C"> C. <code>/root</code></label>
+        <label class="option"><input type="radio" name="q1" value="D"> D. <code>/etc</code></label>
+        <div class="explanation">Correct answer: B. <code>/</code> is the starting point of the entire Linux file system.</div>
+      </div>
+
+      <div class="question-box">
+        <div class="question-title">2. Which directory stores normal users' home directories?</div>
+        <label class="option"><input type="radio" name="q2" value="A"> A. <code>/root</code></label>
+        <label class="option"><input type="radio" name="q2" value="B"> B. <code>/etc</code></label>
+        <label class="option"><input type="radio" name="q2" value="C"> C. <code>/home</code></label>
+        <label class="option"><input type="radio" name="q2" value="D"> D. <code>/bin</code></label>
+        <div class="explanation">Correct answer: C. <code>/home</code> stores normal users' personal directories.</div>
+      </div>
+
+      <div class="question-box">
+        <div class="question-title">3. Which directory is the home directory of the root user?</div>
+        <label class="option"><input type="radio" name="q3" value="A"> A. <code>/home/root</code></label>
+        <label class="option"><input type="radio" name="q3" value="B"> B. <code>/root</code></label>
+        <label class="option"><input type="radio" name="q3" value="C"> C. <code>/admin</code></label>
+        <label class="option"><input type="radio" name="q3" value="D"> D. <code>/etc/root</code></label>
+        <div class="explanation">Correct answer: B. <code>/root</code> is the root user's home directory.</div>
+      </div>
+
+      <div class="question-box">
+        <div class="question-title">4. Which directory stores system and service configuration files?</div>
+        <label class="option"><input type="radio" name="q4" value="A"> A. <code>/etc</code></label>
+        <label class="option"><input type="radio" name="q4" value="B"> B. <code>/var</code></label>
+        <label class="option"><input type="radio" name="q4" value="C"> C. <code>/tmp</code></label>
+        <label class="option"><input type="radio" name="q4" value="D"> D. <code>/mnt</code></label>
+        <div class="explanation">Correct answer: A. <code>/etc</code> contains configuration files.</div>
+      </div>
+
+      <div class="question-box">
+        <div class="question-title">5. Which directory contains essential user commands?</div>
+        <label class="option"><input type="radio" name="q5" value="A"> A. <code>/dev</code></label>
+        <label class="option"><input type="radio" name="q5" value="B"> B. <code>/bin</code></label>
+        <label class="option"><input type="radio" name="q5" value="C"> C. <code>/proc</code></label>
+        <label class="option"><input type="radio" name="q5" value="D"> D. <code>/boot</code></label>
+        <div class="explanation">Correct answer: B. <code>/bin</code> contains essential user commands like <code>ls</code>, <code>cp</code>, and <code>mv</code>.</div>
+      </div>
+
+      <div class="question-box">
+        <div class="question-title">6. Which directory mostly contains system administration commands?</div>
+        <label class="option"><input type="radio" name="q6" value="A"> A. <code>/sbin</code></label>
+        <label class="option"><input type="radio" name="q6" value="B"> B. <code>/media</code></label>
+        <label class="option"><input type="radio" name="q6" value="C"> C. <code>/home</code></label>
+        <label class="option"><input type="radio" name="q6" value="D"> D. <code>/srv</code></label>
+        <div class="explanation">Correct answer: A. <code>/sbin</code> contains admin commands commonly used by root.</div>
+      </div>
+
+      <div class="question-box">
+        <div class="question-title">7. Which directory stores log files?</div>
+        <label class="option"><input type="radio" name="q7" value="A"> A. <code>/var/log</code></label>
+        <label class="option"><input type="radio" name="q7" value="B"> B. <code>/usr/log</code></label>
+        <label class="option"><input type="radio" name="q7" value="C"> C. <code>/etc/log</code></label>
+        <label class="option"><input type="radio" name="q7" value="D"> D. <code>/tmp/log</code></label>
+        <div class="explanation">Correct answer: A. <code>/var/log</code> stores system, service, and application logs.</div>
+      </div>
+
+      <div class="question-box">
+        <div class="question-title">8. Which directory contains device files?</div>
+        <label class="option"><input type="radio" name="q8" value="A"> A. <code>/proc</code></label>
+        <label class="option"><input type="radio" name="q8" value="B"> B. <code>/dev</code></label>
+        <label class="option"><input type="radio" name="q8" value="C"> C. <code>/usr</code></label>
+        <label class="option"><input type="radio" name="q8" value="D"> D. <code>/opt</code></label>
+        <div class="explanation">Correct answer: B. <code>/dev</code> contains device files for disks, terminals, and hardware.</div>
+      </div>
+
+      <div class="question-box">
+        <div class="question-title">9. Which directory stores temporary files?</div>
+        <label class="option"><input type="radio" name="q9" value="A"> A. <code>/tmp</code></label>
+        <label class="option"><input type="radio" name="q9" value="B"> B. <code>/boot</code></label>
+        <label class="option"><input type="radio" name="q9" value="C"> C. <code>/root</code></label>
+        <label class="option"><input type="radio" name="q9" value="D"> D. <code>/lib</code></label>
+        <div class="explanation">Correct answer: A. <code>/tmp</code> is used for temporary files.</div>
+      </div>
+
+      <div class="question-box">
+        <div class="question-title">10. Which directory contains boot-related files?</div>
+        <label class="option"><input type="radio" name="q10" value="A"> A. <code>/etc</code></label>
+        <label class="option"><input type="radio" name="q10" value="B"> B. <code>/boot</code></label>
+        <label class="option"><input type="radio" name="q10" value="C"> C. <code>/var</code></label>
+        <label class="option"><input type="radio" name="q10" value="D"> D. <code>/mnt</code></label>
+        <div class="explanation">Correct answer: B. <code>/boot</code> stores kernel and bootloader files.</div>
+      </div>
+
+      <div class="question-box">
+        <div class="question-title">11. Which directory is commonly used for manual temporary mounting?</div>
+        <label class="option"><input type="radio" name="q11" value="A"> A. <code>/mnt</code></label>
+        <label class="option"><input type="radio" name="q11" value="B"> B. <code>/bin</code></label>
+        <label class="option"><input type="radio" name="q11" value="C"> C. <code>/etc</code></label>
+        <label class="option"><input type="radio" name="q11" value="D"> D. <code>/sys</code></label>
+        <div class="explanation">Correct answer: A. Admins commonly use <code>/mnt</code> for manual mounts.</div>
+      </div>
+
+      <div class="question-box">
+        <div class="question-title">12. Which directory is commonly used for removable media like USB drives?</div>
+        <label class="option"><input type="radio" name="q12" value="A"> A. <code>/srv</code></label>
+        <label class="option"><input type="radio" name="q12" value="B"> B. <code>/media</code></label>
+        <label class="option"><input type="radio" name="q12" value="C"> C. <code>/usr</code></label>
+        <label class="option"><input type="radio" name="q12" value="D"> D. <code>/proc</code></label>
+        <div class="explanation">Correct answer: B. <code>/media</code> is commonly used for removable devices.</div>
+      </div>
+
+      <div class="question-box">
+        <div class="question-title">13. Which command shows the current directory?</div>
+        <label class="option"><input type="radio" name="q13" value="A"> A. <code>ls</code></label>
+        <label class="option"><input type="radio" name="q13" value="B"> B. <code>pwd</code></label>
+        <label class="option"><input type="radio" name="q13" value="C"> C. <code>cd</code></label>
+        <label class="option"><input type="radio" name="q13" value="D"> D. <code>df</code></label>
+        <div class="explanation">Correct answer: B. <code>pwd</code> means print working directory.</div>
+      </div>
+
+      <div class="question-box">
+        <div class="question-title">14. Which command lists files and directories?</div>
+        <label class="option"><input type="radio" name="q14" value="A"> A. <code>ls</code></label>
+        <label class="option"><input type="radio" name="q14" value="B"> B. <code>mkdir</code></label>
+        <label class="option"><input type="radio" name="q14" value="C"> C. <code>touch</code></label>
+        <label class="option"><input type="radio" name="q14" value="D"> D. <code>mount</code></label>
+        <div class="explanation">Correct answer: A. <code>ls</code> lists files and directories.</div>
+      </div>
+
+      <div class="question-box">
+        <div class="question-title">15. Which command creates an empty file?</div>
+        <label class="option"><input type="radio" name="q15" value="A"> A. <code>mkdir</code></label>
+        <label class="option"><input type="radio" name="q15" value="B"> B. <code>touch</code></label>
+        <label class="option"><input type="radio" name="q15" value="C"> C. <code>rm</code></label>
+        <label class="option"><input type="radio" name="q15" value="D"> D. <code>stat</code></label>
+        <div class="explanation">Correct answer: B. <code>touch</code> creates an empty file or updates file timestamps.</div>
+      </div>
+
+      <div class="question-box">
+        <div class="question-title">16. Which command creates a directory?</div>
+        <label class="option"><input type="radio" name="q16" value="A"> A. <code>mkdir</code></label>
+        <label class="option"><input type="radio" name="q16" value="B"> B. <code>cat</code></label>
+        <label class="option"><input type="radio" name="q16" value="C"> C. <code>df</code></label>
+        <label class="option"><input type="radio" name="q16" value="D"> D. <code>chmod</code></label>
+        <div class="explanation">Correct answer: A. <code>mkdir</code> creates directories.</div>
+      </div>
+
+      <div class="question-box">
+        <div class="question-title">17. Which command changes file permissions?</div>
+        <label class="option"><input type="radio" name="q17" value="A"> A. <code>chown</code></label>
+        <label class="option"><input type="radio" name="q17" value="B"> B. <code>chmod</code></label>
+        <label class="option"><input type="radio" name="q17" value="C"> C. <code>chgrp</code></label>
+        <label class="option"><input type="radio" name="q17" value="D"> D. <code>mount</code></label>
+        <div class="explanation">Correct answer: B. <code>chmod</code> changes read, write, and execute permissions.</div>
+      </div>
+
+      <div class="question-box">
+        <div class="question-title">18. Which command changes file owner and group?</div>
+        <label class="option"><input type="radio" name="q18" value="A"> A. <code>chmod</code></label>
+        <label class="option"><input type="radio" name="q18" value="B"> B. <code>df</code></label>
+        <label class="option"><input type="radio" name="q18" value="C"> C. <code>chown</code></label>
+        <label class="option"><input type="radio" name="q18" value="D"> D. <code>lsblk</code></label>
+        <div class="explanation">Correct answer: C. <code>chown</code> changes ownership.</div>
+      </div>
+
+      <div class="question-box">
+        <div class="question-title">19. Which command shows disk usage of mounted file systems?</div>
+        <label class="option"><input type="radio" name="q19" value="A"> A. <code>du</code></label>
+        <label class="option"><input type="radio" name="q19" value="B"> B. <code>df</code></label>
+        <label class="option"><input type="radio" name="q19" value="C"> C. <code>stat</code></label>
+        <label class="option"><input type="radio" name="q19" value="D"> D. <code>file</code></label>
+        <div class="explanation">Correct answer: B. <code>df</code> shows disk usage of mounted file systems.</div>
+      </div>
+
+      <div class="question-box">
+        <div class="question-title">20. Which command shows disk usage of files and directories?</div>
+        <label class="option"><input type="radio" name="q20" value="A"> A. <code>du</code></label>
+        <label class="option"><input type="radio" name="q20" value="B"> B. <code>df</code></label>
+        <label class="option"><input type="radio" name="q20" value="C"> C. <code>lsblk</code></label>
+        <label class="option"><input type="radio" name="q20" value="D"> D. <code>blkid</code></label>
+        <div class="explanation">Correct answer: A. <code>du</code> shows size usage of files and directories.</div>
+      </div>
+
+      <div class="question-box">
+        <div class="question-title">21. Which command shows disks and partitions?</div>
+        <label class="option"><input type="radio" name="q21" value="A"> A. <code>lsblk</code></label>
+        <label class="option"><input type="radio" name="q21" value="B"> B. <code>pwd</code></label>
+        <label class="option"><input type="radio" name="q21" value="C"> C. <code>touch</code></label>
+        <label class="option"><input type="radio" name="q21" value="D"> D. <code>chmod</code></label>
+        <div class="explanation">Correct answer: A. <code>lsblk</code> lists block devices like disks and partitions.</div>
+      </div>
+
+      <div class="question-box">
+        <div class="question-title">22. Which file controls automatic mounting at boot?</div>
+        <label class="option"><input type="radio" name="q22" value="A"> A. <code>/etc/passwd</code></label>
+        <label class="option"><input type="radio" name="q22" value="B"> B. <code>/etc/fstab</code></label>
+        <label class="option"><input type="radio" name="q22" value="C"> C. <code>/etc/hosts</code></label>
+        <label class="option"><input type="radio" name="q22" value="D"> D. <code>/etc/group</code></label>
+        <div class="explanation">Correct answer: B. <code>/etc/fstab</code> controls file systems that mount automatically at boot.</div>
+      </div>
+
+      <div class="question-box">
+        <div class="question-title">23. Which symbol in <code>ls -l</code> output means directory?</div>
+        <label class="option"><input type="radio" name="q23" value="A"> A. <code>-</code></label>
+        <label class="option"><input type="radio" name="q23" value="B"> B. <code>l</code></label>
+        <label class="option"><input type="radio" name="q23" value="C"> C. <code>d</code></label>
+        <label class="option"><input type="radio" name="q23" value="D"> D. <code>s</code></label>
+        <div class="explanation">Correct answer: C. <code>d</code> at the start of <code>ls -l</code> output means directory.</div>
+      </div>
+
+      <div class="question-box">
+        <div class="question-title">24. What does an inode store?</div>
+        <label class="option"><input type="radio" name="q24" value="A"> A. Only file name</label>
+        <label class="option"><input type="radio" name="q24" value="B"> B. File metadata like owner, permissions, size, and timestamps</label>
+        <label class="option"><input type="radio" name="q24" value="C"> C. Only password information</label>
+        <label class="option"><input type="radio" name="q24" value="D"> D. Only command history</label>
+        <div class="explanation">Correct answer: B. An inode stores metadata, not the file name.</div>
+      </div>
+
+      <div class="question-box">
+        <div class="question-title">25. Which option best describes the Linux file system?</div>
+        <label class="option"><input type="radio" name="q25" value="A"> A. It uses C:, D:, and E: drives only</label>
+        <label class="option"><input type="radio" name="q25" value="B"> B. It starts from <code>/</code> and organizes everything under one tree</label>
+        <label class="option"><input type="radio" name="q25" value="C"> C. It stores files only in <code>/home</code></label>
+        <label class="option"><input type="radio" name="q25" value="D"> D. It does not use directories</label>
+        <div class="explanation">Correct answer: B. Linux uses one directory tree starting from <code>/</code>.</div>
+      </div>
+
+      <div class="buttons">
+        <button type="button" class="submit-btn" onclick="checkAnswers()">Submit Quiz</button>
+        <button type="button" class="show-btn" onclick="showAnswers()">Show Answers</button>
+        <button type="button" class="reset-btn" onclick="resetQuiz()">Reset Quiz</button>
+      </div>
+
+    </form>
+
+    <div id="result" class="result"></div>
+  </div>
+
+  <script>
+    const answers = {
+      q1: "B",
+      q2: "C",
+      q3: "B",
+      q4: "A",
+      q5: "B",
+      q6: "A",
+      q7: "A",
+      q8: "B",
+      q9: "A",
+      q10: "B",
+      q11: "A",
+      q12: "B",
+      q13: "B",
+      q14: "A",
+      q15: "B",
+      q16: "A",
+      q17: "B",
+      q18: "C",
+      q19: "B",
+      q20: "A",
+      q21: "A",
+      q22: "B",
+      q23: "C",
+      q24: "B",
+      q25: "B"
+    };
+
+    let totalQuestions = 25;
+    let timeLeft = 20 * 60;
+    let timerInterval;
+
+    function startTimer() {
+      timerInterval = setInterval(() => {
+        let minutes = Math.floor(timeLeft / 60);
+        let seconds = timeLeft % 60;
+
+        document.getElementById("timer").textContent =
+          `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+
+        if (timeLeft <= 0) {
+          clearInterval(timerInterval);
+          checkAnswers();
+          alert("Time is up! Your quiz has been submitted.");
+        }
+
+        timeLeft--;
+      }, 1000);
+    }
+
+    function checkAnswers() {
+      clearInterval(timerInterval);
+
+      let score = 0;
+
+      for (let q in answers) {
+        const selected = document.querySelector(`input[name="${q}"]:checked`);
+        const options = document.querySelectorAll(`input[name="${q}"]`);
+
+        options.forEach(option => {
+          const label = option.parentElement;
+          label.classList.remove("correct", "wrong");
+
+          if (option.value === answers[q]) {
+            label.classList.add("correct");
+          }
+
+          if (selected && option.checked && option.value !== answers[q]) {
+            label.classList.add("wrong");
+          }
+
+          option.disabled = true;
+        });
+
+        const questionBox = document.querySelector(`input[name="${q}"]`).closest(".question-box");
+        const explanation = questionBox.querySelector(".explanation");
+        explanation.style.display = "block";
+
+        if (selected && selected.value === answers[q]) {
+          score++;
+        }
+      }
+
+      document.getElementById("score").textContent = score;
+
+      const result = document.getElementById("result");
+      result.style.display = "block";
+
+      if (score >= 18) {
+        result.className = "result pass";
+        result.innerHTML = `Excellent! You passed. Your score is ${score} / ${totalQuestions}.`;
+      } else {
+        result.className = "result fail";
+        result.innerHTML = `Keep practicing. Your score is ${score} / ${totalQuestions}. Passing score is 18.`;
+      }
+    }
+
+    function showAnswers() {
+      for (let q in answers) {
+        const options = document.querySelectorAll(`input[name="${q}"]`);
+
+        options.forEach(option => {
+          const label = option.parentElement;
+          label.classList.remove("wrong");
+
+          if (option.value === answers[q]) {
+            label.classList.add("correct");
+          }
+        });
+
+        const questionBox = document.querySelector(`input[name="${q}"]`).closest(".question-box");
+        questionBox.querySelector(".explanation").style.display = "block";
+      }
+    }
+
+    function resetQuiz() {
+      clearInterval(timerInterval);
+
+      document.getElementById("quizForm").reset();
+      document.getElementById("score").textContent = "0";
+      document.getElementById("result").style.display = "none";
+
+      document.querySelectorAll(".option").forEach(option => {
+        option.classList.remove("correct", "wrong");
+      });
+
+      document.querySelectorAll(".explanation").forEach(exp => {
+        exp.style.display = "none";
+      });
+
+      document.querySelectorAll("input[type='radio']").forEach(input => {
+        input.disabled = false;
+      });
+
+      timeLeft = 20 * 60;
+      document.getElementById("timer").textContent = "20:00";
+      startTimer();
+    }
+
+    startTimer();
+  </script>
+</body>
+</html>
