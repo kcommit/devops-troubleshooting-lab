@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Advanced Networking MCQs Quiz</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f4f6f8;
+      color: #1f2937;
+      line-height: 1.6;
+    }
+
+    header {
+      background: linear-gradient(135deg, #111827, #374151);
+      color: white;
+      padding: 32px 18px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0 0 8px;
+      font-size: 2rem;
+    }
+
+    header p {
+      margin: 4px auto;
+      max-width: 900px;
+    }
+
+    .container {
+      width: min(1100px, 94%);
+      margin: 22px auto 60px;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .info-card {
+      background: white;
+      padding: 16px;
+      border-radius: 14px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+      text-align: center;
+    }
+
+    .info-card strong {
+      display: block;
+      font-size: 1.4rem;
+      margin-top: 4px;
+    }
+
+    .controls {
+      background: white;
+      padding: 18px;
+      border-radius: 14px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+      margin-bottom: 22px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    button {
+      border: none;
+      padding: 12px 18px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1rem;
+    }
+
+    .primary {
+      background: #2563eb;
+      color: white;
+    }
+
+    .secondary {
+      background: #e5e7eb;
+      color: #111827;
+    }
+
+    .danger {
+      background: #dc2626;
+      color: white;
+    }
+
+    .question-card {
+      background: white;
+      margin-bottom: 18px;
+      padding: 20px;
+      border-radius: 14px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+      border-left: 6px solid #9ca3af;
+    }
+
+    .question-card.correct {
+      border-left-color: #16a34a;
+    }
+
+    .question-card.wrong {
+      border-left-color: #dc2626;
+    }
+
+    .q-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+    }
+
+    h3 {
+      margin: 0;
+      color: #111827;
+    }
+
+    .badge {
+      background: #dbeafe;
+      color: #1e40af;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    .question {
+      font-weight: bold;
+      font-size: 1.05rem;
+    }
+
+    .options {
+      display: grid;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .option {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 12px;
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .option:hover {
+      background: #eef2ff;
+    }
+
+    input[type="radio"] {
+      margin-top: 5px;
+      transform: scale(1.1);
+    }
+
+    .feedback {
+      margin-top: 14px;
+      padding: 12px;
+      border-radius: 10px;
+      display: none;
+    }
+
+    .feedback.show {
+      display: block;
+    }
+
+    .feedback.ok {
+      background: #dcfce7;
+      color: #14532d;
+    }
+
+    .feedback.no {
+      background: #fee2e2;
+      color: #7f1d1d;
+    }
+
+    .result-box {
+      display: none;
+      background: white;
+      border-radius: 14px;
+      padding: 22px;
+      margin: 24px 0;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+      text-align: center;
+    }
+
+    .result-box.show {
+      display: block;
+    }
+
+    .progress-wrap {
+      background: #e5e7eb;
+      height: 16px;
+      border-radius: 999px;
+      overflow: hidden;
+      margin-top: 10px;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: #2563eb;
+      transition: width 0.4s ease;
+    }
+
+    .study-tips {
+      background: #fff7ed;
+      border-left: 6px solid #f97316;
+      padding: 18px;
+      border-radius: 14px;
+      margin-bottom: 22px;
+    }
+
+    .study-tips h2 {
+      margin-top: 0;
+    }
+
+    footer {
+      text-align: center;
+      color: #6b7280;
+      margin: 35px 0;
+    }
+
+    @media (max-width: 800px) {
+      .info-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 520px) {
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+
+      header h1 {
+        font-size: 1.5rem;
+      }
+
+      .q-top {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+
+    @media print {
+      .controls, .progress-wrap {
+        display: none;
+      }
+
+      body {
+        background: white;
+      }
+
+      .question-card, .info-card, .result-box, .study-tips {
+        box-shadow: none;
+        border: 1px solid #ddd;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Advanced Networking MCQs Quiz</h1>
+    <p>Scratch to Hero practice for DevOps, Linux, AWS, Docker, Kubernetes, CIDR, subnetting, protocols, commands, and troubleshooting.</p>
+    <p><strong>Instructions:</strong> Select one answer for each question, then click Submit Quiz. You will get score, answer checking, timer result, and short explanations.</p>
+  </header>
+
+  <main class="container">
+    <div class="info-grid">
+      <div class="info-card">Questions<strong id="totalQ">40</strong></div>
+      <div class="info-card">Timer<strong id="timer">40:00</strong></div>
+      <div class="info-card">Answered<strong id="answered">0</strong></div>
+      <div class="info-card">Score<strong id="liveScore">0</strong></div>
+    </div>
+
+    <div class="study-tips">
+      <h2>What This Quiz Covers</h2>
+      <p>This advanced quiz covers OSI, TCP/IP, CIDR, subnetting, network IP, broadcast IP, private ranges, localhost, ports, DNS, ARP, ICMP, routing, NAT, firewall, load balancer, Linux commands, AWS VPC, Docker networking, Kubernetes Services, and real troubleshooting logic.</p>
+    </div>
+
+    <div class="controls">
+      <button class="primary" onclick="submitQuiz()">Submit Quiz</button>
+      <button class="secondary" onclick="showAnswers()">Show Answers</button>
+      <button class="secondary" onclick="window.print()">Print</button>
+      <button class="danger" onclick="resetQuiz()">Reset</button>
+    </div>
+
+    <div class="result-box" id="resultBox">
+      <h2 id="resultTitle">Result</h2>
+      <p id="resultText"></p>
+      <div class="progress-wrap">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+    </div>
+
+    <form id="quizForm">
+      
+<section class="question-card" data-answer="0" data-explain="If ping to an IP works but a domain name fails, basic connectivity is okay and DNS resolution is the likely issue.">
+  <div class="q-top">
+    <h3>Question 1</h3>
+    <span class="badge">Advanced</span>
+  </div>
+  <p class="question">A DevOps engineer can ping 8.8.8.8 but cannot open google.com. Which layer/component is most likely failing?</p>
+  <div class="options">
+    <label class="option"><input type="radio" name="q0" value="0"> <span>DNS name resolution</span></label>
+<label class="option"><input type="radio" name="q0" value="1"> <span>Default gateway</span></label>
+<label class="option"><input type="radio" name="q0" value="2"> <span>Physical cable</span></label>
+<label class="option"><input type="radio" name="q0" value="3"> <span>TCP three-way handshake</span></label>
+  </div>
+  <div class="feedback" aria-live="polite"></div>
+</section>
+
+<section class="question-card" data-answer="1" data-explain="The Network layer handles IP addressing and routing packets between different networks.">
+  <div class="q-top">
+    <h3>Question 2</h3>
+    <span class="badge">Advanced</span>
+  </div>
+  <p class="question">In the OSI model, which layer is mainly responsible for logical addressing and routing between networks?</p>
+  <div class="options">
+    <label class="option"><input type="radio" name="q1" value="0"> <span>Data Link layer</span></label>
+<label class="option"><input type="radio" name="q1" value="1"> <span>Network layer</span></label>
+<label class="option"><input type="radio" name="q1" value="2"> <span>Transport layer</span></label>
+<label class="option"><input type="radio" name="q1" value="3"> <span>Application layer</span></label>
+  </div>
+  <div class="feedback" aria-live="polite"></div>
+</section>
+
+<section class="question-card" data-answer="1" data-explain="CIDR stands for Classless Inter-Domain Routing and uses prefix notation like 192.168.1.0/24.">
+  <div class="q-top">
+    <h3>Question 3</h3>
+    <span class="badge">Advanced</span>
+  </div>
+  <p class="question">Which statement best describes CIDR?</p>
+  <div class="options">
+    <label class="option"><input type="radio" name="q2" value="0"> <span>A protocol used only for DNS lookup</span></label>
+<label class="option"><input type="radio" name="q2" value="1"> <span>A classless way to represent network prefix length, such as /24</span></label>
+<label class="option"><input type="radio" name="q2" value="2"> <span>A firewall rule format used only in Linux</span></label>
+<label class="option"><input type="radio" name="q2" value="3"> <span>A physical cable standard</span></label>
+  </div>
+  <div class="feedback" aria-live="polite"></div>
+</section>
+
+<section class="question-card" data-answer="3" data-explain="In a /24 network, the last address is the broadcast address, so 192.168.10.255 is broadcast.">
+  <div class="q-top">
+    <h3>Question 4</h3>
+    <span class="badge">Advanced</span>
+  </div>
+  <p class="question">For the subnet 192.168.10.0/24, what is the broadcast address?</p>
+  <div class="options">
+    <label class="option"><input type="radio" name="q3" value="0"> <span>192.168.10.0</span></label>
+<label class="option"><input type="radio" name="q3" value="1"> <span>192.168.10.1</span></label>
+<label class="option"><input type="radio" name="q3" value="2"> <span>192.168.10.254</span></label>
+<label class="option"><input type="radio" name="q3" value="3"> <span>192.168.10.255</span></label>
+  </div>
+  <div class="feedback" aria-live="polite"></div>
+</section>
+
+<section class="question-card" data-answer="0" data-explain="The first address in a subnet identifies the network itself and is not normally assigned to a host.">
+  <div class="q-top">
+    <h3>Question 5</h3>
+    <span class="badge">Advanced</span>
+  </div>
+  <p class="question">For 192.168.10.0/24, which address is the network address?</p>
+  <div class="options">
+    <label class="option"><input type="radio" name="q4" value="0"> <span>192.168.10.0</span></label>
+<label class="option"><input type="radio" name="q4" value="1"> <span>192.168.10.1</span></label>
+<label class="option"><input type="radio" name="q4" value="2"> <span>192.168.10.254</span></label>
+<label class="option"><input type="radio" name="q4" value="3"> <span>192.168.10.255</span></label>
+  </div>
+  <div class="feedback" aria-live="polite"></div>
+</section>
+
+<section class="question-card" data-answer="0" data-explain="10.0.0.0 to 10.255.255.255 is the private Class A range.">
+  <div class="q-top">
+    <h3>Question 6</h3>
+    <span class="badge">Advanced</span>
+  </div>
+  <p class="question">Which private IP range belongs to the old Class A private range?</p>
+  <div class="options">
+    <label class="option"><input type="radio" name="q5" value="0"> <span>10.0.0.0/8</span></label>
+<label class="option"><input type="radio" name="q5" value="1"> <span>172.16.0.0/12</span></label>
+<label class="option"><input type="radio" name="q5" value="2"> <span>192.168.0.0/16</span></label>
+<label class="option"><input type="radio" name="q5" value="3"> <span>127.0.0.0/8</span></label>
+  </div>
+  <div class="feedback" aria-live="polite"></div>
+</section>
+
+<section class="question-card" data-answer="2" data-explain="192.168.0.0/16 is commonly used in home and lab networks and is known as the private Class C range.">
+  <div class="q-top">
+    <h3>Question 7</h3>
+    <span class="badge">Advanced</span>
+  </div>
+  <p class="question">Which private IP range is commonly known as the Class C private range?</p>
+  <div class="options">
+    <label class="option"><input type="radio" name="q6" value="0"> <span>10.0.0.0/8</span></label>
+<label class="option"><input type="radio" name="q6" value="1"> <span>172.16.0.0/12</span></label>
+<label class="option"><input type="radio" name="q6" value="2"> <span>192.168.0.0/16</span></label>
+<label class="option"><input type="radio" name="q6" value="3"> <span>169.254.0.0/16</span></label>
+  </div>
+  <div class="feedback" aria-live="polite"></div>
+</section>
+
+<section class="question-card" data-answer="1" data-explain="127.0.0.1 is localhost/loopback and points back to the same machine.">
+  <div class="q-top">
+    <h3>Question 8</h3>
+    <span class="badge">Advanced</span>
+  </div>
+  <p class="question">What is 127.0.0.1 mainly used for?</p>
+  <div class="options">
+    <label class="option"><input type="radio" name="q7" value="0"> <span>Broadcasting to all hosts</span></label>
+<label class="option"><input type="radio" name="q7" value="1"> <span>Testing the local machine through loopback</span></label>
+<label class="option"><input type="radio" name="q7" value="2"> <span>Reaching the default gateway</span></label>
+<label class="option"><input type="radio" name="q7" value="3"> <span>Assigning a public IP</span></label>
+  </div>
+  <div class="feedback" aria-live="polite"></div>
+</section>
+
+<section class="question-card" data-answer="1" data-explain="ARP finds the MAC address for a known IP address on the local network.">
+  <div class="q-top">
+    <h3>Question 9</h3>
+    <span class="badge">Advanced</span>
+  </div>
+  <p class="question">Which protocol maps an IP address to a MAC address inside a local network?</p>
+  <div class="options">
+    <label class="option"><input type="radio" name="q8" value="0"> <span>DNS</span></label>
+<label class="option"><input type="radio" name="q8" value="1"> <span>ARP</span></label>
+<label class="option"><input type="radio" name="q8" value="2"> <span>DHCP</span></label>
+<label class="option"><input type="radio" name="q8" value="3"> <span>HTTP</span></label>
+  </div>
+  <div class="feedback" aria-live="polite"></div>
+</section>
+
+<section class="question-card" data-answer="2" data-explain="Ping uses ICMP echo request and echo reply messages.">
+  <div class="q-top">
+    <h3>Question 10</h3>
+    <span class="badge">Advanced</span>
+  </div>
+  <p class="question">Which protocol is normally used by ping?</p>
+  <div class="options">
+    <label class="option"><input type="radio" name="q9" value="0"> <span>TCP</span></label>
+<label class="option"><input type="radio" name="q9" value="1"> <span>UDP</span></label>
+<label class="option"><input type="radio" name="q9" value="2"> <span>ICMP</span></label>
+<label class="option"><input type="radio" name="q9" value="3"> <span>FTP</span></label>
+  </div>
+  <div class="feedback" aria-live="polite"></div>
+</section>
+
+<section class="question-card" data-answer="0" data-explain="ip route shows the current routing table, including the default gateway.">
+  <div class="q-top">
+    <h3>Question 11</h3>
+    <span class="badge">Advanced</span>
+  </div>
+  <p class="question">Which command is best for checking your Linux routing table using modern Linux tools?</p>
+  <div class="options">
+    <label class="option"><input type="radio" name="q10" value="0"> <span>ip route</span></label>
+<label class="option"><input type="radio" name="q10" value="1"> <span>ip addr</span></label>
+<label class="option"><input type="radio" name="q10" value="2"> <span>dig route</span></label>
+<label class="option"><input type="radio" name="q10" value="3"> <span>ss -r</span></label>
+  </div>
+  <div class="feedback" aria-live="polite"></div>
+</section>
+
+<section class="question-card" data-answer="0" data-explain="ss -tuln shows TCP and UDP listening sockets in numeric format.">
+  <div class="q-top">
+    <h3>Question 12</h3>
+    <span class="badge">Advanced</span>
+  </div>
+  <p class="question">Which command shows listening TCP/UDP ports on Linux?</p>
+  <div class="options">
+    <label class="option"><input type="radio" name="q11" value="0"> <span>ss -tuln</span></label>
+<label class="option"><input type="radio" name="q11" value="1"> <span>ip addr show</span></label>
+<label class="option"><input type="radio" name="q11" value="2"> <span>dig -x</span></label>
+<label class="option"><input type="radio" name="q11" value="3"> <span>hostname -I</span></label>
+  </div>
+  <div class="feedback" aria-live="polite"></div>
+</section>
+
+<section class="question-card" data-answer="3" data-explain="HTTPS normally uses TCP port 443.">
+  <div class="q-top">
+    <h3>Question 13</h3>
+    <span class="badge">Advanced</span>
+  </div>
+  <p class="question">A website uses HTTPS. Which default TCP port is normally used?</p>
+  <div class="options">
+    <label class="option"><input type="radio" name="q12" value="0"> <span>22</span></label>
+<label class="option"><input type="radio" name="q12" value="1"> <span>53</span></label>
+<label class="option"><input type="radio" name="q12" value="2"> <span>80</span></label>
+<label class="option"><input type="radio" name="q12" value="3"> <span>443</span></label>
+  </div>
+  <div class="feedback" aria-live="polite"></div>
+</section>
+
+<section class="question-card" data-answer="2" data-explain="HTTP normally uses TCP port 80.">
+  <div class="q-top">
+    <h3>Question 14</h3>
+    <span class="badge">Advanced</span>
+  </div>
+  <p class="question">HTTP normally uses which default port?</p>
+  <div class="options">
+    <label class="option"><input type="radio" name="q13" value="0"> <span>21</span></label>
+<label class="option"><input type="radio" name="q13" value="1"> <span>22</span></label>
+<label class="option"><input type="radio" name="q13" value="2"> <span>80</span></label>
+<label class="option"><input type="radio" name="q13" value="3"> <span>3306</span></label>
+  </div>
+  <div class="feedback" aria-live="polite"></div>
+</section>
+
+<section class="question-card" data-answer="2" data-explain="SSH, used for secure remote login, normally uses TCP port 22.">
+  <div class="q-top">
+    <h3>Question 15</h3>
+    <span class="badge">Advanced</span>
+  </div>
+  <p class="question">SSH normally uses which port?</p>
+  <div class="options">
+    <label class="option"><input type="radio" name="q14" value="0"> <span>20</span></label>
+<label class="option"><input type="radio" name="q14" value="1"> <span>21</span></label>
+<label class="option"><input type="radio" name="q14" value="2"> <span>22</span></label>
+<label class="option"><input type="radio" name="q14" value="3"> <span>25</span></label>
+  </div>
+  <div class="feedback" aria-live="polite"></div>
+</section>
+
+<section class="question-card" data-answer="0" data-explain="DNS commonly uses port 53. It usually uses UDP, but TCP can also be used for some DNS operations.">
+  <div class="q-top">
+    <h3>Question 16</h3>
+    <span class="badge">Advanced</span>
+  </div>
+  <p class="question">DNS commonly uses which port?</p>
+  <div class="options">
+    <label class="option"><input type="radio" name="q15" value="0"> <span>53</span></label>
+<label class="option"><input type="radio" name="q15" value="1"> <span>67</span></label>
+<label class="option"><input type="radio" name="q15" value="2"> <span>80</span></label>
+<label class="option"><input type="radio" name="q15" value="3"> <span>443</span></label>
+  </div>
+  <div class="feedback" aria-live="polite"></div>
+</section>
+
+<section class="question-card" data-answer="0" data-explain="dig is a DNS lookup tool used to query DNS records.">
+  <div class="q-top">
+    <h3>Question 17</h3>
+    <span class="badge">Advanced</span>
+  </div>
+  <p class="question">Which command is commonly used to query DNS records from the command line?</p>
+  <div class="options">
+    <label class="option"><input type="radio" name="q16" value="0"> <span>dig example.com</span></label>
+<label class="option"><input type="radio" name="q16" value="1"> <span>ip link example.com</span></label>
+<label class="option"><input type="radio" name="q16" value="2"> <span>arp example.com</span></label>
+<label class="option"><input type="radio" name="q16" value="3"> <span>curl -r example.com</span></label>
+  </div>
+  <div class="feedback" aria-live="polite"></div>
+</section>
+
+<section class="question-card" data-answer="1" data-explain="The default gateway is the next-hop router used when the destination is outside the local network.">
+  <div class="q-top">
+    <h3>Question 18</h3>
+    <span class="badge">Advanced</span>
+  </div>
+  <p class="question">What is the main purpose of a default gateway?</p>
+  <div class="options">
+    <label class="option"><input type="radio" name="q17" value="0"> <span>It stores domain names locally</span></label>
+<label class="option"><input type="radio" name="q17" value="1"> <span>It forwards traffic from the local network to other networks</span></label>
+<label class="option"><input type="radio" name="q17" value="2"> <span>It encrypts HTTP traffic</span></label>
+<label class="option"><input type="radio" name="q17" value="3"> <span>It converts TCP into UDP</span></label>
+  </div>
+  <div class="feedback" aria-live="polite"></div>
+</section>
+
+<section class="question-card" data-answer="0" data-explain="A load balancer spreads traffic across multiple servers to improve availability and performance.">
+  <div class="q-top">
+    <h3>Question 19</h3>
+    <span class="badge">Advanced</span>
+  </div>
+  <p class="question">Which device/function distributes client traffic across multiple backend servers?</p>
+  <div class="options">
+    <label class="option"><input type="radio" name="q18" value="0"> <span>Load balancer</span></label>
+<label class="option"><input type="radio" name="q18" value="1"> <span>ARP cache</span></label>
+<label class="option"><input type="radio" name="q18" value="2"> <span>Subnet mask</span></label>
+<label class="option"><input type="radio" name="q18" value="3"> <span>Loopback adapter</span></label>
+  </div>
+  <div class="feedback" aria-live="polite"></div>
+</section>
+
+<section class="question-card" data-answer="0" data-explain="NAT stands for Network Address Translation and is commonly used to let private IP hosts access the internet.">
+  <div class="q-top">
+    <h3>Question 20</h3>
+    <span class="badge">Advanced</span>
+  </div>
+  <p class="question">What is the main purpose of NAT?</p>
+  <div class="options">
+    <label class="option"><input type="radio" name="q19" value="0"> <span>Translate private IP addresses to public IP addresses and back</span></label>
+<label class="option"><input type="radio" name="q19" value="1"> <span>Resolve domain names into IP addresses</span></label>
+<label class="option"><input type="radio" name="q19" value="2"> <span>Encrypt data at the application layer</span></label>
+<label class="option"><input type="radio" name="q19" value="3"> <span>Detect open ports only</span></label>
+  </div>
+  <div class="feedback" aria-live="polite"></div>
+</section>
+
+<section class="question-card" data-answer="0" data-explain="TCP provides reliable delivery using connection setup, acknowledgments, ordering, and retransmission.">
+  <div class="q-top">
+    <h3>Question 21</h3>
+    <span class="badge">Advanced</span>
+  </div>
+  <p class="question">Which protocol provides reliable, connection-oriented communication?</p>
+  <div class="options">
+    <label class="option"><input type="radio" name="q20" value="0"> <span>TCP</span></label>
+<label class="option"><input type="radio" name="q20" value="1"> <span>UDP</span></label>
+<label class="option"><input type="radio" name="q20" value="2"> <span>ICMP</span></label>
+<label class="option"><input type="radio" name="q20" value="3"> <span>ARP</span></label>
+  </div>
+  <div class="feedback" aria-live="polite"></div>
+</section>
+
+<section class="question-card" data-answer="1" data-explain="UDP is connectionless and lightweight. It is used when speed is more important than guaranteed delivery.">
+  <div class="q-top">
+    <h3>Question 22</h3>
+    <span class="badge">Advanced</span>
+  </div>
+  <p class="question">Which protocol is faster and connectionless but does not guarantee delivery?</p>
+  <div class="options">
+    <label class="option"><input type="radio" name="q21" value="0"> <span>TCP</span></label>
+<label class="option"><input type="radio" name="q21" value="1"> <span>UDP</span></label>
+<label class="option"><input type="radio" name="q21" value="2"> <span>SSH</span></label>
+<label class="option"><input type="radio" name="q21" value="3"> <span>TLS</span></label>
+  </div>
+  <div class="feedback" aria-live="polite"></div>
+</section>
+
+<section class="question-card" data-answer="0" data-explain="traceroute shows the hops between your machine and a destination.">
+  <div class="q-top">
+    <h3>Question 23</h3>
+    <span class="badge">Advanced</span>
+  </div>
+  <p class="question">Which command can trace the path packets take to a remote host?</p>
+  <div class="options">
+    <label class="option"><input type="radio" name="q22" value="0"> <span>traceroute example.com</span></label>
+<label class="option"><input type="radio" name="q22" value="1"> <span>ip addr add example.com</span></label>
+<label class="option"><input type="radio" name="q22" value="2"> <span>ss example.com</span></label>
+<label class="option"><input type="radio" name="q22" value="3"> <span>arp -s example.com</span></label>
+  </div>
+  <div class="feedback" aria-live="polite"></div>
+</section>
+
+<section class="question-card" data-answer="0" data-explain="Docker commonly uses a bridge network by default for containers on the same host.">
+  <div class="q-top">
+    <h3>Question 24</h3>
+    <span class="badge">Advanced</span>
+  </div>
+  <p class="question">In Docker networking, what is usually the default network type for containers on a single host?</p>
+  <div class="options">
+    <label class="option"><input type="radio" name="q23" value="0"> <span>Bridge</span></label>
+<label class="option"><input type="radio" name="q23" value="1"> <span>Host-only public BGP</span></label>
+<label class="option"><input type="radio" name="q23" value="2"> <span>MPLS</span></label>
+<label class="option"><input type="radio" name="q23" value="3"> <span>Token ring</span></label>
+  </div>
+  <div class="feedback" aria-live="polite"></div>
+</section>
+
+<section class="question-card" data-answer="0" data-explain="A Kubernetes Service gives stable access to Pods even when Pod IPs change.">
+  <div class="q-top">
+    <h3>Question 25</h3>
+    <span class="badge">Advanced</span>
+  </div>
+  <p class="question">In Kubernetes, which object provides a stable virtual IP/DNS name for a group of Pods?</p>
+  <div class="options">
+    <label class="option"><input type="radio" name="q24" value="0"> <span>Service</span></label>
+<label class="option"><input type="radio" name="q24" value="1"> <span>ConfigMap</span></label>
+<label class="option"><input type="radio" name="q24" value="2"> <span>Secret</span></label>
+<label class="option"><input type="radio" name="q24" value="3"> <span>Namespace</span></label>
+  </div>
+  <div class="feedback" aria-live="polite"></div>
+</section>
+
+<section class="question-card" data-answer="0" data-explain="VPC stands for Virtual Private Cloud. It is a logically isolated network in AWS.">
+  <div class="q-top">
+    <h3>Question 26</h3>
+    <span class="badge">Advanced</span>
+  </div>
+  <p class="question">In AWS networking, what is a VPC?</p>
+  <div class="options">
+    <label class="option"><input type="radio" name="q25" value="0"> <span>A virtual private cloud network where you launch cloud resources</span></label>
+<label class="option"><input type="radio" name="q25" value="1"> <span>A Linux command for checking ports</span></label>
+<label class="option"><input type="radio" name="q25" value="2"> <span>A DNS record type only</span></label>
+<label class="option"><input type="radio" name="q25" value="3"> <span>A TCP congestion algorithm</span></label>
+  </div>
+  <div class="feedback" aria-live="polite"></div>
+</section>
+
+<section class="question-card" data-answer="0" data-explain="An Internet Gateway attached to a VPC allows public subnet resources to reach the internet when routing permits.">
+  <div class="q-top">
+    <h3>Question 27</h3>
+    <span class="badge">Advanced</span>
+  </div>
+  <p class="question">Which AWS component allows resources in a public subnet to communicate with the internet?</p>
+  <div class="options">
+    <label class="option"><input type="radio" name="q26" value="0"> <span>Internet Gateway</span></label>
+<label class="option"><input type="radio" name="q26" value="1"> <span>Security group only</span></label>
+<label class="option"><input type="radio" name="q26" value="2"> <span>Private route table only</span></label>
+<label class="option"><input type="radio" name="q26" value="3"> <span>Loopback interface</span></label>
+  </div>
+  <div class="feedback" aria-live="polite"></div>
+</section>
+
+<section class="question-card" data-answer="0" data-explain="A NAT Gateway allows private subnet instances to initiate outbound internet connections.">
+  <div class="q-top">
+    <h3>Question 28</h3>
+    <span class="badge">Advanced</span>
+  </div>
+  <p class="question">Which AWS component is commonly used by private subnet instances to access the internet for updates without being directly public?</p>
+  <div class="options">
+    <label class="option"><input type="radio" name="q27" value="0"> <span>NAT Gateway</span></label>
+<label class="option"><input type="radio" name="q27" value="1"> <span>Route 53 only</span></label>
+<label class="option"><input type="radio" name="q27" value="2"> <span>Elastic Load Balancer only</span></label>
+<label class="option"><input type="radio" name="q27" value="3"> <span>CloudWatch only</span></label>
+  </div>
+  <div class="feedback" aria-live="polite"></div>
+</section>
+
+<section class="question-card" data-answer="0" data-explain="Security groups are stateful virtual firewalls controlling inbound and outbound traffic for resources.">
+  <div class="q-top">
+    <h3>Question 29</h3>
+    <span class="badge">Advanced</span>
+  </div>
+  <p class="question">A security group in AWS is best described as what?</p>
+  <div class="options">
+    <label class="option"><input type="radio" name="q28" value="0"> <span>A stateful virtual firewall</span></label>
+<label class="option"><input type="radio" name="q28" value="1"> <span>A DNS resolver</span></label>
+<label class="option"><input type="radio" name="q28" value="2"> <span>A subnet calculator</span></label>
+<label class="option"><input type="radio" name="q28" value="3"> <span>A physical router</span></label>
+  </div>
+  <div class="feedback" aria-live="polite"></div>
+</section>
+
+<section class="question-card" data-answer="0" data-explain="tcpdump is used to capture network packets for troubleshooting.">
+  <div class="q-top">
+    <h3>Question 30</h3>
+    <span class="badge">Advanced</span>
+  </div>
+  <p class="question">Which tool captures and analyzes packets from a network interface?</p>
+  <div class="options">
+    <label class="option"><input type="radio" name="q29" value="0"> <span>tcpdump</span></label>
+<label class="option"><input type="radio" name="q29" value="1"> <span>hostname</span></label>
+<label class="option"><input type="radio" name="q29" value="2"> <span>passwd</span></label>
+<label class="option"><input type="radio" name="q29" value="3"> <span>df -h</span></label>
+  </div>
+  <div class="feedback" aria-live="polite"></div>
+</section>
+
+<section class="question-card" data-answer="0" data-explain="MTU is the largest packet size that can be transmitted on a network link without fragmentation.">
+  <div class="q-top">
+    <h3>Question 31</h3>
+    <span class="badge">Advanced</span>
+  </div>
+  <p class="question">What does MTU mean in networking?</p>
+  <div class="options">
+    <label class="option"><input type="radio" name="q30" value="0"> <span>Maximum Transmission Unit</span></label>
+<label class="option"><input type="radio" name="q30" value="1"> <span>Minimum Transport User</span></label>
+<label class="option"><input type="radio" name="q30" value="2"> <span>Main TCP Utility</span></label>
+<label class="option"><input type="radio" name="q30" value="3"> <span>Managed Traffic URL</span></label>
+  </div>
+  <div class="feedback" aria-live="polite"></div>
+</section>
+
+<section class="question-card" data-answer="0" data-explain="TTL is reduced at each router hop. When it reaches zero, the packet is discarded to prevent endless loops.">
+  <div class="q-top">
+    <h3>Question 32</h3>
+    <span class="badge">Advanced</span>
+  </div>
+  <p class="question">What does TTL help prevent in IP networking?</p>
+  <div class="options">
+    <label class="option"><input type="radio" name="q31" value="0"> <span>Packets looping forever</span></label>
+<label class="option"><input type="radio" name="q31" value="1"> <span>DNS records being created</span></label>
+<label class="option"><input type="radio" name="q31" value="2"> <span>SSH keys expiring</span></label>
+<label class="option"><input type="radio" name="q31" value="3"> <span>MAC addresses changing</span></label>
+  </div>
+  <div class="feedback" aria-live="polite"></div>
+</section>
+
+<section class="question-card" data-answer="1" data-explain="Network and broadcast addresses are calculated from the subnet range, so CIDR/subnet mask is required.">
+  <div class="q-top">
+    <h3>Question 33</h3>
+    <span class="badge">Advanced</span>
+  </div>
+  <p class="question">Which statement about network IP and broadcast IP is correct?</p>
+  <div class="options">
+    <label class="option"><input type="radio" name="q32" value="0"> <span>They are always the same for every subnet</span></label>
+<label class="option"><input type="radio" name="q32" value="1"> <span>They depend on the CIDR/subnet mask</span></label>
+<label class="option"><input type="radio" name="q32" value="2"> <span>They are only used in IPv6</span></label>
+<label class="option"><input type="radio" name="q32" value="3"> <span>They are assigned to normal hosts first</span></label>
+  </div>
+  <div class="feedback" aria-live="polite"></div>
+</section>
+
+<section class="question-card" data-answer="2" data-explain="/26 leaves 6 host bits. 2^6 = 64 total addresses, with 62 normally usable for hosts.">
+  <div class="q-top">
+    <h3>Question 34</h3>
+    <span class="badge">Advanced</span>
+  </div>
+  <p class="question">For 192.168.1.0/26, how many total addresses are in the subnet?</p>
+  <div class="options">
+    <label class="option"><input type="radio" name="q33" value="0"> <span>16</span></label>
+<label class="option"><input type="radio" name="q33" value="1"> <span>32</span></label>
+<label class="option"><input type="radio" name="q33" value="2"> <span>64</span></label>
+<label class="option"><input type="radio" name="q33" value="3"> <span>256</span></label>
+  </div>
+  <div class="feedback" aria-live="polite"></div>
+</section>
+
+<section class="question-card" data-answer="0" data-explain="0.0.0.0 as a listening address means the service accepts connections on all IPv4 interfaces.">
+  <div class="q-top">
+    <h3>Question 35</h3>
+    <span class="badge">Advanced</span>
+  </div>
+  <p class="question">A server listens on 0.0.0.0:80. What does 0.0.0.0 mean in this context?</p>
+  <div class="options">
+    <label class="option"><input type="radio" name="q34" value="0"> <span>The service listens on all available IPv4 interfaces</span></label>
+<label class="option"><input type="radio" name="q34" value="1"> <span>The server has no network card</span></label>
+<label class="option"><input type="radio" name="q34" value="2"> <span>The service is disabled</span></label>
+<label class="option"><input type="radio" name="q34" value="3"> <span>The service is listening only on localhost</span></label>
+  </div>
+  <div class="feedback" aria-live="polite"></div>
+</section>
+
+<section class="question-card" data-answer="0" data-explain="HTTP 200 usually means the web request was successful.">
+  <div class="q-top">
+    <h3>Question 36</h3>
+    <span class="badge">Advanced</span>
+  </div>
+  <p class="question">A curl command returns HTTP status code 200. What does it usually mean?</p>
+  <div class="options">
+    <label class="option"><input type="radio" name="q35" value="0"> <span>Request succeeded</span></label>
+<label class="option"><input type="radio" name="q35" value="1"> <span>DNS failed</span></label>
+<label class="option"><input type="radio" name="q35" value="2"> <span>Server refused SSH</span></label>
+<label class="option"><input type="radio" name="q35" value="3"> <span>Packet was dropped by ARP</span></label>
+  </div>
+  <div class="feedback" aria-live="polite"></div>
+</section>
+
+<section class="question-card" data-answer="0" data-explain="Good troubleshooting starts from lower-level connectivity and moves upward toward DNS, ports, firewall, and application.">
+  <div class="q-top">
+    <h3>Question 37</h3>
+    <span class="badge">Advanced</span>
+  </div>
+  <p class="question">Which troubleshooting order is most logical when a website is not opening?</p>
+  <div class="options">
+    <label class="option"><input type="radio" name="q36" value="0"> <span>Check cable/IP → gateway → DNS → port/service → firewall/application</span></label>
+<label class="option"><input type="radio" name="q36" value="1"> <span>Check application first → ignore IP → ignore DNS</span></label>
+<label class="option"><input type="radio" name="q36" value="2"> <span>Restart server only → never check route</span></label>
+<label class="option"><input type="radio" name="q36" value="3"> <span>Check browser theme → check subnet later</span></label>
+  </div>
+  <div class="feedback" aria-live="polite"></div>
+</section>
+
+<section class="question-card" data-answer="0" data-explain="HTTPS is HTTP over TLS, which encrypts communication between client and server.">
+  <div class="q-top">
+    <h3>Question 38</h3>
+    <span class="badge">Advanced</span>
+  </div>
+  <p class="question">Which statement best describes HTTPS compared with HTTP?</p>
+  <div class="options">
+    <label class="option"><input type="radio" name="q37" value="0"> <span>HTTPS adds encryption using TLS</span></label>
+<label class="option"><input type="radio" name="q37" value="1"> <span>HTTPS removes TCP completely</span></label>
+<label class="option"><input type="radio" name="q37" value="2"> <span>HTTPS is only for DNS</span></label>
+<label class="option"><input type="radio" name="q37" value="3"> <span>HTTPS uses ARP instead of IP</span></label>
+  </div>
+  <div class="feedback" aria-live="polite"></div>
+</section>
+
+<section class="question-card" data-answer="0" data-explain="curl -I sends a HEAD request and displays response headers.">
+  <div class="q-top">
+    <h3>Question 39</h3>
+    <span class="badge">Advanced</span>
+  </div>
+  <p class="question">Which command is useful to check HTTP headers without downloading the full page body?</p>
+  <div class="options">
+    <label class="option"><input type="radio" name="q38" value="0"> <span>curl -I https://example.com</span></label>
+<label class="option"><input type="radio" name="q38" value="1"> <span>ip addr flush</span></label>
+<label class="option"><input type="radio" name="q38" value="2"> <span>arp -d https://example.com</span></label>
+<label class="option"><input type="radio" name="q38" value="3"> <span>ss -I https://example.com</span></label>
+  </div>
+  <div class="feedback" aria-live="polite"></div>
+</section>
+
+<section class="question-card" data-answer="0" data-explain="DHCP automatically provides IP address, subnet mask, gateway, DNS, and related network settings.">
+  <div class="q-top">
+    <h3>Question 40</h3>
+    <span class="badge">Advanced</span>
+  </div>
+  <p class="question">What does DHCP do?</p>
+  <div class="options">
+    <label class="option"><input type="radio" name="q39" value="0"> <span>Automatically assigns IP configuration to clients</span></label>
+<label class="option"><input type="radio" name="q39" value="1"> <span>Encrypts web traffic</span></label>
+<label class="option"><input type="radio" name="q39" value="2"> <span>Captures packets</span></label>
+<label class="option"><input type="radio" name="q39" value="3"> <span>Maps public DNS zones only</span></label>
+  </div>
+  <div class="feedback" aria-live="polite"></div>
+</section>
+
+    </form>
+
+    <footer>
+      <p>Networking From Scratch to Hero — Advanced MCQs Practice</p>
+    </footer>
+  </main>
+
+  <script>
+    const totalQuestions = 40;
+    const durationSeconds = 40 * 60;
+    let timeLeft = durationSeconds;
+    let timerInterval;
+    let submitted = false;
+
+    function startTimer() {
+      timerInterval = setInterval(() => {
+        timeLeft--;
+        updateTimer();
+
+        if (timeLeft <= 0) {
+          clearInterval(timerInterval);
+          submitQuiz();
+        }
+      }, 1000);
+    }
+
+    function updateTimer() {
+      const min = Math.floor(timeLeft / 60);
+      const sec = timeLeft % 60;
+      document.getElementById("timer").textContent =
+        String(min).padStart(2, "0") + ":" + String(sec).padStart(2, "0");
+    }
+
+    function updateAnsweredCount() {
+      let answered = 0;
+      for (let i = 0; i < totalQuestions; i++) {
+        if (document.querySelector(`input[name="q${i}"]:checked`)) answered++;
+      }
+      document.getElementById("answered").textContent = answered;
+    }
+
+    document.querySelectorAll("input[type='radio']").forEach(input => {
+      input.addEventListener("change", updateAnsweredCount);
+    });
+
+    function submitQuiz() {
+      if (submitted) return;
+      submitted = true;
+      clearInterval(timerInterval);
+
+      let score = 0;
+      const cards = document.querySelectorAll(".question-card");
+
+      cards.forEach((card, index) => {
+        const correctAnswer = Number(card.dataset.answer);
+        const explanation = card.dataset.explain;
+        const selected = document.querySelector(`input[name="q${index}"]:checked`);
+        const feedback = card.querySelector(".feedback");
+
+        card.querySelectorAll("input").forEach(input => input.disabled = true);
+
+        if (selected && Number(selected.value) === correctAnswer) {
+          score++;
+          card.classList.add("correct");
+          feedback.className = "feedback show ok";
+          feedback.innerHTML = "<strong>Correct.</strong> " + explanation;
+        } else {
+          card.classList.add("wrong");
+          const correctText = card.querySelectorAll(".option span")[correctAnswer].textContent;
+          feedback.className = "feedback show no";
+          feedback.innerHTML = "<strong>Wrong.</strong> Correct answer: <strong>" + correctText + "</strong><br>" + explanation;
+        }
+      });
+
+      const percent = Math.round((score / totalQuestions) * 100);
+      const usedSeconds = durationSeconds - timeLeft;
+      const usedMin = Math.floor(usedSeconds / 60);
+      const usedSec = usedSeconds % 60;
+
+      document.getElementById("liveScore").textContent = score + "/" + totalQuestions;
+      document.getElementById("resultBox").classList.add("show");
+      document.getElementById("progressBar").style.width = percent + "%";
+
+      let grade = "Keep practicing";
+      if (percent >= 90) grade = "Excellent";
+      else if (percent >= 75) grade = "Very good";
+      else if (percent >= 60) grade = "Good start";
+
+      document.getElementById("resultTitle").textContent = grade + " — " + percent + "%";
+      document.getElementById("resultText").innerHTML =
+        "You scored <strong>" + score + "/" + totalQuestions + "</strong>. " +
+        "Time used: <strong>" + usedMin + "m " + usedSec + "s</strong>.";
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function showAnswers() {
+      const cards = document.querySelectorAll(".question-card");
+
+      cards.forEach((card, index) => {
+        const correctAnswer = Number(card.dataset.answer);
+        const explanation = card.dataset.explain;
+        const feedback = card.querySelector(".feedback");
+        const correctText = card.querySelectorAll(".option span")[correctAnswer].textContent;
+
+        feedback.className = "feedback show ok";
+        feedback.innerHTML = "<strong>Answer:</strong> " + correctText + "<br>" + explanation;
+      });
+    }
+
+    function resetQuiz() {
+      location.reload();
+    }
+
+    updateTimer();
+    startTimer();
+  </script>
+</body>
+</html>
